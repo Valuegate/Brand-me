@@ -24,3 +24,8 @@ body {
     text-wrap: balance;
   }
 }
+
+.bg-about {
+  background-image: url("../assets/background.png");
+  background-size: cover;
+}

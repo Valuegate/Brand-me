@@ -4,7 +4,7 @@ import logo from "@/assets/brand-me-logo.png"
 
 const Logo = () => {
     return ( 
-            <div className="w-[221px] h-[111px]">
+            <div className="w-[150px]">
                 <Image src={logo} alt={"logo"} />
             </div>
      );

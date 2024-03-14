@@ -18,7 +18,10 @@ module.exports = {
     colors: {
       white: "#FFFFFF",
       error: "#FF0000",
-      "brand-me": "#1C274D",
+      black: "#000000",
+      "brand": "#1C274D",
+      "brand-30": "rgba(0, 174, 239, 0.3)",
+      "light-blue": "#00AEEF",
     },
     extend: {
       // spacing: {
