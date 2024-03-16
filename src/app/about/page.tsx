@@ -47,11 +47,11 @@ const AboutUsPage = () => {
                 <span className='bg-brand text-white text-lg font-semibold flex justify-center h-[50px] rounded-xl w-[20rem] items-center'>
                   Youth
                 </span>
-                <span className='bg-light-blue text-brand text-base leading-3 flex justify-center h-[50px] rounded-xl w-[20rem] px-2 items-center'>
+                <span className='bg-light-blue-30 text-brand text-base leading-3 flex justify-center h-[50px] rounded-xl w-[20rem] px-2 items-center'>
                   Not in Education,
                   <br /> Employment, or Training.
                 </span>
-                <span className='bg-light-blue text-brand text-base flex justify-center h-[50px] rounded-xl w-[20rem] items-center'>
+                <span className='bg-light-blue-30 text-brand text-base flex justify-center h-[50px] rounded-xl w-[20rem] items-center'>
                   Students.
                 </span>
               </div>
@@ -59,13 +59,13 @@ const AboutUsPage = () => {
                 <span className='bg-brand text-white text-lg font-semibold flex justify-center h-[50px] rounded-xl w-[20rem] items-center'>
                   Youth Workers
                 </span>
-                <span className='bg-light-blue text-brand text-base flex justify-center h-[50px] rounded-xl w-[20rem] px-2 items-center'>
+                <span className='bg-light-blue-30 text-brand text-base flex justify-center h-[50px] rounded-xl w-[20rem] px-2 items-center'>
                   Educators.
                 </span>
-                <span className='bg-light-blue text-brand text-base flex justify-center h-[50px] rounded-xl w-[20rem] items-center'>
+                <span className='bg-light-blue-30 text-brand text-base flex justify-center h-[50px] rounded-xl w-[20rem] items-center'>
                   Teachers.
                 </span>
-                <span className='bg-light-blue text-brand text-base flex justify-center h-[50px] rounded-xl w-[20rem] items-center'>
+                <span className='bg-light-blue-30 text-brand text-base flex justify-center h-[50px] rounded-xl w-[20rem] items-center'>
                   Youth leaders.
                 </span>
               </div>
@@ -73,16 +73,16 @@ const AboutUsPage = () => {
                 <span className='bg-brand text-white text-lg font-semibold flex justify-center h-[50px] rounded-xl w-[20rem] items-center'>
                   Institutions
                 </span>
-                <span className='bg-light-blue text-brand text-base flex justify-center h-[50px] rounded-xl w-[20rem] px-2 items-center'>
+                <span className='bg-light-blue-30 text-brand text-base flex justify-center h-[50px] rounded-xl w-[20rem] px-2 items-center'>
                   Schools.{' '}
                 </span>
-                <span className='bg-light-blue text-brand text-base flex justify-center h-[50px] rounded-xl w-[20rem] items-center'>
+                <span className='bg-light-blue-30 text-brand text-base flex justify-center h-[50px] rounded-xl w-[20rem] items-center'>
                   Public bodies.
                 </span>
-                <span className='bg-light-blue text-brand text-base flex justify-center h-[50px] rounded-xl w-[20rem] items-center'>
+                <span className='bg-light-blue-30 text-brand text-base flex justify-center h-[50px] rounded-xl w-[20rem] items-center'>
                   Youth centers.
                 </span>
-                <span className='bg-light-blue text-brand text-base leading-3 flex justify-center h-[50px] rounded-xl w-[20rem] items-center'>
+                <span className='bg-light-blue-30 text-brand text-base leading-3 flex justify-center h-[50px] rounded-xl w-[20rem] items-center'>
                   Non formal education <br /> providers.
                 </span>
               </div>
@@ -149,7 +149,7 @@ const AboutUsPage = () => {
             </div>
           </section>
 
-          <section className='mt-16 bg-light-blue text-brand border-none rounded-3xl'>
+          <section className='mt-16 bg-light-blue-30 text-brand border-none rounded-3xl'>
             <div className='pl-10 py-[2rem]'>
               <h1 className='text-4xl font-semibold text-center'>
                 Project Outputs

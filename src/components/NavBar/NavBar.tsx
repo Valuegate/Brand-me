@@ -11,8 +11,8 @@ const NavBar = () => {
         </div>
         <div className='flex items-center gap-12'>
           <div className='flex items-center list-none text-white gap-10'>
-            <Link href={''}>About</Link>
-            <Link href={''}>Partners</Link>
+            <Link href={'/about'}>About</Link>
+            <Link href={'/partners'}>Partners</Link>
             <Link href={''}>Results</Link>
             <Link href={''}>Online Course</Link>
             <Link href={''}>Contact</Link>

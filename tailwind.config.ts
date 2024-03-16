@@ -23,6 +23,7 @@ module.exports = {
       "brand": "#1C274D",
       "brand-30": "rgba(0, 174, 239, 0.3)",
       "light-blue": "#00AEEF",
+      "light-blue-30": "rgba(0, 174, 239, 0.3)"
     },
     extend: {
       // spacing: {
