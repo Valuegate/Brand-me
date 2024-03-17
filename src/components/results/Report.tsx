@@ -6,7 +6,7 @@ const Report = () => {
       <div className="w-[40%] bg-brand rounded-3xl h-full" />
       <div className="flex flex-col w-[60%]">
         <h1 className="text-3xl text-black font-bold">BAM Report</h1>
-        <p className="w-[620px] mt-10">
+        <p className="w-[620px] mt-10 text-brand">
           The BAM Report provides real-time insights on NEETs&apos; perspectives on
           education, career advice, development, and personal branding in
           Portugal, Spain, Italy, Austria, Romania, and Lithuania. Stakeholders
