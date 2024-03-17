@@ -6,15 +6,6 @@ module.exports = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    screens: {
-      sm: {
-        max: "400px",
-      },
-
-      md: {
-        max: "768px",
-      },
-    },
     colors: {
       white: "#FFFFFF",
       "white-80": "rgba(255, 255, 255, 0.8)",
@@ -25,7 +16,23 @@ module.exports = {
       "light-blue": "#00AEEF",
       "light-blue-30": "rgba(0, 174, 239, 0.3)"
     },
+    fontFamily: {
+      body: ["Red Hat Text"],
+    },
+    screens: {
+      sm: {
+        max: "400px",
+      },
+
+      md: {
+        max: "768px",
+      },
+    },
     extend: {
+      boxShadow: {
+        'custom': '0 0 10px rgba(0, 0, 0, 0.07)',
+        'custom-1': "0 0 20px rgba(0, 0, 0, 0.15)"
+      }
       // spacing: {
       //   "8xl": "96rem",
       //   "9xl": "128rem",
@@ -33,9 +40,10 @@ module.exports = {
       // borderRadius: {
       //   "4xl": "2rem",
       // },
-      transitionProperty: {
-        height: "height",
-      },
+      // transitionProperty: {
+      //   height: "height",
+      // },
+      
     },
   },
   plugins: [],

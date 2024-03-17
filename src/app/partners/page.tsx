@@ -1,5 +1,5 @@
 'use client';
-import NavBar from '@/components/NavBar/NavBar';
+import NavBar from '@/components/resuable/NavBar/NavBar';
 import Image from 'next/image';
 import React from 'react';
 import Innovation from '@/assets/innovation_education_lab2.png';
@@ -7,14 +7,16 @@ import Efektas from '@/assets/Logotype_Efektas_Red.png';
 import Erasmus from '@/assets/Garage_erasmus_logo1.png';
 import Indepcie from '@/assets/logo INDEPCIE vectorizado2.png';
 import Vaev from '@/assets/VAEV_Logo-removebg-preview2.png';
-import Footer from '@/components/Footer/Footer';
+import Footer from '@/components/resuable/Footer/Footer';
 
 const Partners = () => {
   return (
     <>
-      <NavBar />
-      <div className='overflow-y-scroll h-[88vh]'>
-        <div className='px-24'>
+      <div className="fixed top-0 left-0 right-0">
+        <NavBar index={1} />
+      </div>
+      <div className="h-32" />
+      <div className='px-32'>
           <div className='mt-16'>
             <h1 className='text-4xl text-black font-extrabold'>
               Project Partners <br /> of BRAND ME
@@ -141,7 +143,6 @@ const Partners = () => {
           </section>
         </div>
         <Footer />
-      </div>
     </>
   );
 };
