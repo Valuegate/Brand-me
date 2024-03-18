@@ -29,7 +29,7 @@ const NavBar:FC<NavProp> = ({index}) => {
     },
     {
       name: "Online Course",
-      link: "/about" 
+      link: "/course" 
     },
     {
       name: "Contact",
