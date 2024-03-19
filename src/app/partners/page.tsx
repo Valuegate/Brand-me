@@ -98,16 +98,16 @@ const Partners = () => {
                         )}
                       </span>
                       {partner.subtitle && (
-                        <p className="font-cocogoose-light">
+                        <p className="font-cocogoose-light font-bold">
                           {partner.subtitle}
                         </p>
                       )}
                     </div>
                   </div>
-                  <p className=" pb-8 text-base text-black font-cocogoose-light">
+                  <p className=" pb-8 text-base text-black font-cocogoose-light font-bold">
                     {partner.preBold && <span>{partner.preBold}</span>}
                     {partner.boldText && (
-                      <span className="font-bold">{partner.boldText}</span>
+                      <span className="font-cocogoose">{partner.boldText}</span>
                     )}
                     {partner.description}
                   </p>

@@ -17,7 +17,7 @@ const FlexComponent: FC<iFlexProp> = ({
         )}
         <div className="flex flex-col w-[620px]">
           <h1 className="text-3xl font-cocogoose">{title}</h1>
-          <p className="mt-10 font-cocogoose-light">{description}</p>
+          <p className="mt-10 font-cocogoose-light font-bold">{description}</p>
           <div className="mt-10 flex flex-col gap-5 w-full">
             {reports.map((detail, i) => {
               return (
@@ -37,7 +37,7 @@ const FlexComponent: FC<iFlexProp> = ({
           <div className="w-[400px] bg-brand rounded-3xl h-[650px]" />
         )}
       </div>
-      <p className="font-cocogoose-light">{trailing}</p>
+      <p className="font-cocogoose-light font-bold">{trailing}</p>
     </div>
   );
 };

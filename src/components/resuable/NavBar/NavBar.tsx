@@ -53,7 +53,7 @@ const NavBar:FC<NavProp> = ({index}) => {
             {
               navs.map((navItem, i) => {
                 return (
-                  <Link key={i} href={navItem.link} className={`${i === index ? "font-cocogoose" : "font-cocogoose-light"} text-white text-[16px]`} >{navItem.name}</Link>
+                  <Link key={i} href={navItem.link} className={`${i === index ? "font-cocogoose" : "font-cocogoose-light font-bold"} text-white text-[16px]`} >{navItem.name}</Link>
                 );
               })
             }

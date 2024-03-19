@@ -6,7 +6,7 @@ const Banner = () => {
       <h1 className="text-4xl text-black font-cocogoose">
         Results of BRAND ME
       </h1>
-      <p className="font-cocogoose-light">
+      <p className="font-cocogoose-light font-bold">
         The following part describes the BRAND ME project&apos;s impactful outputs
         and activities, highlighting the tangible achievements accomplished via
         focused efforts and teamwork. The project's objectives were met through
