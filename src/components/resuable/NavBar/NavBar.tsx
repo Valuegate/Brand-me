@@ -4,6 +4,8 @@ import React, {FC} from 'react';
 import Logo from '../Logo/Logo';
 import Link from 'next/link';
 
+import { MdArrowDropDown } from 'react-icons/md';
+
 interface iNavItem {
   name: string;
   link: string;
@@ -33,11 +35,11 @@ const NavBar:FC<NavProp> = ({index}) => {
     },
     {
       name: "Contact",
-      link: "/" 
+      link: "/contact" 
     },
     {
       name: "How To Use",
-      link: "/" 
+      link: "/how-to-use" 
     },
   ];
 
@@ -51,20 +53,21 @@ const NavBar:FC<NavProp> = ({index}) => {
             {
               navs.map((navItem, i) => {
                 return (
-                  <Link key={i} href={navItem.link} className={`${i === index ? "font-semibold" : "font-normal"} text-white text-[16px]`} >{navItem.name}</Link>
+                  <Link key={i} href={navItem.link} className={`${i === index ? "font-cocogoose" : "font-cocogoose-light font-bold"} text-white text-[16px]`} >{navItem.name}</Link>
                 );
               })
             }
           </div>
           <div className='flex gap-4'>
             <button className=''>
-              <h5 className='text-white bg-brand-30 px-5 py-2 rounded-lg text-[20px] leading-[21.8px] font-normal'>
+              <h5 className='text-white flex bg-brand-30 px-5 py-2 rounded-lg text-[20px] leading-[21.8px] font-cocogoose'>
                 Login
+                <MdArrowDropDown />
               </h5>
             </button>
 
             <button className=''>
-              <h5 className='text-brand bg-light-blue px-5 py-2 rounded-lg text-[20px] leading-[21.8px] font-normal'>
+              <h5 className='text-brand bg-light-blue px-5 py-2 rounded-lg text-[20px] leading-[21.8px] font-cocogoose'>
                 Sign Up
               </h5>
             </button>
