@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import { Montserrat_Alternates } from "next/font/google";
+import localFont from '@next/font/local';
 import "./globals.css";
 
-const m_alt = Montserrat_Alternates({
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-});
+const cocogooseRegular = localFont({
+  src: "../assets/Cocogoose Regular.woff2",
+  variable: '--font-cocogoose-regular'
+})
+
+const cocogooseThin = localFont({
+  src: "../assets/Cocogoose Pro Thin.woff2",
+  variable: '--font-cocogoose-thin'
+})
+
 
 export const metadata: Metadata = {
   title: {
@@ -22,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={m_alt.className}>{children}</body>
+      <body className={`${cocogooseRegular.variable} ${cocogooseThin.variable} font-sans-serif`}>{children}</body>
     </html>
   );
 }

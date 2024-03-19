@@ -17,7 +17,8 @@ module.exports = {
       "light-blue-30": "rgba(0, 174, 239, 0.3)"
     },
     fontFamily: {
-      body: ["Red Hat Text"],
+      'cocogoose': ['var(--font-cocogoose-regular)', 'sans-serif'],
+      'cocogoose-light': ['var(--font-cocogoose-thin)', 'sans-serif']
     },
     screens: {
       sm: {
