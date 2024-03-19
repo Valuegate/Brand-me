@@ -13,22 +13,22 @@ const Footer = () => {
   return (
     <>
     <div className='mt-32'>
-      <div className='w-full bg-brand flex justify-between px-24 border-none rounded-t-[80px]'>
+      <div className='w-full bg-brand flex justify-between px-24 border-none rounded-t-[80px] pt-10'>
         <div>
           <Image src={Logo} alt={'Footer Logo'} className='w-[150px] h-[200px]' />
         </div>
         <div className='flex flex-col gap-2 pt-6'>
-          <h5 className='text-white text-base font-medium'>Learn More</h5>
-          <Link className='text-white-80 text-sm font-normal' href={''}>For Whom</Link>
-          <Link className='text-white-80 text-sm font-normal' href={''}>Our Mission</Link>
-          <Link className='text-white-80 text-sm font-normal' href={''}>Results</Link>
-          <Link className='text-white-80 text-sm font-normal' href={''}>How To Use</Link>
+          <h5 className='text-white text-base font-cocogoose'>Learn More</h5>
+          <Link className='text-white-80 text-sm font-cocogoose-light' href={''}>For Whom</Link>
+          <Link className='text-white-80 text-sm font-cocogoose-light' href={''}>Our Mission</Link>
+          <Link className='text-white-80 text-sm font-cocogoose-light' href={''}>Results</Link>
+          <Link className='text-white-80 text-sm font-cocogoose-light' href={''}>How To Use</Link>
         </div>
 
         <div className='flex flex-col gap-2 pt-6'>
-          <h5 className='text-white text-base font-medium'>Contacts</h5>
-          <Link className='text-white-80 text-sm font-normal' href={''}>Contact Us</Link>
-          <Link className='text-white-80 text-sm font-normal' href={''}>Members</Link>
+          <h5 className='text-white text-base font-cocogoose'>Contacts</h5>
+          <Link className='text-white-80 text-sm font-cocogoose-light' href={''}>Contact Us</Link>
+          <Link className='text-white-80 text-sm font-cocogoose-light' href={''}>Members</Link>
         </div>
         <div className="flex gap-4 pt-6">
             <div className='flex flex-col gap-4'>
