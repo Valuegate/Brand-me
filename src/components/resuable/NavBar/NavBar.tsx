@@ -35,11 +35,11 @@ const NavBar:FC<NavProp> = ({index}) => {
     },
     {
       name: "Contact",
-      link: "/" 
+      link: "/contact" 
     },
     {
       name: "How To Use",
-      link: "/" 
+      link: "/how-to-use" 
     },
   ];
 
