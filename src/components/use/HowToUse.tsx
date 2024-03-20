@@ -7,6 +7,7 @@ const HowToUse = () => {
   return (
     <>
       <NavBar index={5} />
+      <div className="h-[45vh]"/>
       <Footer />
     </>
   );
