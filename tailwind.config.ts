@@ -19,7 +19,6 @@ module.exports = {
     fontFamily: {
       'cocogoose': ['var(--font-cocogoose-regular)', 'sans-serif'],
       'cocogoose-light': ['var(--font-cocogoose-thin)', 'sans-serif'],
-      'cocogoose-thin': ['var(--font-cocogoose-thin)', 'sans-serif']
     },
     screens: {
       sm: {
