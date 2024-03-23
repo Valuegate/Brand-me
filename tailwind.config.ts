@@ -12,9 +12,12 @@ module.exports = {
       error: "#FF0000",
       black: "#000000",
       "brand": "#1C274D",
-      "brand-30": "rgba(0, 174, 239, 0.3)",
+      "brand-30": "rgba(28, 39, 76, 0.3)",
+      "brand-49": "rgba(28, 39, 76, 0.49)",
       "light-blue": "#00AEEF",
-      "light-blue-30": "rgba(0, 174, 239, 0.3)"
+      "light-blue-0": "rgba(0, 174, 239, 0.0)",
+      "light-blue-30": "rgba(0, 174, 239, 0.3)",
+      "light-blue-50": "rgba(0, 174, 239, 0.5)",
     },
     fontFamily: {
       'cocogoose': ['var(--font-cocogoose-regular)', 'sans-serif'],
