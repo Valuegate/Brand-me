@@ -30,11 +30,15 @@ import PD4 from "@/assets/results/Project_4.svg";
 import PD5 from "@/assets/results/Project_5.svg";
 import Footer from "../resuable/Footer/Footer";
 
+import { useGlobalStore } from "@/stores/globalStore";
+
 const Results = () => {
+  const loggedIn = useGlobalStore((state) => state.loggedIn);
+
   return (
     <>
       <div className="fixed top-0 left-0 right-0">
-        <NavBar index={2} />
+        <NavBar index={loggedIn ? 1 : 2} />
       </div>
       <div className="h-32" />
       <div className="px-32 flex flex-col">
