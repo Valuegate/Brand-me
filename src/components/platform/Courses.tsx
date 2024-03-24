@@ -2,6 +2,7 @@ import React, { useState, FC } from "react";
 
 import { iCourse } from "./types";
 import ViewCourse from "./ViewCourse";
+import ProgressBar from "../resuable/ProgressBar";
 
 interface iCourseCardProp {
   course: iCourse;
@@ -26,7 +27,7 @@ const Courses = () => {
         complete: false,
         video: "",
       }),
-      currentVideo: 0,
+      currentVideo: 4,
       quizDone: false,
     },
   });
@@ -54,8 +55,6 @@ const Courses = () => {
 };
 
 const CourseCard: FC<iCourseCardProp> = ({ course, onStart }) => {
-  let progress = "w-[" + course.progress * 100 + "%]";
-
   return (
     <div className="w-full h-[500px] bg-light-blue-30 rounded-xl p-[5%] flex flex-col transition-colors duration-200 ease-in-out hover:bg-light-blue-50">
       <div className="w-full h-[200px] rounded-3xl bg-gradient-to-b from-light-blue-0 to-light-blue-30" />
@@ -65,11 +64,12 @@ const CourseCard: FC<iCourseCardProp> = ({ course, onStart }) => {
       <p className="font-cocogoose-light font-bold text-[20px] text-brand">
         {course.description}
       </p>
-      <div className="my-5 h-[50px] w-full bg-light-blue-30 rounded-2xl">
-        <div
-          className={`h-full w-[30%] bg-light-blue rounded-l-2xl rounded-r-[25px]`}
-        />
-      </div>
+      <ProgressBar
+        backgroundColor="bg-light-blue-30"
+        valueColor="bg-light-blue"
+        value={course.progress}
+        hideText={false}
+      />
       <div className="flex justify-center">
         <button
           onClick={onStart}
