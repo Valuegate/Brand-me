@@ -114,13 +114,13 @@ const NavBar: FC<NavProp> = ({ index }) => {
         )}
         {loggedIn && (
           <div className="flex gap-4 items-center">
-            <div className="bg-brand-30 rounded-lg p-1">
+            <div className="bg-light-blue-30 rounded-lg p-1">
               <AiFillMessage
                 size={"24px"}
                 className="text-light-blue cursor-pointer"
               />
             </div>
-            <div className="bg-brand-30 rounded-lg p-1">
+            <div className="bg-light-blue-30 rounded-lg p-1">
               <IoMdNotifications
                 size={"24px"}
                 className="text-light-blue cursor-pointer"
@@ -136,7 +136,7 @@ const NavBar: FC<NavProp> = ({ index }) => {
               <div className="w-[32px] h-[32px] rounded-full bg-brand" />
               <p className="line-clamp-1">{username}</p>
             </div>
-            <div className="bg-brand-30 rounded-lg p-1">
+            <div className="bg-light-blue-30 rounded-lg p-1">
               <IoLogOut
                 size={"24px"}
                 className="text-light-blue cursor-pointer"

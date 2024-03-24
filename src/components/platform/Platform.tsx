@@ -9,7 +9,7 @@ const Platform = () => {
   const [currentTab, setCurrentTab] = useState<number>(0);
   const tabs: string[] = ["Classroom", "Community", "Members"];
 
-  const children: ReactNode[] = [<Courses />];
+  const children: ReactNode[] = [<Courses key={"courses key"}/>];
 
   return (
     <>
@@ -22,6 +22,7 @@ const Platform = () => {
           {tabs.map((tab, i) => {
             return (
               <h2
+              key={i}
                 onClick={() => {
                   setCurrentTab(i);
                 }}
