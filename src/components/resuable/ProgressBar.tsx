@@ -18,7 +18,7 @@ const ProgressBar: FC<iProgressBarProps> = ({
 
     <div className={`my-5 h-[50px] w-full ${backgroundColor} rounded-2xl`}>
       <div
-        className={`h-full ${progress} ${valueColor} rounded-l-2xl rounded-r-[25px] text-white font-cocogoose text-[18px] flex justify-center items-center`}
+        className={`h-full ${progress} ${valueColor} rounded-l-2xl ${value === 1 ? "rounded-r-2xl" : "rounded-r-[25px]"} text-white font-cocogoose text-[18px] flex justify-center items-center`}
       >
         {!hideText &&  (value * 100 + "%")}
       </div>

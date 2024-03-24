@@ -8,6 +8,8 @@ import { useQuizStore, QuizData } from "@/stores/quizStore";
 import { MdDone } from "react-icons/md";
 import Footer from "../resuable/Footer/Footer";
 
+import { Loader } from "@mantine/core";
+
 function setQuiz() {
   useQuizStore.setState({
     quiz: [
@@ -69,7 +71,7 @@ const Quiz = () => {
   const pickedAnswers = useQuizStore((state) => state.pickedAnswers);
 
   useEffect(() => {
-    setQuiz();
+    //setQuiz();
   }, []);
 
   return (
@@ -78,29 +80,36 @@ const Quiz = () => {
         <QuizNavBar />
       </div>
       <div className="h-32" />
-      <div className="px-32 pb-20">
-        <div className="bg-light-blue-30 rounded-[30px] w-full h-fit p-8 flex flex-col gap-10">
-          {quiz.map((q, i) => {
-            return (
-              <QuizComponent
-                key={i}
-                index={i}
-                quiz={q}
-                onSelect={(val, picked) => {
-                  let p_answers = pickedAnswers[i];
-                  let answers = q.answers;
-                  if (picked) {
-                    p_answers.push(answers[i]);
-                  } else {
-                    //p_answers.sl
-                  }
-                }}
-                pickedAnswers={pickedAnswers[i]}
-              />
-            );
-          })}
+      {quiz.length !== 0 && (
+        <div className="px-32 pb-20">
+          <div className="bg-light-blue-30 rounded-[30px] w-full h-fit p-8 flex flex-col gap-10">
+            {quiz.map((q, i) => {
+              return (
+                <QuizComponent
+                  key={i}
+                  index={i}
+                  quiz={q}
+                  onSelect={(val, picked) => {
+                    let p_answers = pickedAnswers[i];
+                    let answers = q.answers;
+                    if (picked) {
+                      p_answers.push(answers[val]);
+                    } else {
+                      //p_answers.sl
+                    }
+                  }}
+                  pickedAnswers={pickedAnswers[i]}
+                />
+              );
+            })}
+          </div>
         </div>
-      </div>
+      )}
+      {quiz.length === 0 && (
+        <div className="flex flex-col items-center justify-center w-full h-[40vh]">
+          <Loader size={"32px"} color="primary"/>
+        </div>
+      )}
       <Footer />
     </>
   );

@@ -10,6 +10,7 @@ const Profile = () => {
     const profileImage = useUserStore((state) => state.image);
     const firstName = useUserStore((state) => state.firstName);
     const surname = useUserStore((state) => state.surname);
+    const alias = useUserStore((state) => state.alias);
 
 
   return (
