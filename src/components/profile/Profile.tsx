@@ -7,10 +7,10 @@ import Footer from '../resuable/Footer/Footer'
 import { useUserStore } from '@/stores/userStore'
 
 const Profile = () => {
-    const profileImage = useUserStore((state) => state.image);
-    const firstName = useUserStore((state) => state.firstName);
-    const surname = useUserStore((state) => state.surname);
-    const alias = useUserStore((state) => state.alias);
+    const profileImage = useUserStore((state: { image: any; }) => state.image);
+    const firstName = useUserStore((state: { firstName: any; }) => state.firstName);
+    const surname = useUserStore((state: { surname: any; }) => state.surname);
+    const alias = useUserStore((state: { alias: any; }) => state.alias);
 
 
   return (

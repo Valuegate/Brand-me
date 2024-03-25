@@ -24,8 +24,8 @@ export type NavProp = {
 
 const NavBar: FC<NavProp> = ({ index }) => {
   const [navs, setNavs] = useState<iNavItem[]>([]);
-  const loggedIn = useGlobalStore((state) => state.loggedIn);
-  const username = useUserStore((state) => state.firstName);
+  const loggedIn = useGlobalStore((state: { loggedIn: any; }) => state.loggedIn);
+  const username = useUserStore((state: { firstName: any; }) => state.firstName);
 
   useEffect(() => {
     if (loggedIn) {
@@ -102,14 +102,18 @@ const NavBar: FC<NavProp> = ({ index }) => {
         </div>
         {!loggedIn && (
           <div className="flex gap-4">
+            <Link href={'/login'}>
             <button className="text-white flex bg-brand-30 px-5 py-2 rounded-lg text-[20px] leading-[21.8px] font-cocogoose">
               Login
               <MdArrowDropDown />
             </button>
+            </Link>
 
+            <Link href={'/signup'}>
             <button className="text-brand bg-light-blue px-5 py-2 rounded-lg text-[20px] leading-[21.8px] font-cocogoose">
               Sign Up
             </button>
+            </Link>
           </div>
         )}
         {loggedIn && (
