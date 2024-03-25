@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState, useRef } from "react";
 import Logo from "../Logo/Logo";
 import Link from "next/link";
 
@@ -11,7 +11,11 @@ import { useUserStore } from "@/stores/userStore";
 
 import { AiFillMessage } from "react-icons/ai";
 import { IoMdNotifications } from "react-icons/io";
+import { IoCalendar } from "react-icons/io5";
 import { IoLogOut } from "react-icons/io5";
+
+import { convertDate } from "@/functions/dateFunctions";
+import Notifications from "./Notifications";
 
 interface iNavItem {
   name: string;
@@ -22,12 +26,52 @@ export type NavProp = {
   index: number;
 };
 
+function setNotifications() {
+  useGlobalStore.setState({
+    notifications: Array(10).fill({
+      image: "",
+      title: "Adedimeji Ajayi (admin) new post",
+      content: "Crossfit challenge in our community.",
+      date: new Date(),
+      read: true,
+    }),
+  });
+}
+
 const NavBar: FC<NavProp> = ({ index }) => {
   const [navs, setNavs] = useState<iNavItem[]>([]);
-  const loggedIn = useGlobalStore((state: { loggedIn: any; }) => state.loggedIn);
-  const username = useUserStore((state: { firstName: any; }) => state.firstName);
+  const [isNotificationClicked, setNotificationClicked] =
+    useState<boolean>(false);
+  const loggedIn = useGlobalStore((state: { loggedIn: any }) => state.loggedIn);
+  const username = useUserStore((state: { firstName: any }) => state.firstName);
+  const notifications = useGlobalStore((state) => state.notifications);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const handleOutsideClick = (event: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
+      setIsOpen(false);
+      setNotificationClicked(false);
+    }
+  };
 
   useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (notifications.length === 0) {
+      setNotifications();
+    }
+
     if (loggedIn) {
       setNavs([
         {
@@ -78,7 +122,7 @@ const NavBar: FC<NavProp> = ({ index }) => {
   }, []);
 
   return (
-    <div className="w-full  bg-brand flex items-center justify-between justify-items-center px-12 border-none rounded-b-[40px]">
+    <div className="w-full bg-brand flex items-center justify-between justify-items-center px-12 border-none rounded-b-[40px]">
       <div>
         <Logo />
       </div>
@@ -102,17 +146,17 @@ const NavBar: FC<NavProp> = ({ index }) => {
         </div>
         {!loggedIn && (
           <div className="flex gap-4">
-            <Link href={'/login'}>
-            <button className="text-white flex bg-brand-30 px-5 py-2 rounded-lg text-[20px] leading-[21.8px] font-cocogoose">
-              Login
-              <MdArrowDropDown />
-            </button>
+            <Link href={"/login"}>
+              <button className="text-white flex bg-brand-30 px-5 py-2 rounded-lg text-[20px] leading-[21.8px] font-cocogoose">
+                Login
+                <MdArrowDropDown />
+              </button>
             </Link>
 
-            <Link href={'/signup'}>
-            <button className="text-brand bg-light-blue px-5 py-2 rounded-lg text-[20px] leading-[21.8px] font-cocogoose">
-              Sign Up
-            </button>
+            <Link href={"/signup"}>
+              <button className="text-brand bg-light-blue px-5 py-2 rounded-lg text-[20px] leading-[21.8px] font-cocogoose">
+                Sign Up
+              </button>
             </Link>
           </div>
         )}
@@ -124,21 +168,47 @@ const NavBar: FC<NavProp> = ({ index }) => {
                 className="text-light-blue cursor-pointer"
               />
             </div>
-            <div className="bg-light-blue-30 rounded-lg p-1">
+            <div
+              ref={dropdownRef}
+              className="bg-light-blue-30 rounded-lg p-1 relative  "
+            >
               <IoMdNotifications
                 size={"24px"}
                 className="text-light-blue cursor-pointer"
+                onClick={() => {
+                  setNotificationClicked(true);
+                  setIsOpen(!isOpen);
+                }}
               />
+              {isOpen && isNotificationClicked && <Notifications />}
             </div>
             <div className="h-10 bg-light-blue w-[1px]" />
             <div
+              ref={dropdownRef}
               onClick={() => {
-                window.location.assign("/profile");
+                setNotificationClicked(false);
+                setIsOpen(!isOpen);
               }}
-              className="cursor-pointer text-brand bg-light-blue flex items-center justify-start w-[110px] py-[2px] pl-[2px] gap-2 rounded-full"
+              className="cursor-pointer text-brand bg-light-blue flex items-center justify-start w-[110px] py-[2px] pl-[2px] gap-2 rounded-full relative"
             >
               <div className="w-[32px] h-[32px] rounded-full bg-brand" />
               <p className="line-clamp-1">{username}</p>
+              {isOpen && !isNotificationClicked && (
+                <div className="absolute -right-5 mt-[24vh] text-[20px] flex flex-col bg-brand font-cocogoose rounded shadow-lg p-[5px]">
+                  <Link
+                    href="/profile"
+                    className="px-4 py-2 hover:underline hover:text-white text-[#FFFFFF80]"
+                  >
+                    Profile
+                  </Link>
+                  <Link
+                    href="/settings"
+                    className="px-4 py-2 hover:underline hover:text-white text-[#FFFFFF80]"
+                  >
+                    Settings
+                  </Link>
+                </div>
+              )}
             </div>
             <div className="bg-light-blue-30 rounded-lg p-1">
               <IoLogOut

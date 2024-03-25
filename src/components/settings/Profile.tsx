@@ -24,12 +24,18 @@ const Profile = () => {
             label="First Name"
             value={firstName}
             placeholder="Enter Your First Name"
+            onChange={(e) => {
+                    
+            }}
           />
           <InputComponent
             width="w-full"
             label="Last Name"
             value={surname}
             placeholder="Enter Your Last Name"
+            onChange={(e) => {
+                    
+            }}
           />
         </div>
         <InputComponent
@@ -37,18 +43,27 @@ const Profile = () => {
           label="Bio"
           value=""
           placeholder="Enter Your Bio"
+          onChange={(e) => {
+                    
+          }}
         />
         <InputComponent
           width="w-full"
           label="Location"
           value=""
           placeholder="Enter Your Location"
+          onChange={(e) => {
+                    
+          }}
         />
         <InputComponent
           width="w-full"
           label="Email"
           value=""
           placeholder="example@mail.com"
+          onChange={(e) => {
+                    
+          }}
         />
       </div>
       <div className="flex w-full justify-center my-10">

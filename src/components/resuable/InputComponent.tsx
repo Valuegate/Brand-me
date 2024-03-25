@@ -1,10 +1,11 @@
-import React, {FC} from 'react'
+import React, {ChangeEventHandler, FC} from 'react'
 
 export interface iInputProps {
     label: string;
     placeholder: string;
     width: string;
     value: string;
+    onChange: ChangeEventHandler,
   }
   
   const InputComponent: FC<iInputProps> = ({
@@ -12,6 +13,7 @@ export interface iInputProps {
     width,
     value,
     placeholder,
+    onChange,
   }) => {
     return (
       <div className={`${width} flex flex-col gap-1`}>
@@ -22,6 +24,7 @@ export interface iInputProps {
           type="text"
           value={value}
           placeholder={placeholder}
+          onChange={onChange}
           className={`${width} focus:outline-none bg-[#FFFFFF00] font-cocogoose border-[3px] pl-4 text-[18px] border-brand rounded-lg h-[60px] placeholder:text-brand-49 text-brand`}
         />
       </div>

@@ -74,7 +74,7 @@ const ViewCourse: FC<iViewCourseProp> = ({ course }) => {
             </div>
           </div>
 
-          {nextVideoIndex !== course.details.videos.length && (
+          {course.details.currentVideo < course.details.videos.length - 1 && (
             <div className="flex flex-col w-full">
               <h2 className="font-cocogoose text-[20px] text-brand">
                 Continue Watching
@@ -103,7 +103,7 @@ const ViewCourse: FC<iViewCourseProp> = ({ course }) => {
         </div>
 
         <div className="w-[800px] h-fit py-5 px-10 rounded-[30px] bg-light-blue-30">
-          {nextVideoIndex !== course.details.videos.length ? (
+          {course.details.currentVideo < course.details.videos.length ? (
             <div className="flex flex-col w-full">
               <div className="flex gap-10 items-center w-full">
                 <h2 className="font-cocogoose text-brand text-[20px]">
