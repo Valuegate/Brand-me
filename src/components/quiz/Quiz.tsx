@@ -71,7 +71,7 @@ const Quiz = () => {
   const pickedAnswers = useQuizStore((state) => state.pickedAnswers);
 
   useEffect(() => {
-    //setQuiz();
+    setQuiz();
   }, []);
 
   return (

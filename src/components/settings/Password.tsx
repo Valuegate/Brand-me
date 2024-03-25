@@ -15,18 +15,27 @@ const Password = () => {
           label="Current Password"
           value=""
           placeholder="********"
+          onChange={(e) => {
+                    
+          }}
         />
         <InputComponent
           width="w-full"
           label="New Password"
           value=""
           placeholder="********"
+          onChange={(e) => {
+                    
+          }}
         />
         <InputComponent
           width="w-full"
           label="Confirm New Password"
           value=""
           placeholder="********"
+          onChange={(e) => {
+                    
+          }}
         />
       </div>
       <div className="flex w-full justify-center my-10">

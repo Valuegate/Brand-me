@@ -27,7 +27,7 @@ const Courses = () => {
         complete: false,
         video: "",
       }),
-      currentVideo: 0,
+      currentVideo: 5,
       quizDone: false,
     },
   });
