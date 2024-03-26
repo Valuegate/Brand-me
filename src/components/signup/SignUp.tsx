@@ -79,7 +79,7 @@ const SignUp = () => {
               </div>
               <InputComponent
                 label="Last Name"
-                placeholder="Enter First Name"
+                placeholder='Enter Last Name'
                 value=""
                 width="w-full"
                 onChange={(e) => {

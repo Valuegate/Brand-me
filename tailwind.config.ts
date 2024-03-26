@@ -12,6 +12,7 @@ module.exports = {
       error: "#FF0000",
       black: "#000000",
       "brand": "#1C274D",
+      "brand-20": "rgba(28, 39, 76, 0.1)",
       "brand-30": "rgba(28, 39, 76, 0.3)",
       "brand-49": "rgba(28, 39, 76, 0.49)",
       "light-blue": "#00AEEF",
