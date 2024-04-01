@@ -4,14 +4,18 @@ import React, { ReactNode, useState } from "react";
 import NavBar from "../resuable/NavBar/NavBar";
 import Courses from "./Courses";
 import Footer from "../resuable/Footer/Footer";
-import Community from './Community';
-import Members from './Members';
+import Community from "./Community";
+import Members from "./Members";
 
 const Platform = () => {
   const [currentTab, setCurrentTab] = useState<number>(0);
   const tabs: string[] = ["Classroom", "Community", "Members"];
 
-  const children: ReactNode[] = [<Courses key={"courses key"}/>, <Community key={"Community key"}/>, <Members key={"Members Key"}/> ];
+  const children: ReactNode[] = [
+    <Courses key={"courses key"} />,
+    <Community key={"community key"} />,
+    <Members key={"members Key"} />,
+  ];
 
   return (
     <>
@@ -24,7 +28,7 @@ const Platform = () => {
           {tabs.map((tab, i) => {
             return (
               <h2
-              key={i}
+                key={i}
                 onClick={() => {
                   setCurrentTab(i);
                 }}
