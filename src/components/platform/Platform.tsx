@@ -4,12 +4,14 @@ import React, { ReactNode, useState } from "react";
 import NavBar from "../resuable/NavBar/NavBar";
 import Courses from "./Courses";
 import Footer from "../resuable/Footer/Footer";
+import Community from './Community';
+import Members from './Members';
 
 const Platform = () => {
   const [currentTab, setCurrentTab] = useState<number>(0);
   const tabs: string[] = ["Classroom", "Community", "Members"];
 
-  const children: ReactNode[] = [<Courses key={"courses key"}/>];
+  const children: ReactNode[] = [<Courses key={"courses key"}/>, <Community key={"Community key"}/>, <Members key={"Members Key"}/> ];
 
   return (
     <>

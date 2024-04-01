@@ -9,6 +9,7 @@ module.exports = {
     colors: {
       white: "#FFFFFF",
       "white-80": "rgba(255, 255, 255, 0.8)",
+      gray: "rgba(243, 243, 243, 1)",
       error: "#FF0000",
       black: "#000000",
       "brand": "#1C274D",
