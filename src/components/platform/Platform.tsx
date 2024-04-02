@@ -1,5 +1,4 @@
 "use client";
-
 import React, { ReactNode, useState } from "react";
 import NavBar from "../resuable/NavBar/NavBar";
 import Courses from "./Courses";

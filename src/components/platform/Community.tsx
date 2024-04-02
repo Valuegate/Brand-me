@@ -1,69 +1,64 @@
 import React from 'react';
-import TextField from '@mui/material/TextField';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { styled } from '@mui/system';
-import { Avatar, InputAdornment } from '@mui/material';
+
 import Image from 'next/image';
-import ProfileImg from '@/assets/Rectangle_2001.png';
-// import Text from '@/assets/text.png';
+import Msg from '@/assets/text.png';
 import Satellite from '@/assets/satellite.png';
 import Pin from '@/assets/pin.png';
-import { Box, Card, Inset, Text, Strong } from '@radix-ui/themes';
-
-const CustomTextField = styled(TextField)({
-    '& .MuiInputBase-root': {
-        border: '1px solid gray',
-        background: 'white',
-    },
-});
+import { HiUserCircle } from 'react-icons/hi';
+import CommentCard from './CommentCard';
+import GroupCard from './GroupCard';
 
 
 const Community = () => {
+
+    const comments = [
+        { name: 'Adedimeji Ajayi', date: '3 days ago', message: 'This class will give you all the insights for great and successful user reseah you will learn the basics of UX research and come up.' },
+        { name: 'Adedimeji Ajayi', date: '3 days ago', message: 'This class will give you all the insights for great and successful user reseah you will learn the basics of UX research and come up.' },
+        { name: 'Adedimeji Ajayi', date: '3 days ago', message: 'This class will give you all the insights for great and successful user reseah you will learn the basics of UX research and come up.' },
+        { name: 'Adedimeji Ajayi', date: '3 days ago', message: 'This class will give you all the insights for great and successful user reseah you will learn the basics of UX research and come up.' },
+        { name: 'Adedimeji Ajayi', date: '3 days ago', message: 'This class will give you all the insights for great and successful user reseah you will learn the basics of UX research and come up.' },
+        { name: 'Adedimeji Ajayi', date: '3 days ago', message: 'This class will give you all the insights for great and successful user reseah you will learn the basics of UX research and come up.' },
+        { name: 'Adedimeji Ajayi', date: '3 days ago', message: 'This class will give you all the insights for great and successful user reseah you will learn the basics of UX research and come up.' },
+        { name: 'Adedimeji Ajayi', date: '3 days ago', message: 'This class will give you all the insights for great and successful user reseah you will learn the basics of UX research and come up.' },
+        { name: 'Adedimeji Ajayi', date: '3 days ago', message: 'This class will give you all the insights for great and successful user reseah you will learn the basics of UX research and come up.' },
+      ];
+
     return (
         <>
             <div className="flex gap-8">
                 <div className="w-[70%]">
-                    <CustomTextField
-                        variant="standard"
-                        placeholder="Write something..."
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <AccountCircleIcon />
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                    <div className="flex mt-10 gap-6 items-center">
-                        <button className='bg-brand rounded-xl px-4s h-10 text-white'>All</button>
-                        <button className='bg-gray rounded-xl px-4s h-10 text-black flex items-center justify-center gap-2'><Avatar src='/assets/text.png' alt={'text icon'} className='w-20px h-20px' />Discussion</button>
-                        <button className='bg-gray rounded-xl px-4s h-10 text-black flex items-center justify-center gap-2'><Avatar src='/assets/satellite.png' alt={'Satellite icon'} className='w-20px h-20px' />Random</button>
-                        <button className='bg-gray rounded-xl px-4s h-10 text-black flex items-center justify-center gap-2'><Avatar src='/assets/pin.png' alt={'Pin icon'} className='w-20px h-20px' />Pinned</button>
+                    <div className="relative z-[-1]">
+                        <input
+                            className="w-full border-[1px] border-solid border-white shadow-sm rounded px-5 py-2 pl-10 focus:outline-none focus:border-gray"
+                            type="text"
+                            placeholder="Write something..."
+                        />
+                        <HiUserCircle className="absolute left-3 top-3 text-gray-400 w-6 h-6" />
+                    </div>
+                    <div className="flex my-10 gap-6 items-center">
+                        <button className='bg-brand rounded-2xl px-6 h-8 font-cocogoose text-white'>All</button>
+                        <button className='bg-gray rounded-2xl px-6 h-8 font-cocogoose text-black flex items-center justify-center gap-2'><Image src={Msg} alt={'text icon'} width={15} height={15} className='w-50px h-10px' />Discussion</button>
+                        <button className='bg-gray rounded-2xl px-6 h-8 font-cocogoose text-black flex items-center justify-center gap-2'><Image src={Satellite} alt={'Satellite icon'} width={15} height={15} className='w-50px h-10px' />Random</button>
+                        <button className='bg-gray rounded-2xl px-6 h-8 font-cocogoose text-black flex items-center justify-center gap-2'><Image src={Pin} alt={'Pin icon'} width={15} height={15} className='w-50px h-10px' />Pinned</button>
 
                     </div>
+
+                    <div className='flex flex-col gap-4'>
+                        {comments.map((comment, i) => {
+                            return (
+                                <CommentCard
+                                    key={i}
+                                    name={comment.name}
+                                    date={comment.date}
+                                    message={comment.message}
+                                />
+                            );
+                        })}
+                    </div>
+
                 </div>
                 <div className="w-[30%]">
-                    <Box maxWidth="240px">
-                        <Card size="2">
-                            <Inset clip="padding-box" side="top" pb="current">
-                                <Image
-                                    src={ProfileImg}
-                                    alt="Bold typography"
-                                    style={{
-                                        display: 'block',
-                                        objectFit: 'cover',
-                                        width: '100%',
-                                        height: 140,
-                                        backgroundColor: 'var(--gray-5)',
-                                    }}
-                                />
-                            </Inset>
-                            <Text as="p" size="3">
-                                <Strong>Typography</Strong> is the art and technique of arranging type to
-                                make written language legible, readable and appealing when displayed.
-                            </Text>
-                        </Card>
-                    </Box>
+                    <GroupCard />
                 </div>
             </div>
         </>
