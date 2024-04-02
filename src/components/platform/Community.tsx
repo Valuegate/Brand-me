@@ -27,7 +27,7 @@ const Community = () => {
         <>
             <div className="flex gap-8">
                 <div className="w-[70%]">
-                    <div className="relative z-[-1]">
+                    <div className="relative z-0">
                         <input
                             className="w-full border-[1px] border-solid border-white shadow-sm rounded px-5 py-2 pl-10 focus:outline-none focus:border-gray"
                             type="text"
