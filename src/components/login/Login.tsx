@@ -76,7 +76,7 @@ const LoginPage = () => {
               />
             </div>
             <Link href={"/forgot-password"}>
-              <p className="text-brand text-[15px] underline leading-[15px] font-cocogoose pl-[5rem] md:pl-0 mt-4 md:mt-6">
+              <p className="text-brand text-[15px] hover:underline leading-[15px] font-cocogoose pl-[5rem] md:pl-0 mt-4 md:mt-6">
                 Forgot password
               </p>
             </Link>
