@@ -14,22 +14,22 @@ const SignUp = () => {
         <NavBar index={-1} />
       </div>
       <div className="h-32" />
-      <div className="px-32 flex flex-col items-center">
-        <div className="mt-16 w-[900px] bg-gradient-to-b from-light-blue to-light-blue-30 rounded-3xl">
-          <div className="px-10 py-[2rem]">
+      <div className="px-32 md:px-[5%] flex flex-col items-center">
+        <div className="mt-6 w-[900px] md:w-full bg-gradient-to-b from-light-blue to-light-blue-30 rounded-3xl">
+          <div className="px-10 md:px-5 py-[2rem] md:py-10">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-brand text-[30px] leading-[21.8px] font-cocogoose">
+              <h2 className="text-brand text-[30px] md:text-[24px] leading-[21.8px] font-cocogoose">
                 Sign Up
               </h2>
               <Link
-                className="text-brand text-[20px] underline leading-[15px] font-cocogoose"
+                className="text-brand text-[20px] md:text-[16px] underline leading-[15px] font-cocogoose"
                 href={"/login"}
               >
                 Log In
               </Link>
             </div>
             <div className="flex items-center gap-8 mt-10">
-              <div className="mt-8">
+              <div className="mt-8 md:hidden">
                 <TbMessage className="w-[50px] h-[50px]" />
               </div>
               <InputComponent
@@ -44,7 +44,7 @@ const SignUp = () => {
             </div>
 
             <div className="flex items-center gap-8 mt-4">
-              <div className="mt-8">
+              <div className="mt-8 md:hidden">
                 <GiPadlock className="w-[50px] h-[50px]" />
               </div>
               <InputComponent
@@ -59,7 +59,7 @@ const SignUp = () => {
             </div>
 
             <div className="flex items-center gap-8 mt-4">
-              <div className="mt-8">
+              <div className="mt-8 md:hidden">
                 <GiPadlock className="w-[50px] h-[50px]" />
               </div>
               <InputComponent
@@ -74,7 +74,7 @@ const SignUp = () => {
             </div>
 
             <div className="flex items-center gap-8 mt-4">
-              <div className="mt-8">
+              <div className="mt-8 md:hidden">
                 <GiPadlock className="w-[50px] h-[50px]" />
               </div>
               <InputComponent
@@ -89,7 +89,7 @@ const SignUp = () => {
             </div>
 
             <div className="flex items-center justify-center mt-8">
-              <button className="text-white bg-brand px-8 py-2 rounded-lg text-[20px] leading-[21.8px] font-cocogoose">
+              <button className="text-white bg-brand px-8 md:w-full py-2 md:py-3 rounded-lg text-[20px] leading-[21.8px] font-cocogoose">
                 Sign Up
               </button>
             </div>

@@ -22,7 +22,7 @@ export const ReportFlex: FC<iReportDetail> = ({ image, text, preBold, boldText }
       <div className="bg-light-blue rounded-xl w-[60px] h-[60px] flex justify-center items-center">
         <Image src={image} alt="detail image" className="w-[40px] h-[40px]" />
       </div>
-      <p className="w-[500px] font-cocogoose-light font-bold">
+      <p className="w-[500px] md:w-[75%] font-cocogoose-light font-bold">
         <span>{preBold && preBold}</span>{" "}
         <span className="font-cocogoose">{boldText && boldText}</span> {text}{" "}
       </p>

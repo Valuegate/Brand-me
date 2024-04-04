@@ -71,20 +71,20 @@ const Partners = () => {
         <NavBar index={1} />
       </div>
       <div className="h-32" />
-      <div className="px-32">
-        <div className="mt-16">
-          <h1 className="text-4xl text-black font-cocogoose">
-            Project Partners <br /> of BRAND ME
+      <div className="px-32 md:px-[5%]">
+        <div className="mt-16 md:mt-6">
+          <h1 className="text-4xl md:text-2xl text-black font-cocogoose">
+            Project Partners of BRAND ME
           </h1>
         </div>
 
         <div className="flex flex-col">
           {partners.map((partner, i) => {
             return (
-              <section className="mt-10 bg-brand-30 border-none rounded-3xl">
-                <div className="px-16 pt-[2rem] pb-[3rem]">
-                  <div className="flex items-center gap-8 pb-4">
-                    <Image src={partner.image} alt={""} className="" />
+              <section key={i} className="mt-10 bg-brand-30 border-none rounded-3xl">
+                <div className="px-16 md:px-5 md:py-8 pt-[2rem] pb-[3rem]">
+                  <div className="flex md:flex-col md:items-start items-center gap-8 pb-4">
+                    <Image src={partner.image} alt={""} className="w-[180px] md:w-[60%] h-auto" />
                     <div
                       className={`${partner.subtitle && "flex flex-col gap-2"}`}
                     >
@@ -111,7 +111,7 @@ const Partners = () => {
                     )}
                     {partner.description}
                   </p>
-                  <button className="text-white bg-light-blue px-5 py-2 rounded-lg text-[20px] font-cocogoose">
+                  <button className="text-white bg-light-blue px-5 md:w-full py-2 md:py-3 rounded-lg text-[20px] font-cocogoose">
                     Learn More
                   </button>
                 </div>
