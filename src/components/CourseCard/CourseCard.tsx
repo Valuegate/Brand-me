@@ -9,19 +9,17 @@ export type iCourseCard = {
 const CourseCard: FC<iCourseCard> = ({ image, text }) => {
   return (
     <>
-      <div className="bg-light-blue-30 text-black py-4 px-8 rounded-3xl">
+      <div className="bg-light-blue-30 text-black py-4 px-8 md:px-4 rounded-3xl md:w-full">
         <div className="flex items-center gap-4">
-          <div className="bg-light-blue rounded-xl px-2 py-2">
+          <div className="bg-light-blue rounded-xl w-[60px] h-[60px] flex justify-center items-center md:hidden">
             <Image
               src={image}
-              alt={""}
-              width={100}
-              height={100}
-              className="w-[50px] h-[50px]"
+              alt=""
+              className="w-[40px] h-[40px]"
             />
           </div>
           <div>
-            <p className="text-base text-black font-bold font-cocogoose-light w-[30rem]">{text}</p>
+            <p className="text-base text-black font-bold font-cocogoose-light w-[30rem] md:w-full">{text}</p>
           </div>
         </div>
       </div>

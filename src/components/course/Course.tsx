@@ -12,36 +12,34 @@ const OnlineCourse = () => {
         <NavBar index={3} />
       </div>
       <div className="h-32" />
-      <div className="px-32 flex flex-col">
-        <h1 className="text-4xl text-black text-center font-cocogoose ">
-          Welcome to the Online <br /> Course on Branding Skills <br /> for
-          Career Development!
+      <div className="px-32 md:px-[5%] flex flex-col">
+        <h1 className="text-4xl md:text-2xl text-black text-center font-cocogoose px-[20%] md:px-0">
+          Welcome to the Online Course on Branding Skills for Career
+          Development!
         </h1>
-        <p className="text-base text-black font-cocogoose-light font-bold flex justify-center pt-6">
+        <p className="text-base text-black font-cocogoose-light font-bold md:text-center pt-6 px-[20%] md:px-0">
           This comprehensive course is designed to equip young learners,
-          <br />
           educators, and professionals in the NEET (Not in Education,
-          Employment, or <br /> Training) category with the essential skills and
-          knowledge needed to thrive <br /> in today's competitive job market.
+          Employment, or Training) category with the essential skills and
+          knowledge needed to thrive in today's competitive job market.
         </p>
 
-        <div className="pt-12">
-          <h1 className="text-4xl text-black text-center font-cocogoose">
+        <div className="mt-12">
+          <h1 className="text-4xl md:text-2xl text-black text-center font-cocogoose">
             Course Overview
           </h1>
-          <p className="text-base text-black font-bold font-cocogoose-light flex justify-center pt-3">
+          <p className="text-base text-black font-bold font-cocogoose-light md:text-center pt-3 px-[20%] md:px-0">
             The course comprises 12 modules, each addressing crucial skills and
-            competencies <br /> in personal branding strategies and practices.
-            From understanding the fundamentals <br /> of personal branding to
-            effectively promoting oneself in the professional sphere, this
-            course
+            competencies in personal branding strategies and practices. From
+            understanding the fundamentals of personal branding to effectively
+            promoting oneself in the professional sphere, this course
             <br /> offers a holistic approach to career development and personal
             branding.
           </p>
         </div>
 
-        <div className="pt-12">
-          <h1 className="text-4xl text-black text-center font-cocogoose">
+        <div className="mt-12 md:px-[5%]">
+          <h1 className="text-4xl md:text-2xl text-black text-center font-cocogoose">
             Course Objectives
           </h1>
           <p className="text-base text-black font-bold font-cocogoose-light flex justify-center pt-3">
@@ -69,9 +67,9 @@ const OnlineCourse = () => {
           </div>
         </div>
 
-        <div className="pt-12">
-          <h1 className="text-4xl text-black text-center font-cocogoose">
-            Unique Features <br /> and Benefits
+        <div className="mt-12 md:px-[5%]">
+          <h1 className="text-4xl md:text-2xl text-black text-center font-cocogoose">
+            Unique Features and Benefits
           </h1>
           <div className="flex items-center flex-col gap-8 pt-4">
             <CourseCard
@@ -95,8 +93,8 @@ const OnlineCourse = () => {
           </div>
         </div>
 
-        <div className="pt-12">
-          <h1 className="text-4xl text-black text-center font-cocogoose">
+        <div className="mt-12 px-[5%]">
+          <h1 className="text-4xl md:text-2xl text-black text-center font-cocogoose">
             Target Group
           </h1>
           <p className="text-base text-black font-bold font-cocogoose-light flex justify-center pt-3">
