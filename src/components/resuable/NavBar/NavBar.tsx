@@ -21,11 +21,9 @@ import Notifications from "./Notifications";
 
 import { Drawer } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import MobileDrawer from "./MobileDrawer";
 
-interface iNavItem {
-  name: string;
-  link: string;
-}
+import { iNavItem } from "./types";
 
 export type NavProp = {
   index: number;
@@ -234,9 +232,11 @@ const NavBar: FC<NavProp> = ({ index }) => {
           className="text-light-blue cursor-pointer hidden md:block"
         />
       </div>
-      <Drawer opened={openedDrawer} onClose={closeDrawer} padding={"0px"}>
-        <div>Hellow</div>
-      </Drawer>
+      <MobileDrawer
+        openedDrawer={openedDrawer}
+        closeDrawer={closeDrawer}
+        navs={navs}
+      />
     </>
   );
 };

@@ -11,14 +11,14 @@ const FlexComponent: FC<iFlexProp> = ({
 }) => {
   return (
     <div className="w-full flex flex-col gap-10 py-10">
-      <div className="w-full flex justify-around items-center">
+      <div className="w-full flex md:flex-col justify-around items-center">
         {arrangeRight && (
-          <div className="w-[400px] bg-brand rounded-3xl h-[650px]" />
+          <div className="w-[400px] md:w-full bg-brand rounded-3xl h-[650px] md:h-[450px] md:hidden" />
         )}
-        <div className="flex flex-col w-[620px]">
-          <h1 className="text-3xl font-cocogoose">{title}</h1>
-          <p className="mt-10 font-cocogoose-light font-bold">{description}</p>
-          <div className="mt-10 flex flex-col gap-5 w-full">
+        <div className="flex flex-col w-[620px] md:w-full">
+          <h1 className="text-3xl md:text-xl font-cocogoose">{title}</h1>
+          <p className="mt-10 md:mt-5 font-cocogoose-light font-bold">{description}</p>
+          <div className="mt-10 md:mt-5 flex flex-col gap-5 w-full">
             {reports.map((detail, i) => {
               return (
                 <div key={i}>
@@ -34,7 +34,10 @@ const FlexComponent: FC<iFlexProp> = ({
           </div>
         </div>
         {!arrangeRight && (
-          <div className="w-[400px] bg-brand rounded-3xl h-[650px]" />
+          <div className="w-[400px] md:w-full bg-brand rounded-3xl h-[650px] md:h-[450px] md:mt-10" />
+        )}
+        {arrangeRight && (
+          <div className="w-[400px] md:w-full bg-brand rounded-3xl h-[650px] md:h-[450px] hidden md:block md:mt-10" />
         )}
       </div>
       <p className="font-cocogoose-light font-bold">{trailing}</p>

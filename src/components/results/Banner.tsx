@@ -2,8 +2,8 @@ import React from "react";
 
 const Banner = () => {
   return (
-    <div className="mt-16 flex flex-col gap-20">
-      <h1 className="text-4xl text-black font-cocogoose">
+    <div className="mt-16 md:mt-0  flex flex-col gap-20 md:gap-5">
+      <h1 className="text-4xl md:text-2xl text-black font-cocogoose">
         Results of BRAND ME
       </h1>
       <p className="font-cocogoose-light font-bold">

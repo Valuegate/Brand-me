@@ -17,10 +17,10 @@ const AboutUsPage = () => {
         <NavBar index={0} />
       </div>
       <div className="h-32" />
-      <div className="px-32">
-        <section className="mt-16 bg-brand  border-none rounded-3xl">
-          <div className="px-10 pt-[10rem] pb-[5rem]">
-            <h1 className="text-4xl text-white font-cocogoose ">
+      <div className="px-32 md:px-[5%]">
+        <section className="mt-16 md:mt-6 bg-brand  border-none rounded-3xl">
+          <div className="px-10 md:px-5 pt-[10rem] md:py-10 pb-[5rem]">
+            <h1 className="text-4xl md:text-2xl text-white font-cocogoose ">
               BRAND Me <br /> Mission
             </h1>
             <p className="py-6 text-white text-base font-cocogoose-light font-bold">

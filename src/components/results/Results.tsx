@@ -41,7 +41,7 @@ const Results = () => {
         <NavBar index={loggedIn ? 1 : 2} />
       </div>
       <div className="h-32" />
-      <div className="px-32 flex flex-col">
+      <div className="px-32 md:px-[5%] flex flex-col">
         <Banner />
         <FlexComponent
           reports={[
