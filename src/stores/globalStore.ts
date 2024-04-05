@@ -16,6 +16,6 @@ type Notification = {
 
 
 export const useGlobalStore = create<GlobalConfig>((set) => ({
-  loggedIn: false,
+  loggedIn: true,
   notifications: []
 }));

@@ -81,8 +81,8 @@ const Quiz = () => {
       </div>
       <div className="h-32" />
       {quiz.length !== 0 && (
-        <div className="px-32 pb-20">
-          <div className="bg-light-blue-30 rounded-[30px] w-full h-fit p-8 flex flex-col gap-10">
+        <div className="px-32 md:px-[5%] pb-20 md:pb-0">
+          <div className="bg-light-blue-30 rounded-[30px] md:rounded-[25px] w-full h-fit p-8 md:p-5 flex flex-col gap-10">
             {quiz.map((q, i) => {
               return (
                 <QuizComponent
@@ -107,7 +107,7 @@ const Quiz = () => {
       )}
       {quiz.length === 0 && (
         <div className="flex flex-col items-center justify-center w-full h-[40vh]">
-          <Loader size={"32px"} color="primary"/>
+          <Loader size={"32px"} color="primary" />
         </div>
       )}
       <Footer />
@@ -129,11 +129,17 @@ const QuizComponent: FC<QuizComponentProp> = ({
   pickedAnswers,
 }) => {
   return (
-    <div className="flex justify-between items-start ">
-      <h1 className="font-cocogoose text-brand text-[24px]">{index + 1}.</h1>
-      <div className="flex flex-col w-[80%]">
-        <p className="text-brand font-cocogoose-light font-bold text-[18px]">
+    <div className="flex md:flex-col justify-between items-start ">
+      <h1 className="font-cocogoose text-brand text-[24px] md:text-[18px]">
+        {index + 1}.
+      </h1>
+      <div className="flex flex-col w-[80%] md:w-full md:mt-2">
+        <p className="text-brand font-cocogoose-light font-bold text-[18px] md:text-[16px]">
           {quiz.question}
+          <br />
+          <span className="font-cocogoose">
+            {quiz.point} point{quiz.point === 1 ? "" : "s"}
+          </span>
         </p>
         <div className="mt-5 flex flex-col gap-3">
           {quiz.answers.map((ans, i) => {
@@ -162,7 +168,7 @@ const QuizComponent: FC<QuizComponentProp> = ({
           })}
         </div>
       </div>
-      <div className="text-brand font-cocogoose bg-brand-49 px-3 py-2 rounded-lg">
+      <div className="text-brand font-cocogoose bg-brand-49 px-3 py-2 rounded-lg md:hidden">
         {quiz.point} point{quiz.point === 1 ? "" : "s"}
       </div>
     </div>

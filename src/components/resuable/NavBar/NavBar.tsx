@@ -4,19 +4,16 @@ import React, { FC, useEffect, useState, useRef } from "react";
 import Logo from "../Logo/Logo";
 import Link from "next/link";
 
-import { MdArrowDropDown } from "react-icons/md";
 
 import { useGlobalStore } from "@/stores/globalStore";
 import { useUserStore } from "@/stores/userStore";
 
 import { AiFillMessage } from "react-icons/ai";
 import { IoMdNotifications } from "react-icons/io";
-import { IoCalendar } from "react-icons/io5";
 import { IoLogOut } from "react-icons/io5";
 
 import { FaBarsStaggered } from "react-icons/fa6";
 
-import { convertDate } from "@/functions/dateFunctions";
 import Notifications from "./Notifications";
 
 import { Drawer } from "@mantine/core";
@@ -45,8 +42,8 @@ const NavBar: FC<NavProp> = ({ index }) => {
   const [navs, setNavs] = useState<iNavItem[]>([]);
   const [isNotificationClicked, setNotificationClicked] =
     useState<boolean>(false);
-  const loggedIn = useGlobalStore((state: { loggedIn: any }) => state.loggedIn);
-  const username = useUserStore((state: { firstName: any }) => state.firstName);
+  const loggedIn = useGlobalStore((state) => state.loggedIn);
+  const username = useUserStore((state) => state.firstName);
   const notifications = useGlobalStore((state) => state.notifications);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -153,17 +150,18 @@ const NavBar: FC<NavProp> = ({ index }) => {
           </div>
           {!loggedIn && (
             <div className="flex gap-4">
-              <Link href={"/login"}>
-                <button className="text-white flex bg-brand-30 px-5 py-2 rounded-lg text-[20px] leading-[21.8px] font-cocogoose">
-                  Login
-                  <MdArrowDropDown />
-                </button>
+              <Link
+                href={"/login"}
+                className="text-white bg-light-blue-30 px-5 py-2 rounded-lg text-[20px] leading-[21.8px] font-cocogoose"
+              >
+                Login
               </Link>
 
-              <Link href={"/signup"}>
-                <button className="text-brand bg-light-blue px-5 py-2 rounded-lg text-[20px] leading-[21.8px] font-cocogoose">
-                  Sign Up
-                </button>
+              <Link
+                href={"/signup"}
+                className="text-brand bg-light-blue px-5 py-2 rounded-lg text-[20px] leading-[21.8px] font-cocogoose"
+              >
+                Sign Up
               </Link>
             </div>
           )}
@@ -219,6 +217,10 @@ const NavBar: FC<NavProp> = ({ index }) => {
               </div>
               <div className="bg-light-blue-30 rounded-lg p-1">
                 <IoLogOut
+                  onClick={() => {
+                    useGlobalStore.setState({ loggedIn: false });
+                    window.location.assign("/");
+                  }}
                   size={"24px"}
                   className="text-light-blue cursor-pointer"
                 />
@@ -232,11 +234,14 @@ const NavBar: FC<NavProp> = ({ index }) => {
           className="text-light-blue cursor-pointer hidden md:block"
         />
       </div>
-      <MobileDrawer
+      <Drawer onClose={closeDrawer} opened={openedDrawer}>
+        <div>Hello, Hi</div>
+      </Drawer>
+      {/* <MobileDrawer
         openedDrawer={openedDrawer}
         closeDrawer={closeDrawer}
         navs={navs}
-      />
+      /> */}
     </>
   );
 };

@@ -18,7 +18,7 @@ const ContactUs = () => {
         <NavBar index={loggedIn ? 2 : 4} />
       </div>
       <div className="h-20" />
-      <div className="mt-40 px-[20%] flex flex-col gap-20">
+      <div className="mt-40 md:mt-16 px-[20%] md:px-[5%] flex flex-col gap-20">
         <ContactForm />
         <Map />
       </div>

@@ -19,9 +19,9 @@ const ViewCourse: FC<iViewCourseProp> = ({ course }) => {
 
   return (
     <div className="flex flex-col items-center w-full">
-      <h1 className="font-cocogoose text-[56px]">{course.name}</h1>
-      <div className="flex justify-between mt-20 w-full">
-        <div className="w-[350px] flex flex-col gap-10 items-center">
+      <h1 className="font-cocogoose text-[56px] md:text-[24px]">{course.name}</h1>
+      <div className="flex md:flex-col md:gap-16 justify-between mt-20 md:mt-5 w-full">
+        <div className="w-[350px] md:w-full flex flex-col gap-10 md:gap-5 items-center">
           <ProgressBar
             backgroundColor="bg-brand-49"
             valueColor="bg-brand"
@@ -75,7 +75,7 @@ const ViewCourse: FC<iViewCourseProp> = ({ course }) => {
           </div>
 
           {course.details.currentVideo < course.details.videos.length - 1 && (
-            <div className="flex flex-col w-full">
+            <div className="flex flex-col w-full md:hidden">
               <h2 className="font-cocogoose text-[20px] text-brand">
                 Continue Watching
               </h2>
@@ -102,10 +102,10 @@ const ViewCourse: FC<iViewCourseProp> = ({ course }) => {
           )}
         </div>
 
-        <div className="w-[800px] h-fit py-5 px-10 rounded-[30px] bg-light-blue-30">
+        <div className="w-[800px] md:w-full h-fit py-5 px-10 md:px-5 rounded-[30px] bg-light-blue-30">
           {course.details.currentVideo < course.details.videos.length ? (
             <div className="flex flex-col w-full">
-              <div className="flex gap-10 items-center w-full">
+              <div className="flex gap-10 items-center md:justify-center w-full">
                 <h2 className="font-cocogoose text-brand text-[20px]">
                   Course {course.details.currentVideo + 1}
                 </h2>
@@ -114,43 +114,70 @@ const ViewCourse: FC<iViewCourseProp> = ({ course }) => {
                   {currentVideo.duration}
                 </div>
               </div>
-              <div className="w-full h-[400px] rounded-3xl bg-gradient-to-b from-light-blue-0 to-brand-30 flex justify-center items-center">
+              <div className="w-full h-[400px] md:h-[200px] rounded-3xl bg-gradient-to-b from-light-blue-0 to-brand-30 flex justify-center items-center">
                 <div className="p-4 rounded-full bg-brand-49">
-                  <HiPlay size={"48px"} fill="#1C274D" />
+                  <HiPlay size={"42px"} fill="#1C274D" />
                 </div>
               </div>
-              <div className="my-16 gap-3 flex flex-col w-full">
-                <h2 className="font-cocogoose text-[22px] text-brand">
+              <div className="my-16 md:my-8 gap-3 flex flex-col w-full">
+                <h2 className="font-cocogoose text-[22px] md:text-[18px] md:text-center text-brand">
                   {currentVideo.name}
                 </h2>
-                <p className="font-cocogoose-light font-bold text-[18px] text-brand">
+                <p className="font-cocogoose-light font-bold md:text-center text-[18px] md:text-[14px] text-brand">
                   {currentVideo.description}
                 </p>
               </div>
-              <button className="mb-6 bg-brand text-white text-[18px] font-cocogoose flex gap-1 items-center justify-center w-[270px] h-[45px] rounded-lg">
+              <button className="mb-6 bg-brand text-white text-[18px] font-cocogoose flex gap-1 items-center justify-center w-[270px] md:w-full h-[45px] rounded-lg">
                 Mark As Complete
                 <MdDone size={"26px"} />
               </button>
             </div>
           ) : (
-            <div className="flex flex-col w-full">
+            <div className="flex flex-col w-full md:items-center">
               <h2 className="font-cocogoose text-brand text-[20px]">
                 Instruction
               </h2>
-              <p className="mt-5 text-[16px] text-brand font-cocogoose-light font-bold">
+              <p className="mt-5 text-[16px] text-brand font-cocogoose-light md:text-center font-bold">
                 {course.description}
               </p>
               <button
                 onClick={() => {
                   window.location.assign("/quiz/id");
                 }}
-                className="mt-10 mb-6 bg-brand text-white text-[18px] font-cocogoose flex gap-1 items-center justify-center w-[200px] h-[45px] rounded-lg"
+                className="mt-10 mb-6 bg-brand text-white text-[18px] font-cocogoose flex gap-1 items-center justify-center w-[200px] md:w-full h-[45px] rounded-lg"
               >
                 Start Quiz
               </button>
             </div>
           )}
         </div>
+
+        {course.details.currentVideo < course.details.videos.length - 1 && (
+            <div className="md:flex flex-col w-full hidden">
+              <h2 className="font-cocogoose text-[20px] text-brand">
+                Continue Watching
+              </h2>
+              <div className="bg-light-blue-30 w-[350px] p-5 rounded-3xl">
+                <div className="w-full h-[200px] rounded-3xl bg-gradient-to-b from-light-blue-0 to-brand-30 flex justify-center items-center">
+                  <div className="p-4 rounded-full bg-brand-49">
+                    <HiPlay size={"48px"} fill="#1C274D" />
+                  </div>
+                </div>
+                <div className="mt-3 flex items-center justify-between">
+                  <div className="bg-brand w-[32px] h-[32px] rounded-lg flex justify-center items-center font-cocogoose-light text-white text-[18px]">
+                    U{nextVideoIndex + 1}
+                  </div>
+                  <p className="font-bold text-brand text-[18px] font-cocogoose-light">
+                    {course.details.videos[nextVideoIndex].name}
+                  </p>
+                  <div className="text-brand font-cocogoose-light font-bold gap-2 flex items-center">
+                    <BiTimeFive size={"26px"} />
+                    {currentVideo.duration}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
       </div>
     </div>
   );
