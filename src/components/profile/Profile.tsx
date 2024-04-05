@@ -14,12 +14,15 @@ import Efektas from "@/assets/Efektas_white.png";
 import Link from "next/link";
 import ProgressBar from "../resuable/ProgressBar";
 
+import { convertDate } from "@/functions/dateFunctions";
+
 const Profile = () => {
   const profileImage = useUserStore((state) => state.image);
   const firstName = useUserStore((state) => state.firstName);
   const surname = useUserStore((state) => state.surname);
   const alias = useUserStore((state) => state.alias);
   const role = useUserStore((state) => state.role);
+  const joined = useUserStore((state) => state.joined);
 
   return (
     <>
@@ -72,7 +75,7 @@ const Profile = () => {
                 <span className="flex items-center md:justify-center gap-1 mt-2">
                   <PiRobotFill />
                   <p className="text-brand text-[15px] leading-[15px] font-cocogoose-light">
-                    Joined May <strong>31,2023</strong>
+                    Joined <strong>{convertDate(joined)}</strong>
                   </p>
                 </span>
               </div>

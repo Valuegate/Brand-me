@@ -17,5 +17,4 @@ export const useUserStore = create<User>((set) => ({
   alias: "@alinamolchanMM",
   role: "NLP Trainer",
   joined: new Date(),
-  
 }));

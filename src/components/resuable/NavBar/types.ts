@@ -8,4 +8,5 @@ export interface iMobileDrawerProp {
     openedDrawer: boolean,
     closeDrawer: () => void;
     navs: iNavItem[];
+    index: number;
 }

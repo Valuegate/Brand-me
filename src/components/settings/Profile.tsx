@@ -9,7 +9,7 @@ const Profile = () => {
   const firstName = useUserStore((state) => state.firstName);
 
   return (
-    <div className="w-full bg-light-blue-30 rounded-[30px] flex flex-col py-6 px-10">
+    <div className="w-full bg-light-blue-30 md:bg-white rounded-[30px] flex flex-col py-6 px-10 md:px-0 ">
       <h2 className="text-brand text-[20px] font-cocogoose">Profile</h2>
       <div className="mt-5 flex gap-10 items-center">
         <div className="w-[60px] h-[60px] rounded-full bg-brand" />
@@ -18,7 +18,7 @@ const Profile = () => {
         </h3>
       </div>
       <div className="mt-12 flex flex-col gap-6">
-        <div className="flex gap-10 jusitfy-between">
+        <div className="flex md:flex-col md:gap-6 gap-10 jusitfy-between">
           <InputComponent
             width="w-full"
             label="First Name"

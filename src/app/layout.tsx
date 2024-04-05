@@ -7,6 +7,7 @@ import {
 import type { Metadata } from "next";
 import localFont from "@next/font/local";
 import "./globals.css";
+import "@mantine/core/styles.css";
 
 const cocogooseRegular = localFont({
   src: "../assets/Cocogoose Regular.woff2",

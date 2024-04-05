@@ -234,14 +234,12 @@ const NavBar: FC<NavProp> = ({ index }) => {
           className="text-light-blue cursor-pointer hidden md:block"
         />
       </div>
-      <Drawer onClose={closeDrawer} opened={openedDrawer}>
-        <div>Hello, Hi</div>
-      </Drawer>
-      {/* <MobileDrawer
+      <MobileDrawer
         openedDrawer={openedDrawer}
         closeDrawer={closeDrawer}
         navs={navs}
-      /> */}
+        index={index}
+      />
     </>
   );
 };
