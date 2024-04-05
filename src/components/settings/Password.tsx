@@ -5,7 +5,7 @@ import InputComponent from "../resuable/InputComponent";
 
 const Password = () => {
   return (
-    <div className="w-full bg-light-blue-30 rounded-[30px] flex flex-col py-6 px-10">
+    <div className="w-full bg-light-blue-30 md:bg-white rounded-[30px] flex flex-col py-6 px-10 md:px-0">
       <h2 className="text-brand text-[20px] font-cocogoose">Password</h2>
       
       <div className="mt-12 flex flex-col gap-6">
