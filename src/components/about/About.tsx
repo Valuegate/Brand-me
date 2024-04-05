@@ -47,7 +47,7 @@ const AboutUsPage = () => {
               <span className="bg-brand text-white text-lg font-cocogoose flex justify-center h-[50px] rounded-xl w-[20rem] items-center">
                 Youth
               </span>
-              <span className="bg-light-blue-30 text-brand font-cocogoose-light font-bold text-base leading-3 flex justify-center h-[50px] rounded-xl w-[20rem] px-2 items-center">
+              <span className="bg-light-blue-30 text-brand font-cocogoose-light font-bold text-base leading-5 flex justify-center h-[50px] rounded-xl w-[20rem] px-2 items-center">
                 Not in Education,
                 <br />
                 Employment, or Training.
@@ -83,7 +83,7 @@ const AboutUsPage = () => {
               <span className="bg-light-blue-30 text-brand text-base font-cocogoose-light font-bold flex justify-center h-[50px] rounded-xl w-[20rem] items-center">
                 Youth centers.
               </span>
-              <span className="bg-light-blue-30 text-brand text-base font-cocogoose-light font-bold leading-3 flex justify-center h-[50px] rounded-xl w-[20rem] items-center">
+              <span className="bg-light-blue-30 text-brand text-base font-cocogoose-light font-bold leading-5 flex justify-center h-[50px] rounded-xl w-[20rem] items-center">
                 Non formal education <br /> providers.
               </span>
             </div>
