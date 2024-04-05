@@ -7,6 +7,8 @@ import { TbMessage } from "react-icons/tb";
 import { GiPadlock } from "react-icons/gi";
 import InputComponent from "../resuable/InputComponent";
 
+import { useGlobalStore } from "@/stores/globalStore";
+
 const SignUp = () => {
   return (
     <>
@@ -37,9 +39,7 @@ const SignUp = () => {
                 placeholder="example@mail.com"
                 value=""
                 width="w-full"
-                onChange={(e) => {
-                    
-                }}
+                onChange={(e) => {}}
               />
             </div>
 
@@ -52,9 +52,7 @@ const SignUp = () => {
                 placeholder="********"
                 value=""
                 width="w-full"
-                onChange={(e) => {
-                    
-                }}
+                onChange={(e) => {}}
               />
             </div>
 
@@ -67,9 +65,7 @@ const SignUp = () => {
                 placeholder="Enter First Name"
                 value=""
                 width="w-full"
-                onChange={(e) => {
-                    
-                }}
+                onChange={(e) => {}}
               />
             </div>
 
@@ -79,17 +75,21 @@ const SignUp = () => {
               </div>
               <InputComponent
                 label="Last Name"
-                placeholder='Enter Last Name'
+                placeholder="Enter Last Name"
                 value=""
                 width="w-full"
-                onChange={(e) => {
-                    
-                }}
+                onChange={(e) => {}}
               />
             </div>
 
             <div className="flex items-center justify-center mt-8">
-              <button className="text-white bg-brand px-8 md:w-full py-2 md:py-3 rounded-lg text-[20px] leading-[21.8px] font-cocogoose">
+              <button
+                onClick={() => {
+                  useGlobalStore.setState({ loggedIn: true });
+                  window.location.assign("/profile");
+                }}
+                className="text-white bg-brand px-8 md:w-full py-2 md:py-3 rounded-lg text-[20px] leading-[21.8px] font-cocogoose"
+              >
                 Sign Up
               </button>
             </div>

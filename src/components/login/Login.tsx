@@ -8,6 +8,8 @@ import { TbMessage } from "react-icons/tb";
 import { GiPadlock } from "react-icons/gi";
 import InputComponent from "../resuable/InputComponent";
 
+import { useGlobalStore } from "@/stores/globalStore";
+
 const LoginPage = () => {
   return (
     <>
@@ -81,7 +83,13 @@ const LoginPage = () => {
               </p>
             </Link>
             <div className="flex items-center justify-center mt-8">
-              <button className="text-white bg-brand px-8 md:w-full py-2 md:py-3 rounded-lg text-[20px] leading-[21.8px] font-cocogoose">
+              <button
+                onClick={() => {
+                  useGlobalStore.setState({ loggedIn: true });
+                  window.location.assign("/profile");
+                }}
+                className="text-white bg-brand px-8 md:w-full py-2 md:py-3 rounded-lg text-[20px] leading-[21.8px] font-cocogoose"
+              >
                 Log In
               </button>
             </div>

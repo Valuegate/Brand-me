@@ -19,7 +19,7 @@ const AboutUsPage = () => {
       <div className="px-32 md:px-[5%]">
         <section className="mt-16 md:mt-6 bg-brand  border-none rounded-3xl">
           <div className="px-10 md:px-5 pt-[10rem] md:py-10 pb-[5rem]">
-            <h1 className="text-4xl md:text-2xl text-white font-cocogoose ">
+            <h1 className="text-4xl md:text-center md:text-2xl text-white font-cocogoose ">
               BRAND Me Mission
             </h1>
             <p className="py-6 text-white text-base font-cocogoose-light font-bold">
@@ -42,49 +42,47 @@ const AboutUsPage = () => {
           <h2 className="text-center text-black font-cocogoose md:text-xl text-3xl">
             For Whom?
           </h2>
-          <div className="flex pt-6 justify-center gap-1">
-            <div className="flex flex-col gap-2">
-              <span className="bg-brand text-white text-lg font-cocogoose flex justify-center h-[50px] rounded-xl w-[20rem] items-center">
+          <div className="flex md:flex-col pt-6 justify-center gap-4 md:gap-8">
+            <div className="flex flex-col gap-4 md:gap-3 md:w-full">
+              <span className="bg-brand text-white text-lg font-cocogoose flex justify-center h-[50px] rounded-xl w-[20rem] md:w-full items-center">
                 Youth
               </span>
-              <span className="bg-light-blue-30 text-brand font-cocogoose-light font-bold text-base leading-5 flex justify-center h-[50px] rounded-xl w-[20rem] px-2 items-center">
-                Not in Education,
-                <br />
-                Employment, or Training.
+              <span className="px-6 md:px-0 bg-light-blue-30 text-center text-brand font-cocogoose-light font-bold text-base leading-[20px] flex justify-center h-[50px] rounded-xl w-[20rem] md:w-full items-center">
+                Not in Education, Employment, or Training.
               </span>
-              <span className="bg-light-blue-30 text-brand font-cocogoose-light font-bold text-base flex justify-center h-[50px] rounded-xl w-[20rem] items-center">
+              <span className="bg-light-blue-30 text-brand font-cocogoose-light font-bold text-base flex justify-center h-[50px] rounded-xl w-[20rem] md:w-full items-center">
                 Students.
               </span>
             </div>
-            <div className="flex flex-col gap-2">
-              <span className="bg-brand text-white text-lg font-cocogoose flex justify-center h-[50px] rounded-xl w-[20rem] items-center">
+            <div className="flex flex-col gap-4 md:gap-3 md:w-full">
+              <span className="bg-brand text-white text-lg font-cocogoose flex justify-center h-[50px] rounded-xl w-[20rem] md:w-full items-center">
                 Youth Workers
               </span>
-              <span className="bg-light-blue-30 text-brand text-base font-cocogoose-light font-bold flex justify-center h-[50px] rounded-xl w-[20rem] px-2 items-center">
+              <span className="bg-light-blue-30 text-brand text-base font-cocogoose-light font-bold flex justify-center h-[50px] rounded-xl w-[20rem] md:w-full px-2 items-center">
                 Educators.
               </span>
-              <span className="bg-light-blue-30 text-brand text-base font-cocogoose-light font-bold flex justify-center h-[50px] rounded-xl w-[20rem] items-center">
+              <span className="bg-light-blue-30 text-brand text-base font-cocogoose-light font-bold flex justify-center h-[50px] rounded-xl w-[20rem] md:w-full items-center">
                 Teachers.
               </span>
-              <span className="bg-light-blue-30 text-brand text-base font-cocogoose-light font-bold flex justify-center h-[50px] rounded-xl w-[20rem] items-center">
+              <span className="bg-light-blue-30 text-brand text-base font-cocogoose-light font-bold flex justify-center h-[50px] rounded-xl w-[20rem] md:w-full items-center">
                 Youth leaders.
               </span>
             </div>
-            <div className="flex flex-col gap-2">
-              <span className="bg-brand text-white text-lg font-cocogoose  flex justify-center h-[50px] rounded-xl w-[20rem] items-center">
+            <div className="flex flex-col gap-4 md:gap-3 md:w-full">
+              <span className="bg-brand text-white text-lg font-cocogoose  flex justify-center h-[50px] rounded-xl w-[20rem] md:w-full items-center">
                 Institutions
               </span>
-              <span className="bg-light-blue-30 text-brand text-base font-cocogoose-light font-bold flex justify-center h-[50px] rounded-xl w-[20rem] px-2 items-center">
+              <span className="bg-light-blue-30 text-brand text-base font-cocogoose-light font-bold flex justify-center h-[50px] rounded-xl w-[20rem] md:w-full px-2 items-center">
                 Schools.{" "}
               </span>
-              <span className="bg-light-blue-30 text-brand text-base font-cocogoose-light font-bold flex justify-center h-[50px] rounded-xl w-[20rem] items-center">
+              <span className="bg-light-blue-30 text-brand text-base font-cocogoose-light font-bold flex justify-center h-[50px] rounded-xl w-[20rem] md:w-full items-center">
                 Public bodies.
               </span>
-              <span className="bg-light-blue-30 text-brand text-base font-cocogoose-light font-bold flex justify-center h-[50px] rounded-xl w-[20rem] items-center">
+              <span className="bg-light-blue-30 text-brand text-base font-cocogoose-light font-bold flex justify-center h-[50px] rounded-xl w-[20rem] md:w-full items-center">
                 Youth centers.
               </span>
-              <span className="bg-light-blue-30 text-brand text-base font-cocogoose-light font-bold leading-5 flex justify-center h-[50px] rounded-xl w-[20rem] items-center">
-                Non formal education <br /> providers.
+              <span className="px-6 md:px-0 text-center bg-light-blue-30 text-brand text-base font-cocogoose-light font-bold leading-5 flex justify-center h-[50px] rounded-xl w-[20rem] md:w-full items-center">
+                Non formal education providers.
               </span>
             </div>
           </div>
@@ -112,7 +110,7 @@ const AboutUsPage = () => {
               </div>
               <div className="flex gap-8 md:gap-4">
                 <div className="bg-light-blue rounded-xl w-[60px] h-[60px] flex justify-center items-center">
-                  <Image src={Case} alt={""} className="w-[40px] h-[40px]"  />
+                  <Image src={Case} alt={""} className="w-[40px] h-[40px]" />
                 </div>
                 <p className="text-base font-cocogoose-light font-bold text-black md:w-[75%] w-[60%]">
                   Reduce employment mismatch by providing training to youth in

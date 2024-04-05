@@ -22,8 +22,8 @@ const Platform = () => {
         <NavBar index={0} />
       </div>
       <div className="h-32" />
-      <div className="px-20 flex flex-col">
-        <div className="flex items-center justify-center gap-16">
+      <div className="px-20 md:px-[5%] flex flex-col">
+        <div className="flex items-center justify-center gap-16 md:gap-4">
           {tabs.map((tab, i) => {
             return (
               <h2
@@ -33,8 +33,8 @@ const Platform = () => {
                 }}
                 className={`leading-[52px] ${
                   currentTab === i
-                    ? "font-cocogoose underline text-[40px]"
-                    : "font-cocogoose-light font-bold text-[36px]"
+                    ? "font-cocogoose underline text-[40px] md:text-[20px]"
+                    : "font-cocogoose-light font-bold text-[36px] md:text-[16px]"
                 } cursor-pointer`}
               >
                 {tab}
@@ -43,7 +43,7 @@ const Platform = () => {
           })}
         </div>
 
-        <div className="mt-32 mb-20">{children[currentTab]}</div>
+        <div className="mt-32 md:mt-16 mb-20 md:mb-0">{children[currentTab]}</div>
       </div>
       <Footer />
     </>
