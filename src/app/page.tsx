@@ -1,7 +1,10 @@
-import Home from "@/components/home/Home";
-import About from './about/page';
+import AboutUsPage from "@/components/about/About";
 
 
-export default function Homepage() {
-  return <About />
+export const metadata = {
+  title: "About Us",
+};
+
+export default function About() {
+  return <AboutUsPage />
 }
