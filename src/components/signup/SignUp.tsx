@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, {useState} from "react";
 import NavBar from "../resuable/NavBar/NavBar";
 import Footer from "../resuable/Footer/Footer";
 import Link from "next/link";
@@ -10,6 +10,11 @@ import InputComponent from "../resuable/InputComponent";
 import { useGlobalStore } from "@/stores/globalStore";
 
 const SignUp = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+
   return (
     <>
       <div className="fixed top-0 left-0 right-0">
@@ -37,9 +42,11 @@ const SignUp = () => {
               <InputComponent
                 label="Email"
                 placeholder="example@mail.com"
-                value=""
+                value={email}
                 width="w-full"
-                onChange={(e) => {}}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
               />
             </div>
 
@@ -50,9 +57,11 @@ const SignUp = () => {
               <InputComponent
                 label="Password"
                 placeholder="********"
-                value=""
+                value={password}
                 width="w-full"
-                onChange={(e) => {}}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
               />
             </div>
 
@@ -63,9 +72,11 @@ const SignUp = () => {
               <InputComponent
                 label="First Name"
                 placeholder="Enter First Name"
-                value=""
+                value={firstName}
                 width="w-full"
-                onChange={(e) => {}}
+                onChange={(e) => {
+                  setFirstName(e.target.value);
+                }}
               />
             </div>
 
@@ -76,9 +87,11 @@ const SignUp = () => {
               <InputComponent
                 label="Last Name"
                 placeholder="Enter Last Name"
-                value=""
+                value={lastName}
                 width="w-full"
-                onChange={(e) => {}}
+                onChange={(e) => {
+                  setLastName(e.target.value)
+                }}
               />
             </div>
 

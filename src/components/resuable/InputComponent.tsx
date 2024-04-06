@@ -5,7 +5,7 @@ export interface iInputProps {
     placeholder: string;
     width: string;
     value: string;
-    onChange: ChangeEventHandler,
+    onChange: ChangeEventHandler<HTMLInputElement>,
   }
   
   const InputComponent: FC<iInputProps> = ({

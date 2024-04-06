@@ -51,6 +51,12 @@ const MobileDrawer: FC<iMobileDrawerProp> = ({
                   Profile
                 </Link>
               )}
+              <Link
+                href={"/"}
+                className={`${"font-cocogoose-light font-bold"} text-brand text-[16px]`}
+              >
+                Home
+              </Link>
               {navs.map((navItem, i) => {
                 return (
                   <Link
@@ -68,7 +74,7 @@ const MobileDrawer: FC<iMobileDrawerProp> = ({
               })}
               {loggedIn && (
                 <Link
-                  href={"/"}
+                  href={"/notifications"}
                   className={`${"font-cocogoose-light font-bold"} text-brand text-[16px]`}
                 >
                   Notifications
