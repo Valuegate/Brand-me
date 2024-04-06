@@ -1,4 +1,4 @@
-import AboutUsPage from "@/components/about/About";
+import AboutUsPage from '@/components/about/About';
 
 
 export const metadata = {
