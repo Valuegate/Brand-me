@@ -7,7 +7,10 @@ export type User = {
   surname: string;
   alias: string;
   role: string;
-  joined: Date
+  joined: Date;
+  bio: string;
+  email: string;
+  location: string;
 };
 
 export const useUserStore = create<User>((set) => ({
@@ -15,6 +18,9 @@ export const useUserStore = create<User>((set) => ({
   firstName: "Alina",
   surname: "Molchan",
   alias: "@alinamolchanMM",
+  email: "alina@mail.com",
   role: "NLP Trainer",
+  location: "India",
   joined: new Date(),
+  bio: "Hi There, I am a new member to Brand Me",
 }));

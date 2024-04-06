@@ -41,6 +41,7 @@ const SignUp = () => {
               </div>
               <InputComponent
                 label="Email"
+                type="text"
                 placeholder="example@mail.com"
                 value={email}
                 width="w-full"
@@ -56,6 +57,7 @@ const SignUp = () => {
               </div>
               <InputComponent
                 label="Password"
+                type="password"
                 placeholder="********"
                 value={password}
                 width="w-full"
@@ -71,6 +73,7 @@ const SignUp = () => {
               </div>
               <InputComponent
                 label="First Name"
+                type="text"
                 placeholder="Enter First Name"
                 value={firstName}
                 width="w-full"
@@ -86,6 +89,7 @@ const SignUp = () => {
               </div>
               <InputComponent
                 label="Last Name"
+                type="text"
                 placeholder="Enter Last Name"
                 value={lastName}
                 width="w-full"

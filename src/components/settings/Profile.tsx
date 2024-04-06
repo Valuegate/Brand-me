@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 
 import { useUserStore } from "@/stores/userStore";
 
@@ -6,7 +6,10 @@ import InputComponent from "../resuable/InputComponent";
 
 const Profile = () => {
   const surname = useUserStore((state) => state.surname);
+  const email = useUserStore((state) => state.email);
   const firstName = useUserStore((state) => state.firstName);
+  const bio = useUserStore((state) => state.bio);
+  const location = useUserStore((state) => state.location);
 
   return (
     <div className="w-full bg-light-blue-30 md:bg-white rounded-[30px] flex flex-col py-6 px-10 md:px-0 ">
@@ -23,46 +26,51 @@ const Profile = () => {
             width="w-full"
             label="First Name"
             value={firstName}
+            type="text"
             placeholder="Enter Your First Name"
             onChange={(e) => {
-                    
+              useUserStore.setState({ firstName: e.target.value });
             }}
           />
           <InputComponent
             width="w-full"
             label="Last Name"
+            type="text"
             value={surname}
             placeholder="Enter Your Last Name"
             onChange={(e) => {
-                    
+              useUserStore.setState({ surname: e.target.value });
             }}
           />
         </div>
         <InputComponent
           width="w-full"
           label="Bio"
-          value=""
+          type="text"
+          value={bio}
           placeholder="Enter Your Bio"
           onChange={(e) => {
-                    
+            useUserStore.setState({ bio: e.target.value });
           }}
         />
         <InputComponent
           width="w-full"
           label="Location"
-          value=""
+          type="text"
+          value={location}
           placeholder="Enter Your Location"
           onChange={(e) => {
-                    
+            useUserStore.setState({ location: e.target.value });
           }}
         />
         <InputComponent
           width="w-full"
           label="Email"
-          value=""
+          type="text"
+          value={email}
           placeholder="example@mail.com"
           onChange={(e) => {
-                    
+            
           }}
         />
       </div>

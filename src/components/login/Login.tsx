@@ -61,6 +61,7 @@ const LoginPage = () => {
               </div>
               <InputComponent
                 label="Email"
+                type="text"
                 placeholder="example@mail.com"
                 value={email}
                 width="w-full"
@@ -76,6 +77,7 @@ const LoginPage = () => {
               </div>
               <InputComponent
                 label="Password"
+                type="password"
                 placeholder="********"
                 value={password}
                 width="w-full"

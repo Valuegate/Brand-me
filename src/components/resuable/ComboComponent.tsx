@@ -9,9 +9,10 @@ export interface iComboProps {
   value: string;
   options: string[];
   hint: string;
+  onSelect: (val: number) => void;
 }
 
-const ComboComponent: FC<iComboProps> = ({ label, value, hint, options }) => {
+const ComboComponent: FC<iComboProps> = ({ label, value, hint, options, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -55,6 +56,9 @@ const ComboComponent: FC<iComboProps> = ({ label, value, hint, options }) => {
             return (
               <div
                 key={i}
+                onClick={() => {
+                  onSelect(i);
+                }}
                 className="font-cocogoose-light cursor-pointer hover:bg-light-blue-30 pl-4 font-bold text-[18px] text-brand"
               >
                 {option}
