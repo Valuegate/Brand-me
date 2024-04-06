@@ -102,7 +102,7 @@ const SignUp = () => {
             <div className="flex items-center justify-center mt-8">
               <button
                 onClick={() => {
-                  useGlobalStore.setState({ loggedIn: true });
+                  useGlobalStore.getState().logIn();
                   window.location.assign("/profile");
                 }}
                 className="text-white bg-brand px-8 md:w-full py-2 md:py-3 rounded-lg text-[20px] leading-[21.8px] font-cocogoose"

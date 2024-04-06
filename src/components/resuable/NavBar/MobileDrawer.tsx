@@ -93,7 +93,12 @@ const MobileDrawer: FC<iMobileDrawerProp> = ({
             )}
             {loggedIn && (
               <div className="px-5 mt-16">
-                <h2 className="text-[#FF0000] font-cocogoose-light font-bold">
+                <h2
+                  className="text-[#FF0000] font-cocogoose-light font-bold"
+                  onClick={() => {
+                    useGlobalStore.getState().logOut();
+                  }}
+                >
                   Logout
                 </h2>
               </div>

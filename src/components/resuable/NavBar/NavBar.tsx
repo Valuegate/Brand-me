@@ -218,7 +218,7 @@ const NavBar: FC<NavProp> = ({ index }) => {
               <div className="bg-light-blue-30 rounded-lg p-1">
                 <IoLogOut
                   onClick={() => {
-                    useGlobalStore.setState({ loggedIn: false });
+                    useGlobalStore.getState().logOut();
                     window.location.assign("/");
                   }}
                   size={"24px"}
