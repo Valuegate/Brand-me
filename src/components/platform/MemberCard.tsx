@@ -14,7 +14,7 @@ const MemberCard: FC<iMemberCardProp> = ({ name, date, message, email }) => {
     return (
         <>
         <div>
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between md:flex-col md:gap-3 items-center">
                 <div className="flex items-center gap-3">
                     <Image src={Avatar} alt={''} width={50} height={50} />
                     <div>

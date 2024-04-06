@@ -25,8 +25,8 @@ const Community = () => {
 
     return (
         <>
-            <div className="flex gap-8">
-                <div className="w-[70%]">
+            <div className="flex md:flex-col gap-8">
+                <div className="w-[70%] md:w-full">
                     <div className="relative z-0">
                         <input
                             className="w-full border-[1px] border-solid border-white shadow-sm rounded px-5 py-2 pl-10 focus:outline-none focus:border-gray"
@@ -35,11 +35,11 @@ const Community = () => {
                         />
                         <HiUserCircle className="absolute left-3 top-3 text-gray-400 w-6 h-6" />
                     </div>
-                    <div className="flex my-10 gap-6 items-center">
-                        <button className='bg-brand rounded-2xl px-6 h-8 font-cocogoose text-white'>All</button>
-                        <button className='bg-gray rounded-2xl px-6 h-8 font-cocogoose text-black flex items-center justify-center gap-2'><Image src={Msg} alt={'text icon'} width={15} height={15} className='w-50px h-10px' />Discussion</button>
-                        <button className='bg-gray rounded-2xl px-6 h-8 font-cocogoose text-black flex items-center justify-center gap-2'><Image src={Satellite} alt={'Satellite icon'} width={15} height={15} className='w-50px h-10px' />Random</button>
-                        <button className='bg-gray rounded-2xl px-6 h-8 font-cocogoose text-black flex items-center justify-center gap-2'><Image src={Pin} alt={'Pin icon'} width={15} height={15} className='w-50px h-10px' />Pinned</button>
+                    <div className="flex my-10 gap-6 md:gap-2 items-center">
+                        <button className='bg-brand rounded-2xl md:px-2 md:text-[13px] px-6 h-8 font-cocogoose text-white'>All</button>
+                        <button className='bg-gray rounded-2xl md:px-2 md:text-[13px] px-6 h-8 font-cocogoose text-black flex items-center justify-center gap-2'><Image src={Msg} alt={'text icon'} width={15} height={15} className='w-50px h-10px' />Discussion</button>
+                        <button className='bg-gray rounded-2xl md:px-2 md:text-[13px] px-6 h-8 font-cocogoose text-black flex items-center justify-center gap-2'><Image src={Satellite} alt={'Satellite icon'} width={15} height={15} className='w-50px h-10px' />Random</button>
+                        <button className='bg-gray rounded-2xl md:px-2 md:text-[13px] px-6 h-8 font-cocogoose text-black flex items-center justify-center gap-2'><Image src={Pin} alt={'Pin icon'} width={15} height={15} className='w-50px h-10px' />Pinned</button>
 
                     </div>
 
@@ -57,7 +57,7 @@ const Community = () => {
                     </div>
 
                 </div>
-                <div className="w-[30%]">
+                <div className="w-[30%] md:w-full">
                     <GroupCard />
                 </div>
             </div>

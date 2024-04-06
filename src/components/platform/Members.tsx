@@ -25,13 +25,13 @@ const Members = () => {
 
     return (
         <>
-            <div className="flex gap-8">
-                <div className="w-[70%]">
-                    <div className="flex mb-10 gap-12 items-center">
-                        <button className='bg-brand rounded-2xl px-6 h-8 font-cocogoose text-white'>All</button>
-                        <button className='border-none font-cocogoose-light text-lg text-black flex items-center justify-center gap-2'>Members <span className='font-cocogoose text-lg'>200</span></button>
-                        <button className='border-none font-cocogoose-light text-lg text-black flex items-center justify-center gap-2'>Admins <span className='font-cocogoose text-lg'>38</span></button>
-                        <button className='border-none font-cocogoose-light text-lg text-black flex items-center justify-center gap-2'>Online <span className='font-cocogoose text-lg'>100</span></button>
+            <div className="flex gap-8 md:flex-col">
+                <div className="w-[70%] md:w-full">
+                    <div className="flex mb-10 gap-12 md:gap-3 items-center">
+                        <button className='bg-brand rounded-2xl px-6 h-8 md:px-2 text-sm font-cocogoose text-white'>All</button>
+                        <button className='border-none font-cocogoose-light text-lg md:text-[13px] text-black flex items-center justify-center gap-1'>Members <span className='font-cocogoose text-lg md:text-[1rem]'>200</span></button>
+                        <button className='border-none font-cocogoose-light text-lg md:text-[13px] text-black flex items-center justify-center gap-1'>Admins <span className='font-cocogoose text-lg md:text-[1rem]'>38</span></button>
+                        <button className='border-none font-cocogoose-light text-lg md:text-[13px] text-black flex items-center justify-center gap-1'>Online <span className='font-cocogoose text-lg md:text-[1rem]'>100</span></button>
                     </div>
 
                     <div className='flex flex-col gap-8'>
@@ -49,7 +49,7 @@ const Members = () => {
                     </div>
 
                 </div>
-                <div className="w-[30%]">
+                <div className="w-[30%] md:w-full">
                     <GroupCard />
                 </div>
             </div>
