@@ -7,7 +7,7 @@ import { TbMessage } from "react-icons/tb";
 import { GiPadlock } from "react-icons/gi";
 import InputComponent from "../resuable/InputComponent";
 
-import { useGlobalStore } from "@/stores/globalStore";
+import { globalKey } from "@/stores/globalStore";
 
 const SignUp = () => {
   const [email, setEmail] = useState<string>("");
@@ -102,7 +102,12 @@ const SignUp = () => {
             <div className="flex items-center justify-center mt-8">
               <button
                 onClick={() => {
-                  useGlobalStore.getState().logIn();
+                  window.localStorage.setItem(
+                    globalKey,
+                    JSON.stringify({
+                      token: "1234567890",
+                    })
+                  );
                   window.location.assign("/profile");
                 }}
                 className="text-white bg-brand px-8 md:w-full py-2 md:py-3 rounded-lg text-[20px] leading-[21.8px] font-cocogoose"

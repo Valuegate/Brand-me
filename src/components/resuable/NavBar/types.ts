@@ -9,4 +9,6 @@ export interface iMobileDrawerProp {
     closeDrawer: () => void;
     navs: iNavItem[];
     index: number;
+    loggedIn: boolean;
+    logout: () => void;
 }

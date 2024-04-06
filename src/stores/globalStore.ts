@@ -1,11 +1,14 @@
-import { Notification } from "@mantine/core";
 import { create } from "zustand";
 
-type GlobalConfig = {
+export type GlobalConfig = {
   loggedIn: boolean;
-  logIn: () => void;
-  logOut: () => void;
   notifications: Notification[];
+};
+
+export const globalKey = "BRAND_ME_GLOBAL_KEY";
+export const defaultBrandValues: GlobalConfig = {
+  loggedIn: false,
+  notifications: [],
 };
 
 type Notification = {
