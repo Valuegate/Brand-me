@@ -39,7 +39,7 @@ const Profile = () => {
                   <Image
                     src={Avatar}
                     alt={""}
-                    className="w-[200px] h-[200px]"
+                    className="size-[200px] md:size-[120px]"
                   />
                 </div>
                 <div className="flex flex-col gap-12">

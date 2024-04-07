@@ -4,8 +4,7 @@ import React, { FC, useEffect, useState, useRef } from "react";
 import Logo from "../Logo/Logo";
 import Link from "next/link";
 
-
-import { useGlobalStore } from "@/stores/globalStore";
+import { useGlobalStore, globalKey } from "@/stores/globalStore";
 import { useUserStore } from "@/stores/userStore";
 
 import { AiFillMessage } from "react-icons/ai";
@@ -42,7 +41,7 @@ const NavBar: FC<NavProp> = ({ index }) => {
   const [navs, setNavs] = useState<iNavItem[]>([]);
   const [isNotificationClicked, setNotificationClicked] =
     useState<boolean>(false);
-  const loggedIn = useGlobalStore((state) => state.loggedIn);
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const username = useUserStore((state) => state.firstName);
   const notifications = useGlobalStore((state) => state.notifications);
 
@@ -68,6 +67,11 @@ const NavBar: FC<NavProp> = ({ index }) => {
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
+  }, []);
+
+  useEffect(() => {
+    let localConfig: string | null = window.localStorage.getItem(globalKey);
+    setLoggedIn(localConfig !== null);
   }, []);
 
   useEffect(() => {
@@ -122,7 +126,12 @@ const NavBar: FC<NavProp> = ({ index }) => {
         },
       ]);
     }
-  }, []);
+  }, [loggedIn]);
+
+  const logout = () => {
+    window.localStorage.removeItem(globalKey);
+    window.location.assign("/");
+  };
 
   return (
     <>
@@ -217,10 +226,7 @@ const NavBar: FC<NavProp> = ({ index }) => {
               </div>
               <div className="bg-light-blue-30 rounded-lg p-1">
                 <IoLogOut
-                  onClick={() => {
-                    useGlobalStore.setState({ loggedIn: false });
-                    window.location.assign("/");
-                  }}
+                  onClick={logout}
                   size={"24px"}
                   className="text-light-blue cursor-pointer"
                 />
@@ -239,6 +245,8 @@ const NavBar: FC<NavProp> = ({ index }) => {
         closeDrawer={closeDrawer}
         navs={navs}
         index={index}
+        loggedIn={loggedIn}
+        logout={logout}
       />
     </>
   );

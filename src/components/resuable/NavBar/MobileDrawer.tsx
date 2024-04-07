@@ -1,12 +1,10 @@
-import React, { FC, use } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Link from "next/link";
 import { Drawer } from "@mantine/core";
 import { IoMdClose } from "react-icons/io";
 import Logo from "../Logo/Logo";
 
 import { iMobileDrawerProp } from "./types";
-
-import { useGlobalStore } from "@/stores/globalStore";
 import { useUserStore } from "@/stores/userStore";
 
 const MobileDrawer: FC<iMobileDrawerProp> = ({
@@ -14,10 +12,11 @@ const MobileDrawer: FC<iMobileDrawerProp> = ({
   closeDrawer,
   navs,
   index,
+  loggedIn,
+  logout,
 }) => {
-  const loggedIn = useGlobalStore((state) => state.loggedIn);
+  
   const username = useUserStore((state) => state.surname);
-
   return (
     <Drawer.Root
       opened={openedDrawer}
@@ -51,6 +50,12 @@ const MobileDrawer: FC<iMobileDrawerProp> = ({
                   Profile
                 </Link>
               )}
+              <Link
+                href={"/"}
+                className={`${"font-cocogoose-light font-bold"} text-brand text-[16px]`}
+              >
+                Home
+              </Link>
               {navs.map((navItem, i) => {
                 return (
                   <Link
@@ -68,7 +73,7 @@ const MobileDrawer: FC<iMobileDrawerProp> = ({
               })}
               {loggedIn && (
                 <Link
-                  href={"/"}
+                  href={"/notifications"}
                   className={`${"font-cocogoose-light font-bold"} text-brand text-[16px]`}
                 >
                   Notifications
@@ -87,7 +92,10 @@ const MobileDrawer: FC<iMobileDrawerProp> = ({
             )}
             {loggedIn && (
               <div className="px-5 mt-16">
-                <h2 className="text-[#FF0000] font-cocogoose-light font-bold">
+                <h2
+                  className="text-[#FF0000] font-cocogoose-light font-bold"
+                  onClick={logout}
+                >
                   Logout
                 </h2>
               </div>

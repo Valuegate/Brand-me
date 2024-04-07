@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, {useState} from "react";
 import NavBar from "../resuable/NavBar/NavBar";
 import Footer from "../resuable/Footer/Footer";
 import Link from "next/link";
@@ -7,9 +7,14 @@ import { TbMessage } from "react-icons/tb";
 import { GiPadlock } from "react-icons/gi";
 import InputComponent from "../resuable/InputComponent";
 
-import { useGlobalStore } from "@/stores/globalStore";
+import { globalKey } from "@/stores/globalStore";
 
 const SignUp = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+
   return (
     <>
       <div className="fixed top-0 left-0 right-0">
@@ -36,10 +41,13 @@ const SignUp = () => {
               </div>
               <InputComponent
                 label="Email"
+                type="text"
                 placeholder="example@mail.com"
-                value=""
+                value={email}
                 width="w-full"
-                onChange={(e) => {}}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
               />
             </div>
 
@@ -49,10 +57,13 @@ const SignUp = () => {
               </div>
               <InputComponent
                 label="Password"
+                type="password"
                 placeholder="********"
-                value=""
+                value={password}
                 width="w-full"
-                onChange={(e) => {}}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
               />
             </div>
 
@@ -62,10 +73,13 @@ const SignUp = () => {
               </div>
               <InputComponent
                 label="First Name"
+                type="text"
                 placeholder="Enter First Name"
-                value=""
+                value={firstName}
                 width="w-full"
-                onChange={(e) => {}}
+                onChange={(e) => {
+                  setFirstName(e.target.value);
+                }}
               />
             </div>
 
@@ -75,17 +89,25 @@ const SignUp = () => {
               </div>
               <InputComponent
                 label="Last Name"
+                type="text"
                 placeholder="Enter Last Name"
-                value=""
+                value={lastName}
                 width="w-full"
-                onChange={(e) => {}}
+                onChange={(e) => {
+                  setLastName(e.target.value)
+                }}
               />
             </div>
 
             <div className="flex items-center justify-center mt-8">
               <button
                 onClick={() => {
-                  useGlobalStore.setState({ loggedIn: true });
+                  window.localStorage.setItem(
+                    globalKey,
+                    JSON.stringify({
+                      token: "1234567890",
+                    })
+                  );
                   window.location.assign("/profile");
                 }}
                 className="text-white bg-brand px-8 md:w-full py-2 md:py-3 rounded-lg text-[20px] leading-[21.8px] font-cocogoose"
