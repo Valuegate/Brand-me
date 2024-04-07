@@ -1,9 +1,18 @@
-"use client";
+"use client"
 import React from "react";
 import Footer from "@/components/resuable/Footer/Footer";
 import NavBar from "@/components/resuable/NavBar/NavBar";
 import CourseCard from "@/components/CourseCard/CourseCard";
 import Location from "@/assets/Case.png";
+import Navigate from '@/assets/Vector(1).png';
+import Security from '@/assets/security.png';
+import HandStar from '@/assets/Hand_Stars.png';
+import Hand from '@/assets/Vector.png';
+import Person from '@/assets/person.png';
+import Face from '@/assets/face.png';
+import Union from '@/assets/Union.png';
+import Bookmark from '@/assets/bookmark.png';
+import Widget from '@/assets/Widget_Add.png';
 
 const OnlineCourse = () => {
   return (
@@ -14,8 +23,7 @@ const OnlineCourse = () => {
       <div className="h-32" />
       <div className="px-32 md:px-[5%] flex flex-col">
         <h1 className="text-4xl md:text-2xl text-black text-center font-cocogoose px-[20%] md:px-0">
-          Welcome to the Online Course on Branding Skills for Career
-          Development!
+          Welcome to the Online Course on Branding Skills for Career Development!
         </h1>
         <p className="text-base text-black font-cocogoose-light font-bold md:text-center pt-6 px-[20%] md:px-0">
           This comprehensive course is designed to equip young learners,
@@ -53,15 +61,15 @@ const OnlineCourse = () => {
               }
             />
             <CourseCard
-              image={Location}
+              image={Navigate}
               text={
                 "Acquire the knowledge and tools needed to navigate the job market and pursue their chosen career paths with confidence."
               }
             />
             <CourseCard
-              image={Location}
+              image={Security}
               text={
-                "Gain insights into creating and growing a strong personal brand, setting them apart in todays competitive employment landscape."
+                "Gain insights into creating and growing a strong personal brand, setting them apart in today's competitive employment landscape."
               }
             />
           </div>
@@ -73,19 +81,19 @@ const OnlineCourse = () => {
           </h1>
           <div className="flex items-center flex-col gap-8 pt-4">
             <CourseCard
-              image={Location}
+              image={HandStar}
               text={
                 "Engaging and interactive learning materials that cater to learners with diverse backgrounds and knowledge levels."
               }
             />
             <CourseCard
-              image={Location}
+              image={Hand}
               text={
                 "Accessible digital infrastructure designed to provide a user-friendly environment for seamless learning."
               }
             />
             <CourseCard
-              image={Location}
+              image={Person}
               text={
                 "Self-assessment tools to evaluate and enhance branding skills, empowering learners to track their progress."
               }
@@ -102,25 +110,25 @@ const OnlineCourse = () => {
           </p>
           <div className="flex items-center flex-col gap-8 pt-4">
             <CourseCard
-              image={Location}
+              image={Face}
               text={
                 "Young learners aged 16-29, including NEETs, recent graduates, and students in formal and non-formal education institutions."
               }
             />
             <CourseCard
-              image={Location}
+              image={Union}
               text={
                 "Educators and youth leaders actively engaged in career guidance and youth employment initiatives."
               }
             />
             <CourseCard
-              image={Location}
+              image={Bookmark}
               text={
                 "No prior knowledge or prerequisites are required to enroll in this course. All individuals with a passion for personal and professional growth are welcome to embark on this transformative learning journey."
               }
             />
             <CourseCard
-              image={Location}
+              image={Widget}
               text={
                 "Join us in unlocking the potential of personal branding and active career development, and take the first step towards a successful and fulfilling professional future!"
               }
