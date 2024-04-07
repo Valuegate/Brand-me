@@ -31,9 +31,7 @@ const ForgotPassword = () => {
                 value=""
                 width="w-full"
                 onChange={(e) => {
-                    
-                }}
-              />
+                } } type={'text'}              />
             </div>
 
             <div className="flex items-center justify-center mt-8">
