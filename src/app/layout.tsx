@@ -1,3 +1,4 @@
+"use client"
 import {
   MantineProvider,
   ColorSchemeScript,
@@ -8,6 +9,7 @@ import type { Metadata } from "next";
 import localFont from "@next/font/local";
 import "./globals.css";
 import "@mantine/core/styles.css";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const cocogooseRegular = localFont({
   src: "../assets/Cocogoose Regular.woff2",
@@ -19,13 +21,7 @@ const cocogooseThin = localFont({
   variable: "--font-cocogoose-thin",
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: "Brand Me",
-    template: "%s | Brand Me",
-  },
-  description: "Increasing employment opportunities for youths",
-};
+
 
 const myColor: MantineColorsTuple = [
   "#f0f2fa",
@@ -46,12 +42,23 @@ const theme = createTheme({
   },
 });
 
+
+const queryClient = new QueryClient();
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const metadata: Metadata = {
+    title: {
+      default: "Brand Me",
+      template: "%s | Brand Me",
+    },
+    description: "Increasing employment opportunities for youths",
+  };
   return (
+    <QueryClientProvider client={queryClient}>
     <html>
       <head>
         <ColorSchemeScript defaultColorScheme="light" />
@@ -62,5 +69,6 @@ export default function RootLayout({
         <MantineProvider theme={theme}>{children}</MantineProvider>
       </body>
     </html>
+    </QueryClientProvider>
   );
 }

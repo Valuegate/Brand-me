@@ -38,6 +38,7 @@ const ForgotPassword = () => {
               <button className="text-white bg-brand px-8 md:w-full py-2 md:py-3 rounded-lg text-[20px] leading-[21.8px] font-cocogoose">
                 Submit
               </button>
+              
             </div>
           </div>
         </div>
