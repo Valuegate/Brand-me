@@ -3,14 +3,7 @@ import { USERSPROFILE_ROUTES } from "@/services/routes";
 import { useQuery } from "@tanstack/react-query";
 
 interface iUsersProfileResponse {
-  email: string;
-  full_name: string;
-  phone_number: number | string;
-  address: string;
-  image: string;
-  password: string;
-  about_seller: string;
-  is_staff: boolean;
+  
 }
 [];
 const useFetchUsersProfile = () => {

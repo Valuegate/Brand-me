@@ -26,15 +26,15 @@ const LoginPage = () => {
   if (isSuccess) {
     // Set token to local storage
     localStorage.setItem("userToken", data?.access);
-    localStorage.setItem("userName", data?.full_name);
+    localStorage.setItem("userEmail", data?.email);
     console.log(data);
 
     router.push("/profile");
   }
 
   useEffect(() => {
-    if (isError) {
-      let data = error.response?.data as any;
+    if (isError && error.response) {
+      let data = error.response.data as any;
       toast.error(data.detail);
     }
   }, [error, isError]);

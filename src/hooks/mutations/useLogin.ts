@@ -15,7 +15,7 @@ const useLogin = () => {
   const mutation = useMutation({
     mutationFn: async (payload: TLoginPayload) => {
       try {
-        const response = await formFetcher(`https://brandme-2.onrender.com/api${AUTH_ROUTES.LOGIN}`, "POST", payload);
+        const response = await fetcher(AUTH_ROUTES.LOGIN, "POST", payload);
         return response.data;
       } catch (err) {
         throw err;
