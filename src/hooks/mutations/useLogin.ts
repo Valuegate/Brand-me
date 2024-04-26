@@ -6,9 +6,10 @@ import { AxiosError } from "axios";
 export type TLoginPayload = { email: string; password: string; };
 
 export interface iDataResponse {
-    access: string;
+    access_token: string;
     email : string;
-    refresh: string;
+    full_name: string;
+    refresh_token: string;
 }
 
 const useLogin = () => {

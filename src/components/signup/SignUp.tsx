@@ -16,7 +16,7 @@ import useAccountRegister, {
   TSignupPayload,
 } from "@/hooks/mutations/useAccountRegister";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 const SignUp = () => {
   const router = useRouter();
@@ -43,9 +43,13 @@ const SignUp = () => {
     // }
   }, [isError, error]);
 
-  if (isSuccess) {
-    router.push("/login");
-  }
+  useEffect(() => {
+    if (isSuccess) {
+      router.push("/login");
+    }
+  }, [isSuccess])
+
+  
 
   const handleSignup = () => {
     if (credentials.password !== confirm) {
@@ -63,6 +67,7 @@ const SignUp = () => {
 
   return (
     <>
+      <ToastContainer />
       <div className="fixed top-0 left-0 right-0">
         <NavBar index={-1} />
       </div>
