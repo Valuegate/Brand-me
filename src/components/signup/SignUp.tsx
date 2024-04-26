@@ -8,13 +8,15 @@ import { GiPadlock } from "react-icons/gi";
 import InputComponent from "../resuable/InputComponent";
 
 import { globalKey } from "@/stores/globalStore";
-import Image from 'next/image';
-import Sort from '@/assets/Sort.png'
-import { Formik, Form } from 'formik';
-import { IoMdEyeOff, IoMdEye } from 'react-icons/io';
-import useAccountRegister, { TSignupPayload } from '@/hooks/mutations/useAccountRegister';
-import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
+import Image from "next/image";
+import Sort from "@/assets/Sort.png";
+import { Formik, Form } from "formik";
+import { IoMdEyeOff, IoMdEye } from "react-icons/io";
+import useAccountRegister, {
+  TSignupPayload,
+} from "@/hooks/mutations/useAccountRegister";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const router = useRouter();
@@ -46,7 +48,6 @@ const SignUp = () => {
   }
 
   const handleSignup = () => {
-
     if (credentials.password !== confirm) {
       toast.error("The passwords do not match");
       return;
@@ -81,7 +82,7 @@ const SignUp = () => {
               </Link>
             </div>
 
-            <div className='mt-10'>
+            <div className="mt-10">
               <Formik
                 initialValues={{
                   email: "",
@@ -102,14 +103,16 @@ const SignUp = () => {
                         <TbMessage className="w-[50px] h-[50px]" />
                       </div>
                       <div className="mb-4 flex flex-col gap-1 w-full">
-                        <label htmlFor="email" className="font-cocogoose-light font-bold text-[16px] text-brand">
+                        <label
+                          htmlFor="email"
+                          className="font-cocogoose-light font-bold text-[16px] text-brand"
+                        >
                           Email
                         </label>
                         <input
                           type="email"
                           id="email"
                           name="email"
-                          // onChange={handleChange}
                           onChange={(e) =>
                             setCredentials({
                               ...credentials,
@@ -128,7 +131,10 @@ const SignUp = () => {
                       </div>
 
                       <div className="mb-4 flex flex-col gap-1 w-full">
-                        <label htmlFor="email" className="font-cocogoose-light font-bold text-[16px] text-brand">
+                        <label
+                          htmlFor="email"
+                          className="font-cocogoose-light font-bold text-[16px] text-brand"
+                        >
                           Password
                         </label>
 
@@ -145,8 +151,9 @@ const SignUp = () => {
                               });
                               setIsPasswordValid(e.target.value.length >= 6);
                             }}
-                            className={`focus:outline-none bg-[#FFFFFF00] w-full font-cocogoose border-[3px] pl-4 text-[18px] border-brand rounded-lg h-[60px] placeholder:text-brand-49 text-brand ${!isPasswordValid ? "border-error-500" : ""
-                              }`}
+                            className={`focus:outline-none bg-[#FFFFFF00] w-full font-cocogoose border-[3px] pl-4 text-[18px] border-brand rounded-lg h-[60px] placeholder:text-brand-49 text-brand ${
+                              !isPasswordValid ? "border-error-500" : ""
+                            }`}
                           />
                           <button
                             className="absolute inset-y-0 right-2 flex items-center px-2 cursor-pointer"
@@ -176,7 +183,10 @@ const SignUp = () => {
                       </div>
 
                       <div className="mb-4 flex flex-col gap-1 w-full">
-                        <label htmlFor="re-password" className="font-cocogoose-light font-bold text-[16px] text-brand">
+                        <label
+                          htmlFor="re-password"
+                          className="font-cocogoose-light font-bold text-[16px] text-brand"
+                        >
                           Confirm your Password
                         </label>
 
@@ -204,22 +214,23 @@ const SignUp = () => {
                           </button>
                         </div>
                       </div>
-
                     </div>
 
                     <div className="flex items-center gap-8">
                       <div className="mt-8 md:hidden">
-                        <Image src={Sort} alt={''} width={50} height={50} />
+                        <Image src={Sort} alt={""} width={50} height={50} />
                       </div>
                       <div className="mb-4 flex flex-col gap-1 w-full">
-                        <label htmlFor="firstname" className="font-cocogoose-light font-bold text-[16px] text-brand">
+                        <label
+                          htmlFor="firstname"
+                          className="font-cocogoose-light font-bold text-[16px] text-brand"
+                        >
                           First Name
                         </label>
                         <input
                           type="text"
                           id="firstname"
                           name="firstname"
-                          // onChange={handleChange}
                           onChange={(e) =>
                             setCredentials({
                               ...credentials,
@@ -234,17 +245,19 @@ const SignUp = () => {
 
                     <div className="flex items-center gap-8">
                       <div className="mt-8 md:hidden">
-                        <Image src={Sort} alt={''} width={50} height={50} />
+                        <Image src={Sort} alt={""} width={50} height={50} />
                       </div>
                       <div className="mb-4 flex flex-col gap-1 w-full">
-                        <label htmlFor="lastname" className="font-cocogoose-light font-bold text-[16px] text-brand">
+                        <label
+                          htmlFor="lastname"
+                          className="font-cocogoose-light font-bold text-[16px] text-brand"
+                        >
                           Last Name
                         </label>
                         <input
                           type="text"
                           id="lastname"
                           name="lastname"
-                          // onChange={handleChange}
                           onChange={(e) =>
                             setCredentials({
                               ...credentials,
@@ -263,19 +276,13 @@ const SignUp = () => {
                         onClick={handleSignup}
                         className="text-white bg-brand px-8 md:w-full py-2 md:py-3 rounded-lg text-[20px] leading-[21.8px] font-cocogoose"
                       >
-                        {isLoading ? "Wait a minute....." : "Sign UP"}
+                        {isLoading ? "Wait a minute....." : "Sign Up"}
                       </button>
                     </div>
-
                   </Form>
                 )}
               </Formik>
             </div>
-
-
-
-
-
           </div>
         </div>
       </div>

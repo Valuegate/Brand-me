@@ -5,7 +5,7 @@ import { AxiosError } from "axios";
 
 export type TLoginPayload = { email: string; password: string; };
 
-interface iDataResponse {
+export interface iDataResponse {
     access: string;
     email : string;
     refresh: string;

@@ -167,7 +167,7 @@ const NavBar: FC<NavProp> = ({ index }) => {
               </Link>
 
               <Link
-                href={"/signup"}
+                href={"/sign-up"}
                 className="text-brand bg-light-blue px-5 py-2 rounded-lg text-[20px] leading-[21.8px] font-cocogoose"
               >
                 Sign Up

@@ -8,6 +8,7 @@ import Case from "@/assets/Case.png";
 import MagicStick from "@/assets/MagicStick.png";
 import Star from "@/assets/Star.png";
 import Footer from "@/components/resuable/Footer/Footer";
+import Link from "next/link";
 
 const AboutUsPage = () => {
   return (
@@ -32,9 +33,9 @@ const AboutUsPage = () => {
               enhance the profiles of professionals in this sector, emphasizing
               the importance of early career development and progression.
             </p>
-            <button className="text-brand bg-light-blue px-5 md:w-full py-2 md:py-3 rounded-lg text-[20px] font-cocogoose">
+            <Link href={"/sign-up"} className="text-brand bg-light-blue px-5 md:w-full py-2 md:py-3 rounded-lg text-[20px] font-cocogoose">
               Sign Up
-            </button>
+            </Link>
           </div>
         </section>
 
