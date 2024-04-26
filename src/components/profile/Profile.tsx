@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, {useEffect, useState} from "react";
 import NavBar from "../resuable/NavBar/NavBar";
 import Footer from "../resuable/Footer/Footer";
 import { useUserStore } from "@/stores/userStore";
@@ -15,15 +15,27 @@ import Link from "next/link";
 import ProgressBar from "../resuable/ProgressBar";
 
 import { convertDate } from "@/functions/dateFunctions";
+import { globalKey } from "@/stores/globalStore";
 
 const Profile = () => {
   const profileImage = useUserStore((state) => state.image);
   const firstName = useUserStore((state) => state.firstName);
   const surname = useUserStore((state) => state.surname);
-  const alias = useUserStore((state) => state.alias);
+  const [alias, setAlias] = useState<string>("");
+  const [fullName, setFullName] = useState<string>("");
+
   const role = useUserStore((state) => state.role);
   const joined = useUserStore((state) => state.joined);
 
+  useEffect(() => {
+    let localData : string | null = window.localStorage.getItem(globalKey);
+    if(localData !== null) {
+      let data = JSON.parse(localData);
+      setAlias(data.email);
+      setFullName(data.full_name);
+    }
+  }, [])
+ 
   return (
     <>
       <div className="fixed top-0 left-0 right-0">
@@ -42,10 +54,10 @@ const Profile = () => {
                     className="size-[200px] md:size-[120px]"
                   />
                 </div>
-                <div className="flex flex-col gap-12">
+                <div className="flex flex-col items-center gap-12">
                   <span>
                     <h2 className="text-brand text-[25px] leading-[20px] font-cocogoose mb-2">
-                      {surname} {firstName}
+                      {fullName}
                     </h2>
                     <p className="text-brand text-[12px] leading-[13px] font-cocogoose mb-2 md:text-center">
                       {alias}

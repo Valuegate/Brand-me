@@ -42,7 +42,7 @@ const NavBar: FC<NavProp> = ({ index }) => {
   const [isNotificationClicked, setNotificationClicked] =
     useState<boolean>(false);
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
-  const username = useUserStore((state) => state.firstName);
+  const [username, setUsername] = useState<string>("");
   const notifications = useGlobalStore((state) => state.notifications);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -72,6 +72,11 @@ const NavBar: FC<NavProp> = ({ index }) => {
   useEffect(() => {
     let localConfig: string | null = window.localStorage.getItem(globalKey);
     setLoggedIn(localConfig !== null);
+
+    if (localConfig !== null) {
+      let data = JSON.parse(localConfig);
+      setUsername(data.full_name.split(" ")[1]);
+    }
   }, []);
 
   useEffect(() => {
@@ -167,7 +172,7 @@ const NavBar: FC<NavProp> = ({ index }) => {
               </Link>
 
               <Link
-                href={"/signup"}
+                href={"/sign-up"}
                 className="text-brand bg-light-blue px-5 py-2 rounded-lg text-[20px] leading-[21.8px] font-cocogoose"
               >
                 Sign Up
