@@ -1,5 +1,5 @@
 import { AxiosInstance, AxiosResponse } from "axios";
-import { AUTH_ROUTES, ACCOUNTREGISTER_ROUTES, ACCOUNTPROFILE_ROUTES, } from "./routes";
+import { AUTH_ROUTES, ACCOUNTREGISTER_ROUTES, ACCOUNTPROFILE_ROUTES } from "./routes";
 
 const createAuth = (client: AxiosInstance) => {
   const login = (body: any) => {

@@ -5,7 +5,7 @@ import { IoMdClose } from "react-icons/io";
 import Logo from "../Logo/Logo";
 
 import { iMobileDrawerProp } from "./types";
-import { useUserStore } from "@/stores/userStore";
+import { globalKey } from "@/stores/globalStore";
 
 const MobileDrawer: FC<iMobileDrawerProp> = ({
   openedDrawer,
@@ -15,8 +15,15 @@ const MobileDrawer: FC<iMobileDrawerProp> = ({
   loggedIn,
   logout,
 }) => {
-  
-  const username = useUserStore((state) => state.surname);
+  const [username, setUsername] = useState<string>("");
+  useEffect(() => {
+    let localData: string | null = window.localStorage.getItem(globalKey);
+    if (localData !== null) {
+      let data = JSON.parse(localData);
+      setUsername(data.full_name);
+    }
+  }, []);
+
   return (
     <Drawer.Root
       opened={openedDrawer}
