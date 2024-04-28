@@ -28,7 +28,7 @@ const LoginPage = () => {
   useEffect(() => {
     if (isSuccess) {
       localStorage.setItem(globalKey, JSON.stringify(data));
-      router.push("/profile");
+      router.push("/platform");
     }
   }, [isSuccess]);
 

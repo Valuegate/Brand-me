@@ -11,3 +11,14 @@ export enum ACCOUNTREGISTER_ROUTES {
 export enum USERSPROFILE_ROUTES {
   USERS = '/users/profile'
 }
+
+export enum COURSES {
+  CREATE = '/courses/courses/create/',
+  GET_BY_ID = '/courses/content/',
+  GET_ALL = '/courses/courses/',
+  ENROL = '/courses/enroll/',
+}
+
+export enum QUIZ {
+  GET_FOR_COURSE = '/quiz/quizzes/'
+}
