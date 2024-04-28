@@ -15,8 +15,10 @@ import Link from "next/link";
 import ProgressBar from "../resuable/ProgressBar";
 
 import { convertDate } from "@/functions/dateFunctions";
+import useFetchAccountProfile from '@/hooks/queries/useFetchAccountProfile';
 
 const Profile = () => {
+  const { data: account, isLoading, isSuccess } = useFetchAccountProfile();
   const profileImage = useUserStore((state) => state.image);
   const firstName = useUserStore((state) => state.firstName);
   const surname = useUserStore((state) => state.surname);
@@ -42,13 +44,14 @@ const Profile = () => {
                     className="size-[200px] md:size-[120px]"
                   />
                 </div>
+                {account && (
                 <div className="flex flex-col gap-12">
                   <span>
                     <h2 className="text-brand text-[25px] leading-[20px] font-cocogoose mb-2">
-                      {surname} {firstName}
+                      {account.first_name} {account.last_name}
                     </h2>
                     <p className="text-brand text-[12px] leading-[13px] font-cocogoose mb-2 md:text-center">
-                      {alias}
+                      {account.email}
                     </p>
                     <div className="flex items-center gap-1 md:justify-center">
                       <BiStore />
@@ -63,6 +66,7 @@ const Profile = () => {
                     </button>
                   </Link>
                 </div>
+                )}
               </div>
 
               <div className="mt-10">

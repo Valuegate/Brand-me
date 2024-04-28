@@ -8,6 +8,6 @@ export enum ACCOUNTREGISTER_ROUTES {
   SIGNUP = '/accounts/register/',
 }
 
-export enum USERSPROFILE_ROUTES {
-  USERS = '/users/profile'
+export enum ACCOUNTPROFILE_ROUTES {
+  ACCOUNT = '/accounts/profile/'
 }
