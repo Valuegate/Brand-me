@@ -2,15 +2,14 @@ import { fetcher } from "@/lib/fetcher";
 import { ACCOUNTPROFILE_ROUTES } from "@/services/routes";
 import { useQuery } from "@tanstack/react-query";
 
-interface iAccountProfileResponse {
+export interface iAccountProfileResponse {
   id: number;
   email: string;
   first_name: string;
   last_name: string;
   date_joined: number | string;
 }
-[];
-const useFetchUsersProfile = () => {
+const useFetchAccountProfile = () => {
   const { isLoading, data, isError, isSuccess } = useQuery({
     queryKey: ["fetch-accountprofile"],
     queryFn: async () => {
@@ -31,4 +30,4 @@ const useFetchUsersProfile = () => {
   };
 };
 
-export default useFetchUsersProfile;
+export default useFetchAccountProfile;
