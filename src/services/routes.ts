@@ -9,7 +9,7 @@ export enum ACCOUNTREGISTER_ROUTES {
 }
 
 export enum ACCOUNTPROFILE_ROUTES {
-  ACCOUNT = '/account/profile'
+  ACCOUNT = '/accounts/profile/'
 }
 
 export enum COURSES {

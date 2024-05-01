@@ -7,7 +7,7 @@ import { useUserStore } from "@/stores/userStore";
 import Image from "next/image";
 import Avatar from "@/assets/avatar.png";
 import { BiStore } from "react-icons/bi";
-import { CloseIcon } from "@mantine/core";
+import { CloseIcon, Loader } from "@mantine/core";
 import { BsClock } from "react-icons/bs";
 import { PiRobotFill } from "react-icons/pi";
 import Efektas from "@/assets/Efektas_white.png";
@@ -25,6 +25,7 @@ const Profile = () => {
   const surname = useUserStore((state) => state.surname);
   const [alias, setAlias] = useState<string>("");
   const [fullName, setFullName] = useState<string>("");
+  const [isDeleting, setDeleting] = useState<boolean>(false);
 
   const role = useUserStore((state) => state.role);
   const joined = useUserStore((state) => state.joined);
@@ -45,11 +46,12 @@ const Profile = () => {
         <NavBar index={-1} />
       </div>
       <div className="h-32" />
-      {isSuccess &&
+      {!isLoading && isSuccess && (
       <div className="flex flex-col w-full mb-20 px-[10%] md:px-[5%] md:gap-10">
       <div className="flex md:flex-col md:gap-5 justify-between mb-6">
         <div className="flex flex-col gap-4 w-[60%] md:w-full">
           <div className="bg-light-blue-30 px-8 py-4 md:py-5 rounded-2xl">
+            {account && (
             <div className="flex md:flex-col gap-8 items-center">
               <div>
                 <Image
@@ -79,8 +81,8 @@ const Profile = () => {
                   </button>
                 </Link>
               </div>
-              {/* )} */}
             </div>
+               )}
 
             <div className="mt-10">
               <span className="flex items-center md:justify-center gap-1">
@@ -234,8 +236,14 @@ const Profile = () => {
           </div>
         </div>
       </div>
-    </div>}
-      
+    </div>
+      )}
+      {isLoading ||
+            (isDeleting && (
+              <div className="flex flex-col items-center justify-center h-full w-full">
+                <Loader color="#1C274D" size={"36px"} />
+              </div>
+            ))}
       <Footer />
     </>
   );

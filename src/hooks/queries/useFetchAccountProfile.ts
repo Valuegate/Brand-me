@@ -3,6 +3,7 @@ import { ACCOUNTPROFILE_ROUTES } from "@/services/routes";
 import { useQuery } from "@tanstack/react-query";
 
 interface iAccountProfileResponse {
+  id: number;
   email: string;
   first_name: string;
   last_name: string;
