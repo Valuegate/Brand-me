@@ -44,8 +44,8 @@ const ComboComponent: FC<iComboProps> = ({ label, value, hint, options, onSelect
       <p className="font-cocogoose-light font-bold text-[16px] text-brand ">
         {label}
       </p>
-      <div className="border-[3px] border-brand w-full rounded-lg h-[60px] bg-[#FFFFFF00] flex items-center justify-between px-4">
-        <p className="text-brand font-cocogoose-light font-bold text-[18px]">
+      <div className="cursor-pointer border-[3px] border-brand w-full rounded-lg h-[60px] bg-[#FFFFFF00] flex items-center justify-between px-4">
+        <p className="text-brand font-cocogoose font-bold text-[18px]">
           {value.length === 0 ? hint : value}
         </p>
         <IoMdArrowDropdown fill="#1C274D" size={"22px"} />
