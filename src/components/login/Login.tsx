@@ -182,12 +182,11 @@ const LoginPage = () => {
                         // }}
                         type="submit"
                         onClick={handleLogin}
-                        className="text-white bg-brand px-8 md:w-full py-2 md:py-3 rounded-lg text-[20px] leading-[21.8px] font-cocogoose"
+                        className="text-white bg-brand px-8 md:w-full py-2 md:py-3 rounded-lg text-[20px] leading-[21.8px] font-cocogoose flex items-center justify-center"
                       >
                         {isLoading ? (
                           <Loader
-                            color="#fff"
-                            className="flex items-center justify-center"
+                            color="#FFFFFF"
                           />
                         ) : (
                           "Log In"
