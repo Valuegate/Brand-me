@@ -21,6 +21,7 @@ module.exports = {
       "light-blue-0": "rgba(0, 174, 239, 0.0)",
       "light-blue-30": "rgba(0, 174, 239, 0.3)",
       "light-blue-50": "rgba(0, 174, 239, 0.5)",
+      "light-blue-75": "rgba(0, 174, 239, 0.75)",
     },
     fontFamily: {
       'cocogoose': ['var(--font-cocogoose-regular)', 'sans-serif'],

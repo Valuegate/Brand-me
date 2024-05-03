@@ -84,7 +84,7 @@ const Profile = () => {
                   </div>
                   <div className="flex flex-col items-center gap-12">
                     <span>
-                      <h2 className="text-brand text-[25px] leading-[20px] font-cocogoose mb-2">
+                      <h2 className="text-brand text-[25px] leading-[20px] font-cocogoose mb-2 md:text-center">
                         {account.first_name} {' '} {account.last_name}
                       </h2>
                       <p className="text-brand text-[12px] leading-[13px] font-cocogoose mb-2 md:text-center">
