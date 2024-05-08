@@ -26,7 +26,7 @@ const Community = () => {
     return (
         <>
             <div className="flex md:flex-col gap-8">
-                <div className="w-[70%] md:w-full">
+                <div className="w-[70%] md:w-full overflow-y-scroll" style={{ maxHeight: 'calc(100vh - 120px)' }}>
                     <div className="relative z-0">
                         <input
                             className="w-full border-[1px] border-solid border-white shadow-sm rounded px-5 py-2 pl-10 focus:outline-none focus:border-gray"
@@ -58,7 +58,9 @@ const Community = () => {
 
                 </div>
                 <div className="w-[30%] md:w-full">
-                    <GroupCard />
+                <div className="sticky top-0">
+                        <GroupCard />
+                    </div>
                 </div>
             </div>
         </>
