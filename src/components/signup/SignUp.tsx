@@ -25,7 +25,6 @@ const SignUp = () => {
     email: "",
     password: "",
     last_name: "",
-    password2: "",
   });
   const [errorMsg, setErrorMsg] = useState<string>("");
 
@@ -35,13 +34,13 @@ const SignUp = () => {
   const { isError, isLoading, isSuccess, Signup, error, data } =
     useAccountRegister();
 
-  useEffect(() => {
-    // if (isError) {
-    //   setErrorMsg("An error occurred during signup. Please try again.");
-    //   let data = error.response?.data as any;
-    //   toast.error(data.errors.email[0]);
-    // }
-  }, [isError, error]);
+    useEffect(() => {
+      if (isError) {
+        setErrorMsg("An error occurred during signup. Please try again.");
+        let data = error.response?.data as any;
+        toast.error(data.errors.email[0]);
+      }
+    }, [isError, error]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -97,7 +96,6 @@ const SignUp = () => {
                   password2: "",
                 }}
                 onSubmit={(values, actions) => {
-                  handleSignup();
                   actions.setSubmitting(false);
                 }}
               >
