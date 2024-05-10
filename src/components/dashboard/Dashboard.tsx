@@ -4,13 +4,14 @@ import NavBar from "../resuable/NavBar/NavBar";
 import Courses from "./Courses";
 import Footer from "../resuable/Footer/Footer";
 import Community from "./Community";
+import Admin from './Admin';
 
 const Dashboard = () => {
   const [currentTab, setCurrentTab] = useState<number>(0);
   const tabs: string[] = ["Dashboard", "Community", "Courses"];
 
   const children: ReactNode[] = [
-    <Dashboard key={"dashboard key"} />,
+    <Admin key={"admin key"} />,
     <Community key={"community key"} />,
     <Courses key={"Courses Key"} />,
   ];
