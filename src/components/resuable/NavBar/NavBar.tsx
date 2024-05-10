@@ -48,6 +48,8 @@ const NavBar: FC<NavProp> = ({ index }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  const isAdmin : boolean = true; 
+
   const [openedDrawer, { open: openDrawer, close: closeDrawer }] =
     useDisclosure(false);
 
@@ -104,32 +106,53 @@ const NavBar: FC<NavProp> = ({ index }) => {
         },
       ]);
     } else {
-      setNavs([
-        {
-          name: "About",
-          link: "/about",
-        },
-        {
-          name: "Partners",
-          link: "/partners",
-        },
-        {
-          name: "Results",
-          link: "/results",
-        },
-        {
-          name: "Online Course",
-          link: "/course",
-        },
-        {
-          name: "Contact",
-          link: "/contact",
-        },
-        {
-          name: "How To Use",
-          link: "/how-to-use",
-        },
-      ]);
+
+      if(isAdmin) {
+        setNavs([
+          {
+            name: "Platform Tracking",
+            link: "/about",
+          },
+          {
+            name: "User Tracking",
+            link: "/partners",
+          },
+          {
+            name: "Creation",
+            link: "/results",
+          },
+          
+        ]);
+      } else {
+        setNavs([
+          {
+            name: "About",
+            link: "/about",
+          },
+          {
+            name: "Partners",
+            link: "/partners",
+          },
+          {
+            name: "Results",
+            link: "/results",
+          },
+          {
+            name: "Online Course",
+            link: "/course",
+          },
+          {
+            name: "Contact",
+            link: "/contact",
+          },
+          {
+            name: "How To Use",
+            link: "/how-to-use",
+          },
+        ]);
+      }
+
+      
     }
   }, [loggedIn]);
 

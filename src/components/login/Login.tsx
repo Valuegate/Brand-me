@@ -171,15 +171,6 @@ const LoginPage = () => {
                     </Link>
                     <div className="flex items-center justify-center mt-8">
                       <button
-                        // onClick={() => {
-                        //   window.localStorage.setItem(
-                        //     globalKey,
-                        //     JSON.stringify({
-                        //       token: "1234567890",
-                        //     })
-                        //   );
-                        //   window.location.assign("/profile");
-                        // }}
                         type="submit"
                         onClick={handleLogin}
                         className="text-white bg-brand px-8 md:w-full py-2 md:py-3 rounded-lg text-[20px] leading-[21.8px] font-cocogoose flex items-center justify-center"

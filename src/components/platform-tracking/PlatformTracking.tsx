@@ -4,14 +4,15 @@ import NavBar from "../resuable/NavBar/NavBar";
 import Courses from "./Courses";
 import Footer from "../resuable/Footer/Footer";
 import Community from "./Community";
+import Dashboard from "./Dashboard";
 
-const Dashboard = () => {
+const PlatformTracking = () => {
   const [currentTab, setCurrentTab] = useState<number>(0);
   const tabs: string[] = ["Dashboard", "Community", "Courses"];
 
   const children: ReactNode[] = [
-    <Dashboard key={"dashboard key"} />,
-    <Community key={"community key"} />,
+    <Dashboard key={"Dashboard key"} />,
+    <Community key={"Community key"} />,
     <Courses key={"Courses Key"} />,
   ];
 
@@ -49,4 +50,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default PlatformTracking;

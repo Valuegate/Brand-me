@@ -29,19 +29,19 @@ const Profile = () => {
   })
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
-  const profileImage = useUserStore((state) => state.image);
-  const firstName = useUserStore((state) => state.firstName);
-  const surname = useUserStore((state) => state.surname);
-  const [alias, setAlias] = useState<string>("");
-  const [fullName, setFullName] = useState<string>("");
-  const [isDeleting, setDeleting] = useState<boolean>(false);
-
   const role = useUserStore((state) => state.role);
-  const joined = useUserStore((state) => state.joined);
+
+  const [valid, setValid] = useState<boolean>(true);
+
+
+  const validRoute = () => {
+    let token = localStorage.getItem(globalKey);
+    return token !== null;    
+  }
 
   const fetchAccount = () => {
     let token = localStorage.getItem(globalKey)!;
-    token = JSON.parse(token).access_token
+    token = JSON.parse(token).access_token;
     axios({
       method: "GET",
       url: `https://brandme-2.onrender.com/api/accounts/profile/`,
@@ -59,9 +59,18 @@ const Profile = () => {
   }
 
   useEffect(() => {
-    fetchAccount()
+    if(!validRoute()) {
+      setValid(false);
+      window.location.assign("/login");
+    } else {
+      fetchAccount();
+    }
   }, [])
 
+
+  if(!valid) {
+    return <></>
+  }
 
   return (
     <>
