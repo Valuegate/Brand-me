@@ -48,7 +48,7 @@ const NavBar: FC<NavProp> = ({ index }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const isAdmin : boolean = true; 
+  const isAdmin: boolean = true;
 
   const [openedDrawer, { open: openDrawer, close: closeDrawer }] =
     useDisclosure(false);
@@ -87,59 +87,30 @@ const NavBar: FC<NavProp> = ({ index }) => {
     }
 
     if (loggedIn) {
-      setNavs([
-        {
-          name: "Platform",
-          link: "/platform",
-        },
-        {
-          name: "Results",
-          link: "/results",
-        },
-        {
-          name: "Contact",
-          link: "/contact",
-        },
-        {
-          name: "How To Use",
-          link: "/how-to-use",
-        },
-      ]);
-    } else {
-
-      if(isAdmin) {
+      if (isAdmin) {
         setNavs([
           {
             name: "Platform Tracking",
-            link: "/about",
+            link: "/platform-tracking",
           },
           {
             name: "User Tracking",
-            link: "/partners",
+            link: "/user-tracking",
           },
           {
             name: "Creation",
-            link: "/results",
+            link: "/creation",
           },
-          
         ]);
       } else {
         setNavs([
           {
-            name: "About",
-            link: "/about",
-          },
-          {
-            name: "Partners",
-            link: "/partners",
+            name: "Platform",
+            link: "/platform",
           },
           {
             name: "Results",
             link: "/results",
-          },
-          {
-            name: "Online Course",
-            link: "/course",
           },
           {
             name: "Contact",
@@ -151,8 +122,33 @@ const NavBar: FC<NavProp> = ({ index }) => {
           },
         ]);
       }
-
-      
+    } else {
+      setNavs([
+        {
+          name: "About",
+          link: "/about",
+        },
+        {
+          name: "Partners",
+          link: "/partners",
+        },
+        {
+          name: "Results",
+          link: "/results",
+        },
+        {
+          name: "Online Course",
+          link: "/course",
+        },
+        {
+          name: "Contact",
+          link: "/contact",
+        },
+        {
+          name: "How To Use",
+          link: "/how-to-use",
+        },
+      ]);
     }
   }, [loggedIn]);
 
