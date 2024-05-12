@@ -13,8 +13,10 @@ import { useDisclosure } from "@mantine/hooks";
 
 import {
   TCreateCoursePayload,
+  createCourse,
   TModule,
 } from "@/hooks/mutations/useCreateCourse";
+import { globalKey } from "@/stores/globalStore";
 
 const CourseCreation = () => {
   const [title, setTitle] = useState<string>("");
@@ -38,6 +40,27 @@ const CourseCreation = () => {
     setModuleVideo(null);
     close();
   };
+
+  const create = () => {
+    let token = localStorage.getItem(globalKey)!;
+    token = JSON.parse(token).access_token;
+
+    createCourse(
+      {
+        description: description,
+        instructor: instructor,
+        title: title,
+        modules: modules,
+      },
+      token,
+      (res) => {
+        console.log(res.data);
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }
 
   return (
     <>
@@ -109,7 +132,7 @@ const CourseCreation = () => {
           </div>
         </div>
         <div className="flex w-full justify-center my-10">
-          <button className="w-[400px] bg-brand rounded-lg h-[50px] text-white font-cocogoose">
+          <button onClick={create} className="w-[400px] bg-brand rounded-lg h-[50px] text-white font-cocogoose">
             Create Course
           </button>
         </div>
@@ -158,7 +181,7 @@ const CourseCreation = () => {
                 style={{ display: "none" }}
                 multiple={false}
                 ref={fileRef}
-                accept="image/*"
+                accept="video/*"
                 onChange={(e) => {
                   let files: FileList | null = e.target.files;
                   if (files !== null) {
