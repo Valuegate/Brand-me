@@ -7,20 +7,15 @@ export type TCreateCoursePayload = {
   title: string;
   description: string;
   instructor: string;
-  modules: tModule[];
+  modules: TModule[];
 };
 
-export type tModule = {
-  title: string;
-  is_completed: boolean;
-  contents: tModuleContent[];
-}
-
-export type tModuleContent = {
+export type TModule = {
   title: string;
   text_content: string;
-  video_content: string;
+  video_content: File;
 }
+
 
 export interface iCourseCreationResponse {
   
