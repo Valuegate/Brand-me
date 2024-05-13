@@ -48,7 +48,7 @@ const NavBar: FC<NavProp> = ({ index }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const isAdmin: boolean = true;
+  const isAdmin: boolean = false;
 
   const [openedDrawer, { open: openDrawer, close: closeDrawer }] =
     useDisclosure(false);
