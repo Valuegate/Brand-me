@@ -1,29 +1,40 @@
 import { fetcher } from "@/lib/fetcher";
 import { AUTH_ROUTES } from "@/services/routes";
 import { useMutation } from "@tanstack/react-query";
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 
 export type TCreateCoursePayload = {
   title: string;
   description: string;
   instructor: string;
-  modules: tModule[];
+  modules: TModule[];
 };
 
-export type tModule = {
-  title: string;
-  is_completed: boolean;
-  contents: tModuleContent[];
-}
-
-export type tModuleContent = {
+export type TModule = {
   title: string;
   text_content: string;
-  video_content: string;
-}
+  video_content: File;
+};
 
-export interface iCourseCreationResponse {
-  
+export interface iCourseCreationResponse {}
+
+export function createCourse(
+  payload: TCreateCoursePayload,
+  token: string,
+  onSuccess: (res: any) => void,
+  onError: (err: any) => void
+) {
+  axios({
+    method: "POST",
+    data: payload,
+    url: `https://brandme-2.onrender.com/api/courses/courses/create/`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data",
+    },
+  })
+    .then(onSuccess)
+    .catch(onError);
 }
 
 const useCreateCourse = () => {
