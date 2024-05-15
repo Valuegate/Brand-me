@@ -22,7 +22,7 @@ const InputComponent: FC<iInputProps> = ({
 
   return (
     <div className={`${width} flex flex-col gap-1`}>
-      <p className="font-cocogoose-light font-bold text-[16px] text-brand ">
+      <p className="font-cocogoose text-[16px] text-brand ">
         {label}
       </p>
       <div className={`relative ${width}`}>
