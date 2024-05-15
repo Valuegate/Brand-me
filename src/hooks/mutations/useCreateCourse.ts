@@ -12,8 +12,12 @@ export type TCreateCoursePayload = {
 
 export type TModule = {
   title: string;
-  text_content: string;
-  video_content: File;
+  is_completed: boolean;
+  contents: {
+    title: string;
+    text_content: string;
+    video_content: File;
+  }[];
 };
 
 export interface iCourseCreationResponse {}
