@@ -43,12 +43,12 @@ const NavBar: FC<NavProp> = ({ index }) => {
     useState<boolean>(false);
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
+  const [isAdmin, setAdmin] = useState<boolean>(false);
   const notifications = useGlobalStore((state) => state.notifications);
 
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const isAdmin: boolean = false;
 
   const [openedDrawer, { open: openDrawer, close: closeDrawer }] =
     useDisclosure(false);
@@ -78,6 +78,7 @@ const NavBar: FC<NavProp> = ({ index }) => {
     if (localConfig !== null) {
       let data = JSON.parse(localConfig);
       setUsername(data.full_name.split(" ")[1]);
+      setAdmin(data.is_staff);
     }
   }, []);
 

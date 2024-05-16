@@ -15,6 +15,8 @@ import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
 import { globalKey } from "@/stores/globalStore";
 
+import "react-toastify/dist/ReactToastify.css";
+
 const LoginPage = () => {
   const router = useRouter();
 
@@ -28,7 +30,8 @@ const LoginPage = () => {
   useEffect(() => {
     if (isSuccess) {
       localStorage.setItem(globalKey, JSON.stringify(data));
-      router.push("/platform");
+      toast.success("Welcome back to Brand Me");
+      router.push(data.is_staff ? "/platform-tracking" : "/platform");
     }
   }, [isSuccess]);
 
@@ -47,7 +50,18 @@ const LoginPage = () => {
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <div className="fixed top-0 left-0 right-0">
         <NavBar index={-1} />
       </div>
@@ -175,13 +189,7 @@ const LoginPage = () => {
                         onClick={handleLogin}
                         className="text-white bg-brand px-8 md:w-full py-2 md:py-3 rounded-lg text-[20px] leading-[21.8px] font-cocogoose flex items-center justify-center"
                       >
-                        {isLoading ? (
-                          <Loader
-                            color="#FFFFFF"
-                          />
-                        ) : (
-                          "Log In"
-                        )}
+                        {isLoading ? <Loader color="#FFFFFF" /> : "Log In"}
                       </button>
                     </div>
                   </Form>

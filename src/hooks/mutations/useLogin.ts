@@ -7,6 +7,7 @@ export type TLoginPayload = { email: string; password: string; };
 
 export interface iDataResponse {
     access_token: string;
+    is_staff: boolean;
     email : string;
     full_name: string;
     refresh_token: string;

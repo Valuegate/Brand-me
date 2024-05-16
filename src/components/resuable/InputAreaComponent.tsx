@@ -23,7 +23,7 @@ const InputAreaComponent: FC<iInputProps> = ({
           value={value}
           placeholder={placeholder}
           onChange={onChange}
-          className={`w-full h-[200px] focus:outline-none bg-[#FFFFFF00] font-cocogoose border-[3px] pl-4 py-2 text-[18px] border-brand rounded-lg placeholder:text-brand-49 text-brand resize-none`}
+          className={`w-full h-[200px] focus:outline-none bg-[#FFFFFF00] font-cocogoose border-[3px] px-4 py-2 text-[18px] border-brand rounded-lg placeholder:text-brand-49 text-brand resize-none`}
         />
       </div>
     </div>
