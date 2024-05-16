@@ -1,8 +1,11 @@
-import React, { useState, FC } from "react";
+import React, { useState, FC, useEffect } from "react";
 
 import { iCourse } from "./types";
 import ViewCourse from "./ViewCourse";
 import ProgressBar from "../resuable/ProgressBar";
+
+import axios from "axios";
+import { globalKey } from "@/stores/globalStore";
 
 interface iCourseCardProp {
   course: iCourse;
@@ -31,6 +34,21 @@ const Courses = () => {
       quizDone: false,
     },
   });
+
+  useEffect(() => {
+    let token = localStorage.getItem(globalKey)!;
+    token = JSON.parse(token).access_token;
+    
+    axios({
+      method: "GET",
+      url: `https://brandme-2.onrender.com/api/courses/courses/`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => console.log(res))
+    .catch((err) => console.error(err));
+
+  }, []);
 
   return selectedCourse === -1 ? (
     <div className="flex flex-col items-center w-full">

@@ -7,7 +7,10 @@ export interface iAccountProfileResponse {
   email: string;
   first_name: string;
   last_name: string;
+  bio: string | "";
+  location: string | "";
   date_joined: number | string;
+  image: string | "";
 }
 const useFetchAccountProfile = () => {
   const { isLoading, data, isError, isSuccess } = useQuery({

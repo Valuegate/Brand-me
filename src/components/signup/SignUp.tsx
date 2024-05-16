@@ -44,6 +44,7 @@ const SignUp = () => {
 
   useEffect(() => {
     if (isSuccess) {
+      toast.success("Account created. Login to proceed");
       router.push("/login");
     }
   }, [isSuccess])
@@ -66,7 +67,16 @@ const SignUp = () => {
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"/>
       <div className="fixed top-0 left-0 right-0">
         <NavBar index={-1} />
       </div>
