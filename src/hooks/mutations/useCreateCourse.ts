@@ -28,6 +28,7 @@ export function createCourse(
   onSuccess: (res: any) => void,
   onError: (err: any) => void
 ) {
+  console.log(payload);
   axios({
     method: "POST",
     data: payload,

@@ -10,7 +10,7 @@ import { MdUpload, MdAddCircleOutline } from "react-icons/md";
 import { createCourse, TModule } from "@/hooks/mutations/useCreateCourse";
 import { globalKey } from "@/stores/globalStore";
 
-import { getBase64 } from "@/functions/fileFunction";
+import { getBase64, getVideoCover } from "@/functions/fileFunction";
 import Image from "next/image";
 
 const CourseCreation = () => {
@@ -24,6 +24,7 @@ const CourseCreation = () => {
   const [moduleDescription, setModuleDescription] = useState<string>("");
   const [moduleDuration, setModuleDuration] = useState<string>("");
   const [moduleVideo, setModuleVideo] = useState<File | null>(null);
+  const [moduleVideoData, setModuleVideoData] = useState<string>("");
 
   const bannerRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLInputElement>(null);
@@ -35,6 +36,7 @@ const CourseCreation = () => {
   const reset = () => {
     setEditIndex(-1);
     setModuleTitle("");
+    setModuleVideoData("");
     setModuleDescription("");
     setModuleDuration("");
     setModuleVideo(null);
@@ -90,7 +92,7 @@ const CourseCreation = () => {
                   {banner.length === 0 && (
                     <>
                       <MdUpload size={"26px"} className="text-brand" />
-                      <p className="text-brand font-cocogoose-light font-bold text-[16px]">
+                      <p className="text-brand font-cocogoose-light font-bold text-center text-[16px]">
                         Upload your banner in png or jpg format
                       </p>
                     </>
@@ -179,17 +181,26 @@ const CourseCreation = () => {
                     videoRef.current?.click();
                   }}
                   className={`w-full h-[180px] cursor-pointer rounded overflow-hidden ${
-                    banner.length === 0 &&
+                    moduleVideoData.length === 0 &&
                     "bg-brand-20 flex flex-col items-center justify-center gap-2"
                   }`}
                 >
-                  {moduleVideo === null && (
+                  {moduleVideoData.length === 0 && (
                     <>
                       <MdUpload size={"26px"} className="text-brand" />
-                      <p className="text-brand font-cocogoose-light font-bold text-[16px]">
+                      <p className="text-brand font-cocogoose-light text-center font-bold text-[16px]">
                         Upload your video with a 300MB maximum limit
                       </p>
                     </>
+                  )}
+                  {moduleVideoData.length !== 0 && (
+                    <Image
+                      src={moduleVideoData}
+                      alt="module video"
+                      className="w-full h-full object-cover"
+                      width={100}
+                      height={100}
+                    />
                   )}
                 </div>
                 <input
@@ -201,7 +212,16 @@ const CourseCreation = () => {
                     if (e.target.files !== null) {
                       let files: FileList | null = e.target.files;
                       if (files !== null) {
-                        setModuleVideo(files[0]);
+                        getVideoCover(e.target.files[0])
+                          .then((res) => {
+                            setModuleVideoData(res as string);
+                            setModuleVideo(files[0]);
+                          })
+                          .catch((err) => {
+                            console.error(err);
+                            setModuleVideoData("");
+                            setModuleVideo(null);
+                          });
                       }
                     }
                   }}
@@ -230,7 +250,7 @@ const CourseCreation = () => {
                 width="w-full"
                 label="Module Duration"
                 type="text"
-                value={instructor}
+                value={moduleDuration}
                 placeholder="e.g 8 mins"
                 onChange={(e) => {
                   setModuleDuration(e.target.value);
