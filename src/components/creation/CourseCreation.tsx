@@ -48,9 +48,9 @@ const CourseCreation = () => {
 
     createCourse(
       {
+        title: title,
         description: description,
         instructor: instructor,
-        title: title,
         modules: modules,
       },
       token,
@@ -214,7 +214,7 @@ const CourseCreation = () => {
                       if (files !== null) {
                         getVideoCover(e.target.files[0])
                           .then((res) => {
-                            setModuleVideoData(res as string);
+                            // setModuleVideoData(res as string);
                             setModuleVideo(files[0]);
                           })
                           .catch((err) => {
