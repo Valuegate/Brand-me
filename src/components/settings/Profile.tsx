@@ -38,6 +38,9 @@ const Profile = () => {
       setEmail(data.email);
       setFirstName(names[0]);
       setLastname(names[1]);
+      setBio(data.bio || "");
+      setLocation(data.location || "");
+      setSelectedImage(data.image || "");
     }
   }, []);
 
@@ -57,6 +60,16 @@ const Profile = () => {
       token,
       (res) => {
         toast.success("Successfully edited your profile");
+        let localData: string | null = window.localStorage.getItem(globalKey);
+        if (localData !== null) {
+          let data = JSON.parse(localData);
+          data.full_name = `${firstName} ${lastName}`;
+          data.bio = bio;
+          data.location = location;
+          data.image = selectedImage;
+          window.localStorage.setItem(globalKey, JSON.stringify(data));
+        }
+
         window.location.assign("/profile");
         setLoading(false);
       },
