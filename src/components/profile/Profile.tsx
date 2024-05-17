@@ -26,6 +26,9 @@ const Profile = () => {
     first_name: "",
     last_name: "",
     date_joined: "",
+    image: "",
+    bio: "",
+    location: "",
   })
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
@@ -85,10 +88,13 @@ const Profile = () => {
               <div className="bg-light-blue-30 px-8 py-4 md:py-5 rounded-2xl">
                 <div className="flex md:flex-col gap-8 items-center">
                   <div>
+                    
                     <Image
-                      src={Avatar}
+                      src={account.image.length !== 0 ? account.image : Avatar}
                       alt={""}
                       className="size-[200px] md:size-[120px]"
+                      width={200}
+                      height={200}
                     />
                   </div>
                   <div className="flex flex-col items-center gap-12">
@@ -123,8 +129,8 @@ const Profile = () => {
                 </div>
               </div>
 
-              <div className="bg-light-blue-30 h-full px-8 py-4 md:py-5 rounded-2xl">
-                <h2 className="text-brand text-[25px] md:text-[18px] leading-[20px] font-cocogoose mb-2">
+              <div className="bg-light-blue-30 h-full flex justify-center px-8 py-4 md:py-5 rounded-2xl">
+                {/* <h2 className="text-brand text-[25px] md:text-[18px] leading-[20px] font-cocogoose mb-2">
                   Membership
                 </h2>
                 <div className="flex items-center gap-2">
@@ -139,7 +145,9 @@ const Profile = () => {
                       Private <strong>180</strong>members
                     </p>
                   </div>
-                </div>
+                </div> */}
+                {account.bio}
+
               </div>
             </div>
 

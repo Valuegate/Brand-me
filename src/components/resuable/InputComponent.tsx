@@ -31,7 +31,7 @@ const InputComponent: FC<iInputProps> = ({
           value={value}
           placeholder={placeholder}
           onChange={onChange}
-          className={`${width} focus:outline-none bg-[#FFFFFF00] font-cocogoose border-[3px] pl-4 text-[18px] border-brand rounded-lg h-[60px] placeholder:text-brand-49 text-brand`}
+          className={`${width} focus:outline-none bg-[#FFFFFF00] font-cocogoose border-[3px] px-4 text-[18px] border-brand rounded-lg h-[60px] placeholder:text-brand-49 text-brand`}
         />
         {type === "password" && (
           <div

@@ -15,10 +15,10 @@ const Dashboard = () => {
             Total Registered Users
           </h1>
           <div className="w-full h-[150px] rounded-[40px] bg-gradient-to-b to-brand from-light-blue-50">
-            <div className="flex w-full justify-between items-center h-full px-5">
-              <MdGroups size={"80px"} className="text-white" />
-              <h1 className="text-white font-cocogoose text-[64px] leading-[72px]">
-                13 K
+            <div className="flex w-full justify-around items-center h-full px-5">
+              <MdGroups size={"64px"} className="text-white" />
+              <h1 className="text-white font-cocogoose text-[52px] leading-[60px]">
+                13K
               </h1>
             </div>
           </div>

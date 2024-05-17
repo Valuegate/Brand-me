@@ -2,7 +2,9 @@ import { fetcher } from "@/lib/fetcher";
 import { COURSES } from "@/services/routes";
 import { useQuery } from "@tanstack/react-query";
 
-interface iGetCourseResponse {}
+interface iGetCourseResponse {
+  
+}
 
 const useGetAllCourses = () => {
   const { isLoading, data, isError, isSuccess } = useQuery({
