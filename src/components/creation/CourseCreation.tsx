@@ -3,42 +3,41 @@
 import React, { useRef, useEffect, useState } from "react";
 
 import InputComponent from "../resuable/InputComponent";
-import ComboComponent from "../resuable/ComboComponent";
 import InputAreaComponent from "../resuable/InputAreaComponent";
 
-import { FaLink } from "react-icons/fa6";
+import { MdUpload, MdAddCircleOutline } from "react-icons/md";
 
-import { Modal } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-
-import {
-  TCreateCoursePayload,
-  createCourse,
-  TModule,
-} from "@/hooks/mutations/useCreateCourse";
+import { createCourse, TModule } from "@/hooks/mutations/useCreateCourse";
 import { globalKey } from "@/stores/globalStore";
 
+import { getBase64 } from "@/functions/fileFunction";
+import Image from "next/image";
+
 const CourseCreation = () => {
+  const [banner, setBanner] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [instructor, setInstructor] = useState<string>("");
   const [modules, setModules] = useState<TModule[]>([]);
-  const [opened, { open, close }] = useDisclosure(false);
 
   const [moduleTitle, setModuleTitle] = useState<string>("");
   const [moduleDescription, setModuleDescription] = useState<string>("");
+  const [moduleDuration, setModuleDuration] = useState<string>("");
   const [moduleVideo, setModuleVideo] = useState<File | null>(null);
 
-  const fileRef = useRef<HTMLInputElement>(null);
+  const bannerRef = useRef<HTMLInputElement>(null);
+  const videoRef = useRef<HTMLInputElement>(null);
 
   const [editIndex, setEditIndex] = useState<number>(-1);
+
+  const [page, setPage] = useState<number>(0);
 
   const reset = () => {
     setEditIndex(-1);
     setModuleTitle("");
     setModuleDescription("");
+    setModuleDuration("");
     setModuleVideo(null);
-    close();
   };
 
   const create = () => {
@@ -60,170 +59,241 @@ const CourseCreation = () => {
         console.error(err);
       }
     );
-  }
+  };
 
   return (
     <>
-      <div className="w-full bg-light-blue-30 md:bg-white rounded-[30px] flex flex-col py-6 px-10 md:px-0 ">
-        <h2 className="text-brand text-[20px] font-cocogoose">
-          Course Creation
-        </h2>
-
-        <div className="mt-12 flex flex-col gap-6">
-          <InputComponent
-            width="w-full"
-            label="Course Title"
-            value={title}
-            type="text"
-            placeholder=""
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-          />
-          <InputAreaComponent
-            label="Course Description"
-            onChange={(e) => {
-              setDescription(e.target.value);
-            }}
-            placeholder=""
-            value={description}
-          />
-          <InputComponent
-            width="w-full"
-            label="Course Instructor"
-            type="text"
-            value={instructor}
-            placeholder=""
-            onChange={(e) => {
-              setInstructor(e.target.value);
-            }}
-          />
-
-          <p className="font-cocogoose-light font-bold text-[16px] text-brand ">
-            Modules
-          </p>
-
-          <div className="w-full flex flex-wrap gap-5 items-center">
-            {modules.map((md, i) => {
-              return (
-                <div
-                  onClick={() => {
-                    setModuleTitle(md.title);
-                    setModuleDescription(md.text_content);
-                    setModuleVideo(md.video_content);
-                    setEditIndex(i);
-                    open();
-                  }}
-                  key={i}
-                  className="size-[200px] bg-white rounded flex flex-col justify-center shadow-md cursor-pointer"
-                >
-                  <h2 className="font-cocogoose text-[16px] text-brand text-center">
-                    {md.title}
-                  </h2>
-                </div>
-              );
-            })}
-            <div
-              onClick={open}
-              className="size-[200px] border-4 border-brand rounded flex flex-col justify-center text-center font-cocogoose text-[14px] text-brand cursor-pointer"
-            >
-              Click to add module
+      <div className="w-full bg-light-blue-30 md:bg-white rounded-[30px] flex flex-col items-center p-10 md:px-0 ">
+        {page === 0 ? (
+          <>
+            <div className="size-[80px] bg-brand rounded-full flex items-center justify-center text-white text-[40px] leading-[44px] font-semibold">
+              1
+              <span className="font-medium text-[26px] leading-[30px]">/2</span>
             </div>
-          </div>
-        </div>
-        <div className="flex w-full justify-center my-10">
-          <button onClick={create} className="w-[400px] bg-brand rounded-lg h-[50px] text-white font-cocogoose">
-            Create Course
-          </button>
-        </div>
-      </div>
-      <Modal opened={opened} onClose={reset} centered>
-        <div className="flex flex-col w-full">
-          <h2 className="text-brand text-[20px] font-cocogoose">
-            {editIndex === -1 ? "New" : "Edit"} Module
-          </h2>
-          <div className="mt-5 flex flex-col gap-5">
-            <InputComponent
-              width="w-full"
-              label="Module Title"
-              value={moduleTitle}
-              type="text"
-              placeholder=""
-              onChange={(e) => {
-                setModuleTitle(e.target.value);
-              }}
-            />
-            <InputAreaComponent
-              label="Module Description"
-              value={moduleDescription}
-              placeholder=""
-              onChange={(e) => {
-                setModuleDescription(e.target.value);
-              }}
-            />
-            <div className="flex flex-col w-full gap-1">
-              <p className="font-cocogoose-light font-bold text-[16px] text-brand ">
-                Video URL
-              </p>
-              <div className="font-cocogoose border-[3px] line-clamp-1 w-full h-[60px] text-[18px] text-brand flex items-center pl-4 pr-10 border-brand rounded-lg relative">
-                {moduleVideo === null ? "" : moduleVideo.name}
+            <h2 className="text-brand text-[30px] mt-10 font-cocogoose">
+              Course Creation
+            </h2>
+            <div className="mt-10 w-[60%] flex flex-col gap-5">
+              <div className="flex flex-col gap-1">
+                <p className="font-cocogoose text-[16px] text-brand">
+                  Upload Banner
+                </p>
                 <div
                   onClick={() => {
-                    fileRef.current?.click();
+                    bannerRef.current?.click();
                   }}
-                  className="bg-brand-30 p-2 cursor-pointer flex rounded absolute right-2 top-2.5"
+                  className={`w-full h-[180px] cursor-pointer rounded overflow-hidden ${
+                    banner.length === 0 &&
+                    "bg-brand-20 flex flex-col items-center justify-center gap-2"
+                  }`}
                 >
-                  <FaLink className="text-brand" size={"22px"} />
+                  {banner.length === 0 && (
+                    <>
+                      <MdUpload size={"26px"} className="text-brand" />
+                      <p className="text-brand font-cocogoose-light font-bold text-[16px]">
+                        Upload your banner in png or jpg format
+                      </p>
+                    </>
+                  )}
+                  {banner.length !== 0 && (
+                    <Image
+                      src={banner}
+                      alt="banner image"
+                      className="w-full h-full object-cover"
+                      width={100}
+                      height={100}
+                    />
+                  )}
                 </div>
+                <input
+                  type="file"
+                  style={{ display: "none" }}
+                  accept="image/*"
+                  ref={bannerRef}
+                  onChange={(e) => {
+                    if (e.target.files !== null) {
+                      getBase64(e.target.files[0])
+                        .then((res) => setBanner(res as string))
+                        .catch((err) => setBanner(""));
+                    }
+                  }}
+                />
               </div>
-              <input
-                type="file"
-                style={{ display: "none" }}
-                multiple={false}
-                ref={fileRef}
-                accept="video/*"
+
+              <InputComponent
+                width="w-full"
+                label="Course Title"
+                value={title}
+                type="text"
+                placeholder="e.g Foundational Course"
                 onChange={(e) => {
-                  let files: FileList | null = e.target.files;
-                  if (files !== null) {
-                    setModuleVideo(files[0]);
-                  }
+                  setTitle(e.target.value);
                 }}
               />
-            </div>
-
-            <button
-              onClick={() => {
-                if (moduleVideo === null) return;
-
-                let modl: TModule = {
-                  text_content: moduleDescription,
-                  title: moduleTitle,
-                  video_content: moduleVideo!,
-                };
-
-                if (editIndex === -1) {
-                  let m = modules;
-                  m.push(modl);
-                  setModules(m);
-                } else {
-                  let newArray = modules.slice(0, editIndex);
-                  newArray.push(modl);
-                  let post = modules.slice(editIndex + 1);
-                  for (let i = 0; i < post.length; ++i) {
-                    newArray.push(post[i]);
+              <InputAreaComponent
+                label="Course Description"
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                }}
+                placeholder="Type here..."
+                value={description}
+              />
+              <InputComponent
+                width="w-full"
+                label="Course Instructor"
+                type="text"
+                value={instructor}
+                placeholder="e.g John Doe"
+                onChange={(e) => {
+                  setInstructor(e.target.value);
+                }}
+              />
+              <button
+                onClick={() => {
+                  if (page === 0) {
+                    setPage(1);
                   }
-                  setModules(newArray);
-                }
+                }}
+                className="w-full mt-10 bg-brand rounded-lg h-[50px] text-white font-cocogoose"
+              >
+                Proceed
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="size-[80px] bg-brand rounded-full flex items-center justify-center text-white text-[40px] leading-[44px] font-semibold">
+              2
+              <span className="font-medium text-[26px] leading-[30px]">/2</span>
+            </div>
+            <h2 className="text-brand text-[30px] mt-10 font-cocogoose">
+              Course Creation
+            </h2>
+            <div className="mt-10 w-[60%] flex flex-col gap-5">
+              <div className="flex flex-col gap-1">
+                <p className="font-cocogoose text-[16px] text-brand">
+                  Upload Video
+                </p>
+                <div
+                  onClick={() => {
+                    videoRef.current?.click();
+                  }}
+                  className={`w-full h-[180px] cursor-pointer rounded overflow-hidden ${
+                    banner.length === 0 &&
+                    "bg-brand-20 flex flex-col items-center justify-center gap-2"
+                  }`}
+                >
+                  {moduleVideo === null && (
+                    <>
+                      <MdUpload size={"26px"} className="text-brand" />
+                      <p className="text-brand font-cocogoose-light font-bold text-[16px]">
+                        Upload your video with a 300MB maximum limit
+                      </p>
+                    </>
+                  )}
+                </div>
+                <input
+                  type="file"
+                  style={{ display: "none" }}
+                  accept="video/*"
+                  ref={videoRef}
+                  onChange={(e) => {
+                    if (e.target.files !== null) {
+                      let files: FileList | null = e.target.files;
+                      if (files !== null) {
+                        setModuleVideo(files[0]);
+                      }
+                    }
+                  }}
+                />
+              </div>
 
-                reset();
-              }}
-              className="w-full bg-brand rounded-lg h-[50px] text-white font-cocogoose"
-            >
-              {editIndex === -1 ? "Add" : "Edit"}
-            </button>
-          </div>
-        </div>
-      </Modal>
+              <InputComponent
+                width="w-full"
+                label="Module Title"
+                value={moduleTitle}
+                type="text"
+                placeholder="e.g Introduction"
+                onChange={(e) => {
+                  setModuleTitle(e.target.value);
+                }}
+              />
+              <InputAreaComponent
+                label="Module Content"
+                onChange={(e) => {
+                  setModuleDescription(e.target.value);
+                }}
+                placeholder="Type here..."
+                value={moduleDescription}
+              />
+              <InputComponent
+                width="w-full"
+                label="Module Duration"
+                type="text"
+                value={instructor}
+                placeholder="e.g 8 mins"
+                onChange={(e) => {
+                  setModuleDuration(e.target.value);
+                }}
+              />
+              {page === 1 && (
+                <button
+                  onClick={() => {
+                    if (
+                      moduleTitle.length !== 0 &&
+                      moduleDescription.length !== 0 &&
+                      moduleDuration.length !== 0 &&
+                      moduleVideo !== null
+                    ) {
+                      if (moduleVideo === null) return;
+
+                      let modl: TModule = {
+                        title: moduleTitle,
+                        is_completed: false,
+                        contents: [
+                          {
+                            title: moduleTitle,
+                            text_content: moduleDescription,
+                            video_content: moduleVideo!,
+                          },
+                        ],
+                      };
+
+                      if (editIndex === -1) {
+                        let m = modules;
+                        m.push(modl);
+                        setModules(m);
+                      } else {
+                        let newArray = modules.slice(0, editIndex);
+                        newArray.push(modl);
+                        let post = modules.slice(editIndex + 1);
+                        for (let i = 0; i < post.length; ++i) {
+                          newArray.push(post[i]);
+                        }
+                        setModules(newArray);
+                      }
+
+                      reset();
+                    }
+                  }}
+                  className="w-full mt-10 bg-brand-30 flex justify-center items-center gap-2 rounded-lg h-[50px] text-brand font-cocogoose"
+                >
+                  <MdAddCircleOutline size={"26px"} />
+                  Add Module
+                </button>
+              )}
+              <button
+                onClick={create}
+                className={`w-full ${
+                  page === 0 && "mt-10"
+                } bg-brand rounded-lg h-[50px] text-white font-cocogoose`}
+              >
+                {page === 0 ? "Proceed" : "Publish"}
+              </button>
+            </div>
+          </>
+        )}
+      </div>
     </>
   );
 };
