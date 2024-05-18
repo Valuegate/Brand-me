@@ -11,7 +11,10 @@ import { createCourse, TModule } from "@/hooks/mutations/useCreateCourse";
 import { globalKey } from "@/stores/globalStore";
 
 import { getBase64, getVideoCover } from "@/functions/fileFunction";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
+import { Loader } from '@mantine/core';
 
 const CourseCreation = () => {
   const [banner, setBanner] = useState<string>("");
@@ -25,6 +28,7 @@ const CourseCreation = () => {
   const [moduleDuration, setModuleDuration] = useState<string>("");
   const [moduleVideo, setModuleVideo] = useState<File | null>(null);
   const [moduleVideoData, setModuleVideoData] = useState<string>("");
+  const [loading, isLoading] = useState<boolean>(false)
 
   const bannerRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLInputElement>(null);
@@ -46,6 +50,8 @@ const CourseCreation = () => {
     let token = localStorage.getItem(globalKey)!;
     token = JSON.parse(token).access_token;
 
+    isLoading(true)
+
     createCourse(
       {
         title: title,
@@ -55,16 +61,31 @@ const CourseCreation = () => {
       },
       token,
       (res) => {
-        console.log(res.data);
+        isLoading(false)
+        // console.log(res.data);
+        window.location.reload()
+        toast.success("Your course has been created. Thank You")
       },
       (err) => {
-        console.error(err);
+        isLoading(false)
+        // console.error(err);
+        toast.error("An error occurred. Please try again later")
       }
     );
   };
 
   return (
     <>
+    <ToastContainer position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark" />
       <div className="w-full bg-light-blue-30 md:bg-white rounded-[30px] flex flex-col items-center p-10 md:px-0 ">
         {page === 0 ? (
           <>
@@ -215,7 +236,7 @@ const CourseCreation = () => {
                         getVideoCover(e.target.files[0])
                           .then((res) => {
                             // setModuleVideoData(res as string);
-                            setModuleVideo(files[0]);
+                            setModuleVideo(files![0]);
                           })
                           .catch((err) => {
                             console.error(err);
@@ -270,13 +291,9 @@ const CourseCreation = () => {
                       let modl: TModule = {
                         title: moduleTitle,
                         is_completed: false,
-                        contents: [
-                          {
-                            title: moduleTitle,
-                            text_content: moduleDescription,
-                            video_content: moduleVideo!,
-                          },
-                        ],
+                        text_content: moduleDescription,
+                        // video_content: moduleVideo!
+                        video_content: "https://www.example.com/video.mp4"
                       };
 
                       if (editIndex === -1) {
@@ -308,7 +325,8 @@ const CourseCreation = () => {
                   page === 0 && "mt-10"
                 } bg-brand rounded-lg h-[50px] text-white font-cocogoose`}
               >
-                {page === 0 ? "Proceed" : "Publish"}
+                {loading && <Loader color='#fff' />}
+                {!loading && (page === 0 ? "Proceed" : "Publish")}
               </button>
             </div>
           </>

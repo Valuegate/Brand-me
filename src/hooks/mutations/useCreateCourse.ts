@@ -13,11 +13,9 @@ export type TCreateCoursePayload = {
 export type TModule = {
   title: string;
   is_completed: boolean;
-  contents: {
-    title: string;
-    text_content: string;
-    video_content: File;
-  }[];
+  text_content: string;
+  // video_content: File | string;
+  video_content: "https://www.example.com/video.mp4";
 };
 
 export interface iCourseCreationResponse {}
@@ -35,7 +33,8 @@ export function createCourse(
     url: `https://brandme-2.onrender.com/api/courses/courses/create/`,
     headers: {
       Authorization: `Bearer ${token}`,
-      "Content-Type": "multipart/form-data",
+      // "Content-Type": "multipart/form-data",
+      "Content-Type": "application/json",
     },
   })
     .then(onSuccess)
