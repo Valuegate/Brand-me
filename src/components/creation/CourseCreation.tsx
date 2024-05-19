@@ -37,7 +37,7 @@ const CourseCreation = () => {
 
   const [page, setPage] = useState<number>(0);
 
-  const reset = () => {
+  const resetModule = () => {
     setEditIndex(-1);
     setModuleTitle("");
     setModuleVideoData("");
@@ -45,6 +45,14 @@ const CourseCreation = () => {
     setModuleDuration("");
     setModuleVideo(null);
   };
+
+  const resetCourse = () => {
+    setBanner("");
+    setTitle("");
+    setDescription("");
+    setInstructor("");
+    setModules([]);
+  }
 
   const create = () => {
     let token = localStorage.getItem(globalKey)!;
@@ -62,9 +70,10 @@ const CourseCreation = () => {
       token,
       (res) => {
         isLoading(false)
-        // console.log(res.data);
-        window.location.reload()
-        toast.success("Your course has been created. Thank You")
+        toast.success("Your course has been created. Thank You");
+        resetCourse();
+        resetModule();
+        setPage(0);
       },
       (err) => {
         isLoading(false)
@@ -292,8 +301,7 @@ const CourseCreation = () => {
                         title: moduleTitle,
                         is_completed: false,
                         text_content: moduleDescription,
-                        // video_content: moduleVideo!
-                        video_content: "https://www.example.com/video.mp4"
+                        video_content: moduleVideo!
                       };
 
                       if (editIndex === -1) {
@@ -310,7 +318,7 @@ const CourseCreation = () => {
                         setModules(newArray);
                       }
 
-                      reset();
+                      resetModule();
                     }
                   }}
                   className="w-full mt-10 bg-brand-30 flex justify-center items-center gap-2 rounded-lg h-[50px] text-brand font-cocogoose"
