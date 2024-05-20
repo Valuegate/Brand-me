@@ -74,28 +74,29 @@ const Courses = () => {
 
 const CourseCard: FC<iCourseCardProp> = ({ course, onStart }) => {
   return (
-    <div className="w-full h-[500px] md:h-[400px] bg-light-blue-30 rounded-xl p-[5%] flex flex-col transition-colors duration-200 ease-in-out hover:bg-light-blue-50">
+    <div className="w-full h-[480px] md:h-[400px] bg-light-blue-30 rounded-xl p-[5%] justify-around items-center flex flex-col transition-colors duration-200 ease-in-out hover:bg-light-blue-50">
       <div className="w-full h-[200px] md:h-[160px] rounded-3xl bg-gradient-to-b from-light-blue-0 to-light-blue-30" />
       <h1 className="mt-5 font-cocogoose text-brand text-[32px] md:text-[24px]">
         {course.name}
       </h1>
-      <p className="font-cocogoose-light font-bold text-[20px] md:text-[16px] text-brand">
+      <p className="font-cocogoose-light font-bold text-[18px] md:text-[16px] text-center text-brand">
         {course.description}
       </p>
-      <ProgressBar
+      {/* <ProgressBar
         backgroundColor="bg-light-blue-30"
         valueColor="bg-light-blue"
         value={course.progress}
         hideText={false}
-      />
-      <div className="flex justify-center">
+      /> */}
+      {/* <div className="flex justify-center">
+      </div> */}
         <button
           onClick={onStart}
           className="text-[18px] text-white bg-light-blue hover:bg-brand hover:text-light-blue font-cocogoose h-[45px] w-[200px] md:w-full rounded-lg transition-colors ease-in duration-200"
         >
-          {course.progress > 0 ? "Continue" : "Start"}
+          {/* {course.progress > 0 ? "Proceed" : "Start"} */}
+          Proceed
         </button>
-      </div>
     </div>
   );
 };
