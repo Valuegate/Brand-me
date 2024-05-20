@@ -13,11 +13,8 @@ export type TCreateCoursePayload = {
 export type TModule = {
   title: string;
   is_completed: boolean;
-  contents: {
-    title: string;
-    text_content: string;
-    video_content: File;
-  }[];
+  text_content: string;
+  video_content: File;
 };
 
 export interface iCourseCreationResponse {}
@@ -28,10 +25,23 @@ export function createCourse(
   onSuccess: (res: any) => void,
   onError: (err: any) => void
 ) {
-  console.log(payload);
+  
+  let form: FormData = new FormData();
+  form.append("title", payload.title);
+  form.append("description", payload.description);
+  form.append("instructor", payload.instructor);
+  
+  payload.modules.forEach((module, i) => {
+    form.append(`modules[${i}].title`, module.title);
+    form.append(`modules[${i}].is_completed`, module.is_completed.toString());
+    form.append(`modules[${i}].text_content`, module.text_content);
+    form.append(`modules[${i}].video_content`, module.video_content);
+  });
+
+
   axios({
     method: "POST",
-    data: payload,
+    data: form,
     url: `https://brandme-2.onrender.com/api/courses/courses/create/`,
     headers: {
       Authorization: `Bearer ${token}`,

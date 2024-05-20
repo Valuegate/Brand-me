@@ -22,3 +22,7 @@ export enum COURSES {
 export enum QUIZ {
   GET_FOR_COURSE = '/quiz/quizzes/',
 }
+
+export enum CONTACTUS_ROUTES {
+  CONTACT = '/contactus/contact/',
+}

@@ -1,5 +1,5 @@
 import { AxiosInstance, AxiosResponse } from "axios";
-import { AUTH_ROUTES, ACCOUNTREGISTER_ROUTES, ACCOUNTPROFILE_ROUTES } from "./routes";
+import { AUTH_ROUTES, ACCOUNTREGISTER_ROUTES, ACCOUNTPROFILE_ROUTES, CONTACTUS_ROUTES } from "./routes";
 
 const createAuth = (client: AxiosInstance) => {
   const login = (body: any) => {
@@ -14,10 +14,15 @@ const createAuth = (client: AxiosInstance) => {
     return client.get(ACCOUNTPROFILE_ROUTES.ACCOUNT);
   };
 
+  const userContactUS = (body: any) => {
+    return client.post(CONTACTUS_ROUTES.CONTACT, body);
+  };
+
   return {
     login,
     userRegister,
     getAccountProfile,
+    userContactUS,
   };
 };
 

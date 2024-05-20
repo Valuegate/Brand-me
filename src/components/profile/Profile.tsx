@@ -90,7 +90,7 @@ const Profile = () => {
                   <div>
                     
                     <Image
-                      src={account.image.length !== 0 ? account.image : Avatar}
+                      src={account.image && account.image.length !== 0 ? account.image : Avatar}
                       alt={""}
                       className="size-[200px] md:size-[120px]"
                       width={200}
