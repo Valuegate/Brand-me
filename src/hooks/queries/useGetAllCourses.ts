@@ -3,7 +3,17 @@ import { COURSES } from "@/services/routes";
 import { useQuery } from "@tanstack/react-query";
 
 interface iGetCourseResponse {
-  
+  title: string;
+  description: string;
+  banner_content: string;
+  modules: iCourseModule[];
+}
+
+interface iCourseModule {
+  title: string;
+  is_completed: boolean;
+  text_content: string;
+  video_content: string;
 }
 
 const useGetAllCourses = () => {
@@ -21,7 +31,7 @@ const useGetAllCourses = () => {
 
   return {
     isLoading,
-    data: data as iGetCourseResponse,
+    data: data as iGetCourseResponse[],
     isError,
     isSuccess,
   };

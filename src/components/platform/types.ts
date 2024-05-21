@@ -1,6 +1,6 @@
 
 
-export interface iCourse {
+export type iCourse = {
     image: string;
     name: string;
     description: string;
@@ -8,14 +8,14 @@ export interface iCourse {
     details: iCourseDetails;
 }
 
-export interface iCourseDetails {
+export type iCourseDetails = {
     videos: iVideoData[];
     currentVideo: number;
     quizDone: boolean;
 }
 
 
-export interface iVideoData {
+export type iVideoData = {
     name: string;
     description: string;
     duration: string;

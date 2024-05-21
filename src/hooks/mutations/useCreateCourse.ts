@@ -7,6 +7,7 @@ export type TCreateCoursePayload = {
   title: string;
   description: string;
   instructor: string;
+  banner: File;
   modules: TModule[];
 };
 
@@ -29,6 +30,7 @@ export function createCourse(
   let form: FormData = new FormData();
   form.append("title", payload.title);
   form.append("description", payload.description);
+  form.append("banner_content", payload.banner);
   form.append("instructor", payload.instructor);
   
   payload.modules.forEach((module, i) => {
