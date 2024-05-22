@@ -14,7 +14,8 @@ import { getBase64, getVideoCover } from "@/functions/fileFunction";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
-import { Loader } from '@mantine/core';
+import { Loader } from "@mantine/core";
+import { FaPlay } from "react-icons/fa6";
 
 const CourseCreation = () => {
   const [banner, setBanner] = useState<File | null>(null);
@@ -29,7 +30,7 @@ const CourseCreation = () => {
   const [moduleDuration, setModuleDuration] = useState<string>("");
   const [moduleVideo, setModuleVideo] = useState<File | null>(null);
   const [moduleVideoData, setModuleVideoData] = useState<string>("");
-  const [loading, isLoading] = useState<boolean>(false)
+  const [loading, isLoading] = useState<boolean>(false);
 
   const bannerRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLInputElement>(null);
@@ -59,13 +60,13 @@ const CourseCreation = () => {
     setDescription("");
     setInstructor("");
     setModules([]);
-  }
+  };
 
   const create = () => {
     let token = localStorage.getItem(globalKey)!;
     token = JSON.parse(token).access_token;
 
-    isLoading(true)
+    isLoading(true);
 
     createCourse(
       {
@@ -84,15 +85,16 @@ const CourseCreation = () => {
         setPage(0);
       },
       (err) => {
-        isLoading(false)
-        toast.error("An error occurred. Please try again later")
+        isLoading(false);
+        toast.error("An error occurred. Please try again later");
       }
     );
   };
 
   return (
     <>
-    <ToastContainer position="top-center"
+      <ToastContainer
+        position="top-center"
         autoClose={3000}
         hideProgressBar={true}
         newestOnTop={false}
@@ -101,7 +103,8 @@ const CourseCreation = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="dark" />
+        theme="dark"
+      />
       <div className="w-full bg-light-blue-30 md:bg-white rounded-[30px] flex flex-col items-center p-10 md:px-0 ">
         {page === 0 ? (
           <>
@@ -151,7 +154,7 @@ const CourseCreation = () => {
                   ref={bannerRef}
                   onChange={(e) => {
                     if (e.target.files !== null) {
-                      let firstFile : File = e.target.files[0];
+                      let firstFile: File = e.target.files[0];
                       getBase64(firstFile)
                         .then((res) => {
                           setBannerData(res as string);
@@ -216,6 +219,30 @@ const CourseCreation = () => {
               Course Creation
             </h2>
             <div className="mt-10 w-[60%] flex flex-col gap-5">
+              <div className="flex flex-wrap gap-9 items-center">
+                {modules.map((md, i) => {
+                  return (
+                    <div key={i} className="flex flex-col gap-4 relative">
+                      <Image
+                        src={md.image}
+                        alt="module image"
+                        className="w-[250px] h-[160px]"
+                        width={250}
+                        height={160}
+                      />
+                      <div className="flex items-center justify-between">
+                        <p className="text-[16px] font-cocogoose text-brand">
+                          U{i + 1}
+                        </p>
+                        <p className="text-[16px] font-cocogoose text-brand">
+                          {md.duration}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
               <div className="flex flex-col gap-1">
                 <p className="font-cocogoose text-[16px] text-brand">
                   Upload Video
@@ -238,13 +265,18 @@ const CourseCreation = () => {
                     </>
                   )}
                   {moduleVideoData.length !== 0 && (
-                    <Image
-                      src={moduleVideoData}
-                      alt="module video"
-                      className="w-full h-full object-cover"
-                      width={100}
-                      height={100}
-                    />
+                    <div className="w-full h-full relative flex justify-center items-center">
+                      <Image
+                        src={moduleVideoData}
+                        alt="module video"
+                        className="w-full h-full object-cover"
+                        width={100}
+                        height={100}
+                      />
+                      <div className="bg-white-50 size-[60px] absolute rounded-full flex justify-center items-center">
+                        <FaPlay fill="#FFFFFF" size={"26px"} />
+                      </div>
+                    </div>
                   )}
                 </div>
                 <input
@@ -256,10 +288,15 @@ const CourseCreation = () => {
                     if (e.target.files !== null) {
                       let files: FileList | null = e.target.files;
                       if (files !== null) {
-                        getVideoCover(e.target.files[0])
+                        let firstFile = files[0];
+                        getVideoCover(firstFile)
                           .then((res) => {
-                            // setModuleVideoData(res as string);
-                            setModuleVideo(files![0]);
+                            if (res !== null) {
+                              var urlCreator = window.URL || window.webkitURL;
+                              var imageUrl = urlCreator.createObjectURL(res);
+                              setModuleVideoData(imageUrl);
+                              setModuleVideo(firstFile);
+                            }
                           })
                           .catch((err) => {
                             console.error(err);
@@ -314,8 +351,10 @@ const CourseCreation = () => {
                       let modl: TModule = {
                         title: moduleTitle,
                         is_completed: false,
+                        image: moduleVideoData,
+                        duration: moduleDuration,
                         text_content: moduleDescription,
-                        video_content: moduleVideo!
+                        video_content: moduleVideo!,
                       };
 
                       if (editIndex === -1) {
@@ -347,7 +386,7 @@ const CourseCreation = () => {
                   page === 0 && "mt-10"
                 } bg-brand rounded-lg h-[50px] text-white font-cocogoose`}
               >
-                {loading && <Loader color='#fff' />}
+                {loading && <Loader color="#fff" />}
                 {!loading && (page === 0 ? "Proceed" : "Publish")}
               </button>
             </div>
