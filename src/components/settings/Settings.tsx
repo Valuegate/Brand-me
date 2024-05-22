@@ -15,7 +15,7 @@ const Settings = () => {
 
   return (
     <>
-      <div className="fixed top-0 left-0 right-0">
+      <div className="fixed top-0 left-0 right-0 z-30">
         <NavBar index={-1} />
       </div>
       <div className="h-32" />

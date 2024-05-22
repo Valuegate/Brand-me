@@ -146,7 +146,12 @@ const Profile = () => {
                     </p>
                   </div>
                 </div> */}
+                <div className='flex justify-center items-center gap-2'>
+                  <h2 className='text-brand font-cocogoose text-2xl'>Bio:</h2>
+                  <p className='text-brand font-cocogoose text-base'>
                 {account.bio}
+                  </p>
+                </div>
 
               </div>
             </div>
