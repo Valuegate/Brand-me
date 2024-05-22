@@ -2,8 +2,8 @@
 import React, { ReactNode, useState } from 'react'
 import NavBar from '../resuable/NavBar/NavBar';
 import Footer from '../resuable/Footer/Footer';
-import Members from '../platform/Members';
 import Admins from './Admins';
+import Members from './Members';
 
 const UserTracking = () => {
   const [currentTab, setCurrentTab] = useState<number>(0);
