@@ -6,7 +6,7 @@ export function getBase64(file: File) {
   });
 }
 
-export function getVideoCover(file: File) {
+export function getVideoCover(file: File): Promise<Blob | null> {
   let seekTo = 0.5;
   console.log("getting video cover for file: ", file);
   return new Promise((resolve, reject) => {
@@ -17,6 +17,7 @@ export function getVideoCover(file: File) {
     videoPlayer.addEventListener("error", (ex) => {
       reject(`error when loading video file ${ex.message}`);
     });
+
     // load metadata of the video to get video duration and dimensions
     videoPlayer.addEventListener("loadedmetadata", () => {
       // seek to user defined timestamp (in seconds) if possible
@@ -24,10 +25,12 @@ export function getVideoCover(file: File) {
         reject("video is too short.");
         return;
       }
+
       // delay seeking or else 'seeked' event won't fire on Safari
       setTimeout(() => {
         videoPlayer.currentTime = seekTo;
       }, 200);
+
       // extract video thumbnail once seeking is complete
       videoPlayer.addEventListener("seeked", () => {
         console.log("video is now paused at %ss.", seekTo);
@@ -35,13 +38,19 @@ export function getVideoCover(file: File) {
         const canvas = document.createElement("canvas");
         canvas.width = videoPlayer.videoWidth;
         canvas.height = videoPlayer.videoHeight;
+
         // draw the video frame to canvas
         const ctx = canvas.getContext("2d");
         ctx!.drawImage(videoPlayer, 0, 0, canvas.width, canvas.height);
-        // return the canvas image as a blob
-        ctx!.canvas.toBlob(
+
+        // create a blob from the canvas using toBlob
+        canvas.toBlob(
           (blob) => {
-            resolve(blob);
+            if (!blob) {
+              reject("Failed to generate video thumbnail.");
+            } else {
+              resolve(blob);
+            }
           },
           "image/jpeg",
           0.75 /* quality */
@@ -50,3 +59,4 @@ export function getVideoCover(file: File) {
     });
   });
 }
+

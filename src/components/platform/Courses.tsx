@@ -110,8 +110,6 @@ const CourseCard: FC<iCourseCardProp> = ({ course, onStart }) => {
       <img
         src={course.image}
         alt="course image"
-        // width={200}
-        // height={200}
         className="w-full h-[200px] md:h-[160px] rounded-3xl"
       />
       <h1 className="mt-5 font-cocogoose text-brand text-[32px] md:text-[24px] text-center">
