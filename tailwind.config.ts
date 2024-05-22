@@ -22,6 +22,11 @@ module.exports = {
       "light-blue-30": "rgba(0, 174, 239, 0.3)",
       "light-blue-50": "rgba(0, 174, 239, 0.5)",
       "light-blue-75": "rgba(0, 174, 239, 0.75)",
+      "role-red-bg": "#FFE9E9",
+      "role-orange-bg": "#FFE7D6",
+      "role-orange": "#DE7C32",
+      "role-green-bg": "#CEEFD9",
+      "green-100": "#00A707",
     },
     fontFamily: {
       'cocogoose': ['var(--font-cocogoose-regular)', 'sans-serif'],
