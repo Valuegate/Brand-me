@@ -219,6 +219,30 @@ const CourseCreation = () => {
               Course Creation
             </h2>
             <div className="mt-10 w-[60%] flex flex-col gap-5">
+              <div className="flex flex-wrap gap-9 items-center">
+                {modules.map((md, i) => {
+                  return (
+                    <div key={i} className="flex flex-col gap-4 relative">
+                      <Image
+                        src={md.image}
+                        alt="module image"
+                        className="w-[250px] h-[160px]"
+                        width={250}
+                        height={160}
+                      />
+                      <div className="flex items-center justify-between">
+                        <p className="text-[16px] font-cocogoose text-brand">
+                          U{i + 1}
+                        </p>
+                        <p className="text-[16px] font-cocogoose text-brand">
+                          {md.duration}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
               <div className="flex flex-col gap-1">
                 <p className="font-cocogoose text-[16px] text-brand">
                   Upload Video
@@ -327,6 +351,8 @@ const CourseCreation = () => {
                       let modl: TModule = {
                         title: moduleTitle,
                         is_completed: false,
+                        image: moduleVideoData,
+                        duration: moduleDuration,
                         text_content: moduleDescription,
                         video_content: moduleVideo!,
                       };
