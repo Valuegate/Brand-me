@@ -56,7 +56,7 @@ const Courses = () => {
     );
   }
 
-  if (isError) {
+  if (!isLoading && isError) {
     toast.error("An error occurred. Please try again");
 
     return (
@@ -93,6 +93,11 @@ const Courses = () => {
           );
         })}
       </div>
+      {courses.length === 0 && (
+        <div className="text-brand text-[24px] font-cocogoose">
+          There are no courses created yet!
+        </div>
+      )}
     </div>
   ) : (
     <ViewCourse course={courses[selectedCourse]} />
@@ -102,14 +107,14 @@ const Courses = () => {
 const CourseCard: FC<iCourseCardProp> = ({ course, onStart }) => {
   return (
     <div className="w-full h-[480px] md:h-[400px] bg-light-blue-30 rounded-xl p-[5%] justify-around items-center flex flex-col transition-colors duration-200 ease-in-out hover:bg-light-blue-50">
-      <Image
+      <img
         src={course.image}
         alt="course image"
-        width={200}
-        height={200}
+        // width={200}
+        // height={200}
         className="w-full h-[200px] md:h-[160px] rounded-3xl"
       />
-      <h1 className="mt-5 font-cocogoose text-brand text-[32px] md:text-[24px]">
+      <h1 className="mt-5 font-cocogoose text-brand text-[32px] md:text-[24px] text-center">
         {course.name}
       </h1>
       <p className="font-cocogoose-light font-bold text-[18px] md:text-[16px] text-center text-brand">
