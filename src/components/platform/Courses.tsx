@@ -6,6 +6,10 @@ import ProgressBar from "../resuable/ProgressBar";
 
 import axios from "axios";
 import { globalKey } from "@/stores/globalStore";
+import useGetAllCourses from "@/hooks/queries/useGetAllCourses";
+import { Loader } from "@mantine/core";
+import { ToastContainer, toast } from "react-toastify";
+import Image from "next/image";
 
 interface iCourseCardProp {
   course: iCourse;
@@ -14,41 +18,64 @@ interface iCourseCardProp {
 
 const Courses = () => {
   const [selectedCourse, setSelectedCourse] = useState<number>(-1);
-
-  const courses: iCourse[] = Array(15).fill({
-    image: "",
-    name: "Foundation",
-    description: "Create an accurate and relevant survey form",
-    progress: 0.3,
-    details: {
-      videos: Array(5).fill({
-        name: "Introduction",
-        description:
-          "This class will give you all the insights for great and successful user research. You will learn the basics of UX research and come up with your own research plan.",
-
-        duration: "8 min",
-        complete: false,
-        video: "",
-      }),
-      currentVideo: 0,
-      quizDone: false,
-    },
-  });
+  const { data, isSuccess, isError, isLoading } = useGetAllCourses();
+  const [courses, setCourses] = useState<iCourse[]>([]);
 
   useEffect(() => {
-    let token = localStorage.getItem(globalKey)!;
-    token = JSON.parse(token).access_token;
-    
-    axios({
-      method: "GET",
-      url: `https://brandme-2.onrender.com/api/courses/courses/`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((res) => console.log(res))
-    .catch((err) => console.error(err));
+    if (!isLoading && isSuccess) {
+      let courseArray: iCourse[] = data.map((val, i) => {
+        return {
+          image: val.banner_content,
+          name: val.title,
+          description: val.description,
+          progress: 0.3,
+          details: {
+            videos: val.modules.map((md, index) => {
+              return {
+                name: md.title,
+                description: md.text_content,
+                duration: "8 min",
+                complete: md.is_completed,
+                video: md.video_content,
+              };
+            }),
+            currentVideo: 0,
+            quizDone: false,
+          },
+        };
+      });
+      setCourses(courseArray);
+    }
+  }, [isLoading, isSuccess, data]);
 
-  }, []);
+  if (isLoading) {
+    return (
+      <div className="flex flex-col w-full items-center justify-center h-40">
+        <Loader size={"26px"} />
+      </div>
+    );
+  }
+
+  if (!isLoading && isError) {
+    toast.error("An error occurred. Please try again");
+
+    return (
+      <div className="flex flex-col w-full items-center justify-center h-40">
+        <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={true}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
+      </div>
+    );
+  }
 
   return selectedCourse === -1 ? (
     <div className="flex flex-col items-center w-full">
@@ -66,6 +93,11 @@ const Courses = () => {
           );
         })}
       </div>
+      {courses.length === 0 && (
+        <div className="text-brand text-[24px] font-cocogoose">
+          There are no courses created yet!
+        </div>
+      )}
     </div>
   ) : (
     <ViewCourse course={courses[selectedCourse]} />
@@ -75,28 +107,25 @@ const Courses = () => {
 const CourseCard: FC<iCourseCardProp> = ({ course, onStart }) => {
   return (
     <div className="w-full h-[480px] md:h-[400px] bg-light-blue-30 rounded-xl p-[5%] justify-around items-center flex flex-col transition-colors duration-200 ease-in-out hover:bg-light-blue-50">
-      <div className="w-full h-[200px] md:h-[160px] rounded-3xl bg-gradient-to-b from-light-blue-0 to-light-blue-30" />
-      <h1 className="mt-5 font-cocogoose text-brand text-[32px] md:text-[24px]">
+      <img
+        src={course.image}
+        alt="course image"
+        // width={200}
+        // height={200}
+        className="w-full h-[200px] md:h-[160px] rounded-3xl"
+      />
+      <h1 className="mt-5 font-cocogoose text-brand text-[32px] md:text-[24px] text-center">
         {course.name}
       </h1>
       <p className="font-cocogoose-light font-bold text-[18px] md:text-[16px] text-center text-brand">
         {course.description}
       </p>
-      {/* <ProgressBar
-        backgroundColor="bg-light-blue-30"
-        valueColor="bg-light-blue"
-        value={course.progress}
-        hideText={false}
-      /> */}
-      {/* <div className="flex justify-center">
-      </div> */}
-        <button
-          onClick={onStart}
-          className="text-[18px] text-white bg-light-blue hover:bg-brand hover:text-light-blue font-cocogoose h-[45px] w-[200px] md:w-full rounded-lg transition-colors ease-in duration-200"
-        >
-          {/* {course.progress > 0 ? "Proceed" : "Start"} */}
-          Proceed
-        </button>
+      <button
+        onClick={onStart}
+        className="text-[18px] text-white bg-light-blue hover:bg-brand hover:text-light-blue font-cocogoose h-[45px] w-[200px] md:w-full rounded-lg transition-colors ease-in duration-200"
+      >
+        Proceed
+      </button>
     </div>
   );
 };

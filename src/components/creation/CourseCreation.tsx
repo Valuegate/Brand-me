@@ -17,7 +17,8 @@ import Image from "next/image";
 import { Loader } from '@mantine/core';
 
 const CourseCreation = () => {
-  const [banner, setBanner] = useState<string>("");
+  const [banner, setBanner] = useState<File | null>(null);
+  const [bannerData, setBannerData] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [instructor, setInstructor] = useState<string>("");
@@ -46,8 +47,14 @@ const CourseCreation = () => {
     setModuleVideo(null);
   };
 
+  // Modules content can be pptx, pdf or video
+  // Google Translate
+  // Nav bar absolute is overlapping on screen
+  // Footer: Efektas logo is stretched
+
   const resetCourse = () => {
-    setBanner("");
+    setBannerData("");
+    setBanner(null);
     setTitle("");
     setDescription("");
     setInstructor("");
@@ -65,11 +72,12 @@ const CourseCreation = () => {
         title: title,
         description: description,
         instructor: instructor,
+        banner: banner!,
         modules: modules,
       },
       token,
       (res) => {
-        isLoading(false)
+        isLoading(false);
         toast.success("Your course has been created. Thank You");
         resetCourse();
         resetModule();
@@ -77,7 +85,6 @@ const CourseCreation = () => {
       },
       (err) => {
         isLoading(false)
-        // console.error(err);
         toast.error("An error occurred. Please try again later")
       }
     );
@@ -115,11 +122,11 @@ const CourseCreation = () => {
                     bannerRef.current?.click();
                   }}
                   className={`w-full h-[180px] cursor-pointer rounded overflow-hidden ${
-                    banner.length === 0 &&
+                    bannerData.length === 0 &&
                     "bg-brand-20 flex flex-col items-center justify-center gap-2"
                   }`}
                 >
-                  {banner.length === 0 && (
+                  {bannerData.length === 0 && (
                     <>
                       <MdUpload size={"26px"} className="text-brand" />
                       <p className="text-brand font-cocogoose-light font-bold text-center text-[16px]">
@@ -127,9 +134,9 @@ const CourseCreation = () => {
                       </p>
                     </>
                   )}
-                  {banner.length !== 0 && (
+                  {bannerData.length !== 0 && (
                     <Image
-                      src={banner}
+                      src={bannerData}
                       alt="banner image"
                       className="w-full h-full object-cover"
                       width={100}
@@ -144,9 +151,16 @@ const CourseCreation = () => {
                   ref={bannerRef}
                   onChange={(e) => {
                     if (e.target.files !== null) {
-                      getBase64(e.target.files[0])
-                        .then((res) => setBanner(res as string))
-                        .catch((err) => setBanner(""));
+                      let firstFile : File = e.target.files[0];
+                      getBase64(firstFile)
+                        .then((res) => {
+                          setBannerData(res as string);
+                          setBanner(firstFile);
+                        })
+                        .catch((err) => {
+                          setBannerData("");
+                          setBanner(null);
+                        });
                     }
                   }}
                 />
