@@ -195,15 +195,50 @@ const QuizCreation = () => {
                     type="type"
                     value={answer}
                     placeholder={"Type here"}
-                    onChange={(e) => {}}
-                    className={`w-full focus:outline-none bg-[#FFFFFF00] font-cocogoose border-[3px] px-4 text-[18px] border-brand rounded-lg h-[60px] placeholder:text-brand-49 text-brand`}
+                    onChange={(e) => {
+                      setAnswer(e.target.value);
+                    }}
+                    className={`w-full focus:outline-none bg-[#FFFFFF00] font-cocogoose border-[3px] pl-4 pr-12 text-[18px] border-brand rounded-lg h-[60px] placeholder:text-brand-49 text-brand`}
                   />
                   <MdAddCircle
                     size={"48px"}
-                    className="absolute cursor-pointer inset-y-1 right-2 flex items-center px-2 cursor-pointer"
+                    onClick={() => {
+                      let ans = answers;
+                      ans.push(answer);
+                      setAnswers(ans);
+                      setAnswer("");
+                    }}
+                    className="absolute inset-y-1 right-2 flex items-center px-2 cursor-pointer"
                   />
                 </div>
               </div>
+              {answers.length > 0 && (
+                <div className="flex flex-col gap-2 w-full">
+                  {answers.map((ans, i) => {
+                    return (
+                      <div
+                        key={i}
+                        className="flex justify-between items-center"
+                      >
+                        <p className="w-[85%] font-cocogoose-light font-bold text-brand text-[16px]">{ans}</p>
+                        <MdDelete
+                          onClick={() => {
+                            let pre = answers.slice(0, i);
+                            let post = answers.slice(i + 1);
+                            for (let index = 0; i < post.length; ++index) {
+                              pre.push(post[index]);
+                            }
+                            setAnswers(pre);
+                          }}
+                          size={"20px"}
+                          fill="#FF0000"
+                          className="cursor-pointer"
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
 
               {page === 1 && (
                 <button
