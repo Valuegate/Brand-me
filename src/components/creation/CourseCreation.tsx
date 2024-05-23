@@ -16,6 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
 import { Loader } from "@mantine/core";
 import { FaPlay } from "react-icons/fa6";
+import { MdDelete } from "react-icons/md";
 
 const CourseCreation = () => {
   const [banner, setBanner] = useState<File | null>(null);
@@ -230,6 +231,23 @@ const CourseCreation = () => {
                         width={250}
                         height={160}
                       />
+                      <div
+                        onClick={() => {
+                          let pre = modules.slice(0, i);
+                          let post = modules.slice(i + 1);
+                          for (let index = 0; i < post.length; ++index) {
+                            pre.push(post[index]);
+                          }
+
+                          setModules(pre);
+                        }}
+                        className="absolute cursor-pointer flex justify-center items-center -top-2 -right-2 size-7 rounded-full bg-white"
+                      >
+                        <MdDelete size={"22px"} fill="#FF0000" />
+                      </div>
+                      <div className="bg-white-50 size-[40px] absolute top-[60px] left-[105px] rounded-full flex justify-center items-center">
+                        <FaPlay fill="#FFFFFF" size={"22px"} />
+                      </div>
                       <div className="flex items-center justify-between">
                         <p className="text-[16px] font-cocogoose text-brand">
                           U{i + 1}
@@ -285,12 +303,16 @@ const CourseCreation = () => {
                   accept="video/*"
                   ref={videoRef}
                   onChange={(e) => {
+                    console.log("Main function");
                     if (e.target.files !== null) {
+                      console.log("Here");
                       let files: FileList | null = e.target.files;
                       if (files !== null) {
                         let firstFile = files[0];
+                        console.log("select file");
                         getVideoCover(firstFile)
                           .then((res) => {
+                            console.log("Get Cover", res);
                             if (res !== null) {
                               var urlCreator = window.URL || window.webkitURL;
                               var imageUrl = urlCreator.createObjectURL(res);
