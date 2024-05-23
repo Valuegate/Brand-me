@@ -35,13 +35,13 @@ const ComboComponent: FC<iComboProps> = ({ label, value, hint, options, onSelect
 
   return (
     <div
-      className={`flex flex-col gap-3 relative`}
+      className={`flex flex-col gap-1 relative`}
       ref={dropdownRef}
       onClick={() => {
         setIsOpen(!isOpen);
       }}
     >
-      <p className="font-cocogoose-light font-bold text-[16px] text-brand ">
+      <p className="font-cocogoose text-[16px] text-brand ">
         {label}
       </p>
       <div className="cursor-pointer border-[3px] border-brand w-full rounded-lg h-[60px] bg-[#FFFFFF00] flex items-center justify-between px-4">
@@ -59,7 +59,7 @@ const ComboComponent: FC<iComboProps> = ({ label, value, hint, options, onSelect
                 onClick={() => {
                   onSelect(i);
                 }}
-                className="font-cocogoose-light cursor-pointer hover:bg-light-blue-30 pl-4 font-bold text-[18px] text-brand"
+                className="font-cocogoose cursor-pointer hover:bg-light-blue-30 pl-4 text-[18px] text-brand"
               >
                 {option}
               </div>

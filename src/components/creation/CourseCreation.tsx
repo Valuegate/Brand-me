@@ -51,7 +51,6 @@ const CourseCreation = () => {
 
   // Modules content can be pptx, pdf or video
   // Google Translate
-  // Nav bar absolute is overlapping on screen
   // Footer: Efektas logo is stretched
 
   const resetCourse = () => {
@@ -305,14 +304,11 @@ const CourseCreation = () => {
                   onChange={(e) => {
                     console.log("Main function");
                     if (e.target.files !== null) {
-                      console.log("Here");
                       let files: FileList | null = e.target.files;
-                      if (files !== null) {
+                      if (files !== null && files.length > 0) {
                         let firstFile = files[0];
-                        console.log("select file");
                         getVideoCover(firstFile)
                           .then((res) => {
-                            console.log("Get Cover", res);
                             if (res !== null) {
                               var urlCreator = window.URL || window.webkitURL;
                               var imageUrl = urlCreator.createObjectURL(res);
@@ -325,7 +321,13 @@ const CourseCreation = () => {
                             setModuleVideoData("");
                             setModuleVideo(null);
                           });
+                      } else {
+                        setModuleVideoData("");
+                        setModuleVideo(null);
                       }
+                    } else {
+                      setModuleVideoData("");
+                      setModuleVideo(null);
                     }
                   }}
                 />
