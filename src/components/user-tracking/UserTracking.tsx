@@ -17,7 +17,7 @@ const UserTracking = () => {
   return (
     <>
       <div className="fixed top-0 left-0 right-0 z-10">
-        <NavBar index={0} />
+        <NavBar index={1} />
       </div>
       <div className="h-32" />
       <div className="px-20 md:px-[5%] flex flex-col">
