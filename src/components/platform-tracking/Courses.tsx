@@ -7,7 +7,7 @@ const Courses = () => {
 
     const courses: iCourse[] = [
         {
-            sn: "01",
+            sn: "001",
             name: " Foundation Course",
             modules: 13,
             activation: "2,049,034",
@@ -16,7 +16,7 @@ const Courses = () => {
             status: "Active",
         },
         {
-            sn: "02",
+            sn: "002",
             name: " Foundation Course",
             modules: 13,
             activation: "2,049,034",
@@ -25,7 +25,7 @@ const Courses = () => {
             status: "Disabled",
         },
         {
-            sn: "03",
+            sn: "003",
             name: " Foundation Course",
             modules: 13,
             activation: "2,049,034",
@@ -34,7 +34,7 @@ const Courses = () => {
             status: "Active",
         },
         {
-            sn: "04",
+            sn: "004",
             name: " Foundation Course",
             modules: 13,
             activation: "2,049,034",
@@ -43,7 +43,7 @@ const Courses = () => {
             status: "Disabled",
         },
         {
-            sn: "05",
+            sn: "005",
             name: " Foundation Course",
             modules: 13,
             activation: "2,049,034",
@@ -52,7 +52,7 @@ const Courses = () => {
             status: "Active",
         },
         {
-            sn: "06",
+            sn: "006",
             name: " Foundation Course",
             modules: 13,
             activation: "2,049,034",
@@ -61,7 +61,7 @@ const Courses = () => {
             status: "Disabled",
         },
         {
-            sn: "07",
+            sn: "007",
             name: " Foundation Course",
             modules: 13,
             activation: "2,049,034",
@@ -70,7 +70,7 @@ const Courses = () => {
             status: "Active",
         },
         {
-            sn: "08",
+            sn: "008",
             name: " Foundation Course",
             modules: 13,
             activation: "2,049,034",
@@ -79,7 +79,7 @@ const Courses = () => {
             status: "Disabled",
         },
         {
-            sn: "09",
+            sn: "009",
             name: " Foundation Course",
             modules: 13,
             activation: "2,049,034",
