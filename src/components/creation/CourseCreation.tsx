@@ -226,7 +226,7 @@ const CourseCreation = () => {
                       <Image
                         src={md.image}
                         alt="module image"
-                        className="w-[250px] h-[160px]"
+                        className="w-[250px] h-[160px] rounded-lg"
                         width={250}
                         height={160}
                       />

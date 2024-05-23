@@ -14,7 +14,7 @@ const ContactUs = () => {
   const loggedIn = useGlobalStore((state) => state.loggedIn);
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 z-50">
+      <div className="fixed z-10 top-0 left-0 right-0 z-50">
         <NavBar index={loggedIn ? 2 : 4} />
       </div>
       <div className="h-20" />
