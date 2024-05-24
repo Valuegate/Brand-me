@@ -1,16 +1,18 @@
+import { StaticImageData } from "next/image";
+
 export interface iAdmin {
-    sn: number | string;
+    image: string | StaticImageData;
     name: string;
     email: string;
     date: Date;
-    status: string;
+    online: boolean;
   }
 
   export interface iMember {
-    sn: number | string;
+    image: string | StaticImageData;
     name: string;
     email: string;
     courses: number;
     date: Date;
-    status: string;
+    online: boolean;
   }
