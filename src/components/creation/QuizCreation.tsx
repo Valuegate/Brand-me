@@ -5,19 +5,17 @@ import React, { useRef, useEffect, useState } from "react";
 import InputComponent from "../resuable/InputComponent";
 import InputAreaComponent from "../resuable/InputAreaComponent";
 
-import { MdUpload, MdAddCircleOutline, MdAddCircle } from "react-icons/md";
+import { MdAddCircleOutline, MdAddCircle } from "react-icons/md";
 
-import { createCourse, TModule } from "@/hooks/mutations/useCreateCourse";
 import { globalKey } from "@/stores/globalStore";
 
-import { getBase64, getVideoCover } from "@/functions/fileFunction";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Image from "next/image";
-import { Loader } from "@mantine/core";
-import { FaPlay } from "react-icons/fa6";
+
 import { MdDelete } from "react-icons/md";
 import ComboComponent from "../resuable/ComboComponent";
+
+import { SingleQuizComponent } from "../quiz/types";
 
 type tQuestion = {
   question: string;
@@ -40,6 +38,7 @@ const QuizCreation = () => {
   const [point, setPoint] = useState<string>("");
 
   const [editIndex, setEditIndex] = useState<number>(-1);
+  const [viewAll, setViewAll] = useState<boolean>(false);
 
   const [page, setPage] = useState<number>(0);
 
@@ -142,25 +141,47 @@ const QuizCreation = () => {
               <div className="flex flex-wrap gap-9 items-center">
                 {questions.map((q, i) => {
                   return (
-                    <div key={i} className="flex flex-col gap-4 relative">
+                    (viewAll || (!viewAll && i === 0)) && (
                       <div
-                        onClick={() => {
-                          let pre = questions.slice(0, i);
-                          let post = questions.slice(i + 1);
-                          for (let index = 0; i < post.length; ++index) {
-                            pre.push(post[index]);
-                          }
-
-                          setQuestions(pre);
-                        }}
-                        className="absolute cursor-pointer flex justify-center items-center -top-2 -right-2 size-7 rounded-full bg-white"
+                        key={i}
+                        className="flex flex-col gap-4 relative w-full"
                       >
-                        <MdDelete size={"22px"} fill="#FF0000" />
+                        <SingleQuizComponent
+                          index={i}
+                          question={q.question}
+                          answers={q.answers}
+                          point={q.point}
+                        />
+                        <div
+                          onClick={() => {
+                            let pre = questions.slice(0, i);
+                            let post = questions.slice(i + 1);
+                            for (let index = 0; i < post.length; ++index) {
+                              pre.push(post[index]);
+                            }
+
+                            setQuestions(pre);
+                          }}
+                          className="absolute cursor-pointer flex justify-center items-center -top-2 -right-2 size-7 rounded-full bg-white"
+                        >
+                          <MdDelete size={"22px"} fill="#FF0000" />
+                        </div>
                       </div>
-                    </div>
+                    )
                   );
                 })}
               </div>
+
+              {questions.length > 0 && (
+                <h3
+                  onClick={() => {
+                    setViewAll(!viewAll);
+                  }}
+                  className="text-[16px] text-light-blue font-cocogoose-light font-bold text-center cursor-pointer"
+                >
+                  {viewAll ? "View Less" : "View All"}
+                </h3>
+              )}
 
               <InputAreaComponent
                 label="Question"
@@ -220,7 +241,9 @@ const QuizCreation = () => {
                         key={i}
                         className="flex justify-between items-center"
                       >
-                        <p className="w-[85%] font-cocogoose-light font-bold text-brand text-[16px]">{ans}</p>
+                        <p className="w-[85%] font-cocogoose-light font-bold text-brand text-[16px]">
+                          {ans}
+                        </p>
                         <MdDelete
                           onClick={() => {
                             let pre = answers.slice(0, i);
@@ -239,6 +262,16 @@ const QuizCreation = () => {
                   })}
                 </div>
               )}
+              <InputComponent
+                width="w-full"
+                label="Point"
+                type="text"
+                value={point}
+                placeholder="e.g 1"
+                onChange={(e) => {
+                  setPoint(e.target.value);
+                }}
+              />
 
               {page === 1 && (
                 <button
