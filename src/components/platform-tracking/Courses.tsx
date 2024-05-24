@@ -192,7 +192,7 @@ const Courses = () => {
                       <div className="w-full h-[100px] bg-[#D9D9D9] rounded" />
                       <div className="flex justify-between items-center w-full">
                         <h2 className="text-brand text-[14px] font-cocogoose">
-                          U{nm}
+                          U{nm} 
                         </h2>
                         <div className="text-brand text-[12px] font-cocogoose-light font-bold">
                           2hrs 45mins
