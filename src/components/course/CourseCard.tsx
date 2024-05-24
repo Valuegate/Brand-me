@@ -1,3 +1,4 @@
+
 import Image, { StaticImageData } from "next/image";
 import React, { FC } from "react";
 

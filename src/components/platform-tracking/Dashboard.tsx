@@ -10,14 +10,14 @@ const Dashboard = () => {
   return (
     <div className="w-full flex flex-col gap-[65px]">
       <div className="flex justify-between w-full h-[340px]">
-        <div className="flex flex-col bg-brand w-[25%] h-full rounded-[40px] p-10 gap-4">
+        <div className="flex flex-col bg-brand w-[27%] h-full rounded-[40px] p-10 gap-4">
           <h1 className="text-[35px] leading-[38px] font-cocogoose text-white">
             Total Registered Users
           </h1>
           <div className="w-full h-[150px] rounded-[40px] bg-gradient-to-b to-brand from-light-blue-50">
-            <div className="flex w-full justify-around items-center h-full px-5">
-              <MdGroups size={"64px"} className="text-white" />
-              <h1 className="text-white font-cocogoose text-[52px] leading-[60px]">
+            <div className="flex w-full justify-center gap-4 items-center h-full px-5">
+              <MdGroups size={"60px"} className="text-white" />
+              <h1 className="text-white font-cocogoose text-[36px] leading-[48px]">
                 13K
               </h1>
             </div>
@@ -30,17 +30,17 @@ const Dashboard = () => {
           </h1>
           <div className="flex justify-between items-center w-full">
             <div className="w-[45%] h-[150px] rounded-[40px] bg-gradient-to-b to-brand from-light-blue-50">
-              <div className="flex w-full justify-between items-center h-full px-5">
-                <FaCalendarDay size={"60px"} className="text-white" />
-                <h1 className="text-white font-cocogoose text-[48px] leading-[60px]">
+              <div className="flex w-full justify-center gap-4 items-center h-full px-5">
+                <FaCalendarDay size={"48px"} className="text-white" />
+                <h1 className="text-white font-cocogoose text-[36px] leading-[48px]">
                   28%
                 </h1>
               </div>
             </div>
             <div className="w-[45%] h-[150px] rounded-[40px] bg-gradient-to-b to-brand from-light-blue-50">
-              <div className="flex w-full justify-between items-center h-full px-5">
-                <FaCalendarAlt size={"60px"} className="text-white" />
-                <h1 className="text-white font-cocogoose text-[48px] leading-[60px]">
+              <div className="flex w-full justify-center gap-4 items-center h-full px-5">
+                <FaCalendarAlt size={"48px"} className="text-white" />
+                <h1 className="text-white font-cocogoose text-[36px] leading-[48px]">
                   40%
                 </h1>
               </div>
@@ -48,14 +48,14 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="flex flex-col bg-brand w-[25%] h-full rounded-[40px] p-10 gap-4">
+        <div className="flex flex-col bg-brand w-[27%] h-full rounded-[40px] p-10 gap-4">
           <h1 className="text-[35px] leading-[38px] font-cocogoose text-white">
             New Users Daily Registrations
           </h1>
           <div className="w-full h-[150px] rounded-[40px] bg-gradient-to-b to-brand from-light-blue-50">
-            <div className="flex w-full justify-around items-center h-full px-5">
-              <IoLogOut size={"80px"} className="text-white" />
-              <h1 className="text-white font-cocogoose text-[64px] leading-[72px]">
+            <div className="flex w-full justify-center gap-4 items-center h-full px-5">
+              <IoLogOut size={"60px"} className="text-white" />
+              <h1 className="text-white font-cocogoose text-[36px] leading-[48px]">
                 20
               </h1>
             </div>
