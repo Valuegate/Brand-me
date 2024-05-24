@@ -49,7 +49,6 @@ const NavBar: FC<NavProp> = ({ index }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-
   const [openedDrawer, { open: openDrawer, close: closeDrawer }] =
     useDisclosure(false);
 
@@ -201,54 +200,62 @@ const NavBar: FC<NavProp> = ({ index }) => {
           )}
           {loggedIn && (
             <div className="flex gap-4 items-center">
-              <div className="bg-light-blue-30 rounded-lg p-1">
-                <AiFillMessage
-                  size={"24px"}
-                  className="text-light-blue cursor-pointer"
-                />
-              </div>
-              <div
-                ref={dropdownRef}
-                className="bg-light-blue-30 rounded-lg p-1 relative  "
-              >
-                <IoMdNotifications
-                  size={"24px"}
-                  className="text-light-blue cursor-pointer"
-                  onClick={() => {
-                    setNotificationClicked(true);
-                    setIsOpen(!isOpen);
-                  }}
-                />
-                {isOpen && isNotificationClicked && <Notifications />}
-              </div>
-              <div className="h-10 bg-light-blue w-[1px]" />
-              <div
-                ref={dropdownRef}
-                onClick={() => {
-                  setNotificationClicked(false);
-                  setIsOpen(!isOpen);
-                }}
-                className="cursor-pointer text-brand bg-light-blue flex items-center justify-start w-[110px] py-[2px] pl-[2px] gap-2 rounded-full relative"
-              >
-                <div className="w-[32px] h-[32px] rounded-full bg-brand" />
-                <p className="line-clamp-1">{username}</p>
-                {isOpen && !isNotificationClicked && (
-                  <div className="absolute -right-5 mt-[24vh] text-[20px] flex flex-col bg-brand font-cocogoose rounded shadow-lg p-[5px]">
-                    <Link
-                      href="/profile"
-                      className="px-4 py-2 hover:underline hover:text-white text-[#FFFFFF80]"
-                    >
-                      Profile
-                    </Link>
-                    <Link
-                      href="/settings"
-                      className="px-4 py-2 hover:underline hover:text-white text-[#FFFFFF80]"
-                    >
-                      Settings
-                    </Link>
+              {isAdmin && (
+                <Link href={"/messages"} className="bg-light-blue-30 rounded-lg p-1">
+                  <AiFillMessage
+                    size={"24px"}
+                    className="text-light-blue cursor-pointer"
+                  />
+                </Link>
+              )}
+
+              {!isAdmin && (
+                <>
+                  <div
+                    ref={dropdownRef}
+                    className="bg-light-blue-30 rounded-lg p-1 relative  "
+                  >
+                    <IoMdNotifications
+                      size={"24px"}
+                      className="text-light-blue cursor-pointer"
+                      onClick={() => {
+                        setNotificationClicked(true);
+                        setIsOpen(!isOpen);
+                      }}
+                    />
+                    {isOpen && isNotificationClicked && <Notifications />}
                   </div>
-                )}
-              </div>
+                  <div className="h-10 bg-light-blue w-[1px]" />
+                  <div
+                    ref={dropdownRef}
+                    onClick={() => {
+                      setNotificationClicked(false);
+                      setIsOpen(!isOpen);
+                    }}
+                    className="cursor-pointer text-brand bg-light-blue flex items-center justify-start w-[110px] py-[2px] pl-[2px] gap-2 rounded-full relative"
+                  >
+                    <div className="w-[32px] h-[32px] rounded-full bg-brand" />
+                    <p className="line-clamp-1">{username}</p>
+                    {isOpen && !isNotificationClicked && (
+                      <div className="absolute -right-5 mt-[24vh] text-[20px] flex flex-col bg-brand font-cocogoose rounded shadow-lg p-[5px]">
+                        <Link
+                          href="/profile"
+                          className="px-4 py-2 hover:underline hover:text-white text-[#FFFFFF80]"
+                        >
+                          Profile
+                        </Link>
+                        <Link
+                          href="/settings"
+                          className="px-4 py-2 hover:underline hover:text-white text-[#FFFFFF80]"
+                        >
+                          Settings
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                </>
+              )}
+
               <div className="bg-light-blue-30 rounded-lg p-1">
                 <IoLogOut
                   onClick={logout}
