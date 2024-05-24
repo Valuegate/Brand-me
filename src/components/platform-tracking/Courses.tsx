@@ -153,19 +153,19 @@ const Courses = () => {
             <div className="px-10 py-8 flex flex-col w-full">
               <div className="flex justify-between items-center w-full">
                 <h2 className="text-brand text-[18px] font-cocogoose">
-                  {courses[selected].name}
+                  Foundation Course
                 </h2>
                 <div
                   className={`
                     ${
-                      courses[selected].active
+                      true
                         ? "bg-role-green-bg text-green-100"
                         : "bg-role-red-bg text-error"
                     }
                     px-3 py-1 rounded
                 `}
                 >
-                  {courses[selected].active ? "Active" : "Disabled"}
+                  {true ? "Active" : "Disabled"}
                 </div>
               </div>
               <div className="w-full h-[200px] bg-[#D9D9D9] rounded mt-5" />
