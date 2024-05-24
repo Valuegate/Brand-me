@@ -76,23 +76,38 @@ export const SingleQuizComponent: FC<{
 }> = ({ question, answers, point, index }) => {
   return (
     <div className="flex flex-col rounded-lg gap-5 px-5 py-3 justify-between items-start bg-brand-30 w-full">
-      <p className="text-brand w-fit font-cocogoose-light font-bold text-[18px] md:text-[16px]">
+      <p
+        style={{
+          wordWrap: "break-word",
+          width: "inherit",
+        }}
+        className="text-brand font-cocogoose-light font-bold text-[18px] md:text-[16px] word-break-break-word"
+      >
         <span className="font-cocogoose text-brand text-[16px]">
-          {index + 1}
+          {index + 1}.
         </span>{" "}
         {question}
       </p>
-      <div className="mt-5 flex flex-col gap-3">
+      <div className=" flex flex-col gap-3 w-full">
         {answers.map((ans, i) => {
           return (
             <div
               key={i}
-              className="font-cocogoose-light font-bold text-brand text-[16px] flex items-center gap-3"
+              className="font-cocogoose-light font-bold text-brand text-[16px] flex items-center gap-3 w-full"
             >
               <div
-                className={`${"border border-brand"} cursor-pointer w-[32px] h-[32px] rounded-lg flex justify-center items-center font-cocogoose-light text-white text-[18px]`}
-              ></div>
-              <p className="w-[calc(100%-32px)]">{ans}</p>
+                className={`${"border-2 border-brand"} cursor-pointer size-5 rounded-full flex justify-center items-center font-cocogoose-light text-white text-[18px]`}
+              />
+              <div className="w-[calc(100%-32px)]">
+                <p
+                  style={{
+                    wordWrap: "break-word",
+                    width: "inherit",
+                  }}
+                >
+                  {ans}
+                </p>
+              </div>
             </div>
           );
         })}

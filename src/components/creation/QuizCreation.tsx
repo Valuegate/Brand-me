@@ -239,11 +239,20 @@ const QuizCreation = () => {
                     return (
                       <div
                         key={i}
-                        className="flex justify-between items-center"
+                        className="flex justify-between items-center w-full"
                       >
-                        <p className="w-[85%] font-cocogoose-light font-bold text-brand text-[16px]">
-                          {ans}
-                        </p>
+                        <div className="w-[calc(100%-28px)]">
+                          <p
+                            style={{
+                              wordWrap: "break-word",
+                              width: "inherit",
+                            }}
+                            className="font-cocogoose-light font-bold text-brand text-[16px]"
+                          >
+                            {ans}
+                          </p>
+                        </div>
+
                         <MdDelete
                           onClick={() => {
                             let pre = answers.slice(0, i);
