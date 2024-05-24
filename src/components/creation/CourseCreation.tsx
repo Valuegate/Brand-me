@@ -16,6 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
 import { Loader } from "@mantine/core";
 import { FaPlay } from "react-icons/fa6";
+import { MdDelete } from "react-icons/md";
 
 const CourseCreation = () => {
   const [banner, setBanner] = useState<File | null>(null);
@@ -50,7 +51,6 @@ const CourseCreation = () => {
 
   // Modules content can be pptx, pdf or video
   // Google Translate
-  // Nav bar absolute is overlapping on screen
   // Footer: Efektas logo is stretched
 
   const resetCourse = () => {
@@ -226,10 +226,27 @@ const CourseCreation = () => {
                       <Image
                         src={md.image}
                         alt="module image"
-                        className="w-[250px] h-[160px]"
+                        className="w-[250px] h-[160px] rounded-lg"
                         width={250}
                         height={160}
                       />
+                      <div
+                        onClick={() => {
+                          let pre = modules.slice(0, i);
+                          let post = modules.slice(i + 1);
+                          for (let index = 0; i < post.length; ++index) {
+                            pre.push(post[index]);
+                          }
+
+                          setModules(pre);
+                        }}
+                        className="absolute cursor-pointer flex justify-center items-center -top-2 -right-2 size-7 rounded-full bg-white"
+                      >
+                        <MdDelete size={"22px"} fill="#FF0000" />
+                      </div>
+                      <div className="bg-white-50 size-[40px] absolute top-[60px] left-[105px] rounded-full flex justify-center items-center">
+                        <FaPlay fill="#FFFFFF" size={"22px"} />
+                      </div>
                       <div className="flex items-center justify-between">
                         <p className="text-[16px] font-cocogoose text-brand">
                           U{i + 1}
@@ -285,9 +302,10 @@ const CourseCreation = () => {
                   accept="video/*"
                   ref={videoRef}
                   onChange={(e) => {
+                    console.log("Main function");
                     if (e.target.files !== null) {
                       let files: FileList | null = e.target.files;
-                      if (files !== null) {
+                      if (files !== null && files.length > 0) {
                         let firstFile = files[0];
                         getVideoCover(firstFile)
                           .then((res) => {
@@ -303,7 +321,13 @@ const CourseCreation = () => {
                             setModuleVideoData("");
                             setModuleVideo(null);
                           });
+                      } else {
+                        setModuleVideoData("");
+                        setModuleVideo(null);
                       }
+                    } else {
+                      setModuleVideoData("");
+                      setModuleVideo(null);
                     }
                   }}
                 />
