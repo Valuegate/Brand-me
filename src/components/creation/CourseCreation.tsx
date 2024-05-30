@@ -30,7 +30,6 @@ const CourseCreation = () => {
   const [moduleDescription, setModuleDescription] = useState<string>("");
   const [moduleDuration, setModuleDuration] = useState<string>("");
   const [moduleVideo, setModuleVideo] = useState<File | null>(null);
-  const [moduleVideoData, setModuleVideoData] = useState<string>("");
   const [loading, isLoading] = useState<boolean>(false);
 
   const bannerRef = useRef<HTMLInputElement>(null);
@@ -43,13 +42,12 @@ const CourseCreation = () => {
   const resetModule = () => {
     setEditIndex(-1);
     setModuleTitle("");
-    setModuleVideoData("");
     setModuleDescription("");
     setModuleDuration("");
     setModuleVideo(null);
   };
 
-  // Modules content can be pptx, pdf or video
+  // Modules content can be pptx, pdf
   // Google Translate
   // Footer: Efektas logo is stretched
 
@@ -64,6 +62,8 @@ const CourseCreation = () => {
 
   const create = () => {
     let token = localStorage.getItem(globalKey)!;
+    if (token === null) return;
+
     token = JSON.parse(token).access_token;
 
     isLoading(true);
@@ -223,13 +223,9 @@ const CourseCreation = () => {
                 {modules.map((md, i) => {
                   return (
                     <div key={i} className="flex flex-col gap-4 relative">
-                      <Image
-                        src={md.image}
-                        alt="module image"
-                        className="w-[250px] h-[160px] rounded-lg"
-                        width={250}
-                        height={160}
-                      />
+                      <div className="w-[250px] h-[160px] rounded-lg bg-brand font-cocogoose text-white text-[14px] flex justify-center items-center px-5 text-center">
+                        {md.video_content.name}
+                      </div>
                       <div
                         onClick={() => {
                           let pre = modules.slice(0, i);
@@ -244,9 +240,7 @@ const CourseCreation = () => {
                       >
                         <MdDelete size={"22px"} fill="#FF0000" />
                       </div>
-                      <div className="bg-white-50 size-[40px] absolute top-[60px] left-[105px] rounded-full flex justify-center items-center">
-                        <FaPlay fill="#FFFFFF" size={"22px"} />
-                      </div>
+                      
                       <div className="flex items-center justify-between">
                         <p className="text-[16px] font-cocogoose text-brand">
                           U{i + 1}
@@ -269,64 +263,35 @@ const CourseCreation = () => {
                     videoRef.current?.click();
                   }}
                   className={`w-full h-[180px] cursor-pointer rounded overflow-hidden ${
-                    moduleVideoData.length === 0 &&
+                    moduleVideo === null &&
                     "bg-brand-20 flex flex-col items-center justify-center gap-2"
                   }`}
                 >
-                  {moduleVideoData.length === 0 && (
+                  {moduleVideo === null && (
                     <>
                       <MdUpload size={"26px"} className="text-brand" />
                       <p className="text-brand font-cocogoose-light text-center font-bold text-[16px]">
-                        Upload your video with a 300MB maximum limit
+                        Upload your file with a 30MB maximum limit
                       </p>
                     </>
                   )}
-                  {moduleVideoData.length !== 0 && (
-                    <div className="w-full h-full relative flex justify-center items-center">
-                      <Image
-                        src={moduleVideoData}
-                        alt="module video"
-                        className="w-full h-full object-cover"
-                        width={100}
-                        height={100}
-                      />
-                      <div className="bg-white-50 size-[60px] absolute rounded-full flex justify-center items-center">
-                        <FaPlay fill="#FFFFFF" size={"26px"} />
-                      </div>
+                  {moduleVideo !== null && (
+                    <div className="w-full h-full relative flex justify-center items-center text-[16px] font-cocogoose text-white bg-brand">
+                      {moduleVideo.name}
                     </div>
                   )}
                 </div>
                 <input
                   type="file"
                   style={{ display: "none" }}
-                  accept="video/*"
+                  accept="application/pdf,application/vnd.openxmlformats-officedocument.presentationml.presentation"
                   ref={videoRef}
                   onChange={(e) => {
-                    console.log("Main function");
-                    if (e.target.files !== null) {
-                      let files: FileList | null = e.target.files;
-                      if (files !== null && files.length > 0) {
-                        let firstFile = files[0];
-                        getVideoCover(firstFile)
-                          .then((res) => {
-                            if (res !== null) {
-                              var urlCreator = window.URL || window.webkitURL;
-                              var imageUrl = urlCreator.createObjectURL(res);
-                              setModuleVideoData(imageUrl);
-                              setModuleVideo(firstFile);
-                            }
-                          })
-                          .catch((err) => {
-                            console.error(err);
-                            setModuleVideoData("");
-                            setModuleVideo(null);
-                          });
-                      } else {
-                        setModuleVideoData("");
-                        setModuleVideo(null);
-                      }
+                    let files: FileList | null = e.target.files;
+                    if (files !== null && files.length > 0) {
+                      let firstFile = files[0];
+                      setModuleVideo(firstFile);
                     } else {
-                      setModuleVideoData("");
                       setModuleVideo(null);
                     }
                   }}
@@ -375,7 +340,6 @@ const CourseCreation = () => {
                       let modl: TModule = {
                         title: moduleTitle,
                         is_completed: false,
-                        image: moduleVideoData,
                         duration: moduleDuration,
                         text_content: moduleDescription,
                         video_content: moduleVideo!,

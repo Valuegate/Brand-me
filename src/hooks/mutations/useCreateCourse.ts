@@ -13,7 +13,6 @@ export type TCreateCoursePayload = {
 
 export type TModule = {
   title: string;
-  image: string;
   duration: string;
   is_completed: boolean;
   text_content: string;

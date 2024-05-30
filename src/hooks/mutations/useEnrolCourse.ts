@@ -1,17 +1,16 @@
 import { fetcher } from "@/lib/fetcher";
 import { COURSES } from "@/services/routes";
 import { useMutation } from "@tanstack/react-query";
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 
 export type TEnrolCoursePayload = {
-  course_id: string | number
+  course_id: string | number;
+  user_id: string | number;
 };
 
-export interface iCourseCreationResponse {
-  
-}
+export interface iEnrollCourseResponse {}
 
-const useEnrolCourse = () => {
+const useEnrollCourse = () => {
   const mutation = useMutation({
     mutationFn: async (payload: TEnrolCoursePayload) => {
       try {
@@ -31,8 +30,27 @@ const useEnrolCourse = () => {
     isError,
     isSuccess,
     error: error as AxiosError,
-    data: data as iCourseCreationResponse,
+    data: data as iEnrollCourseResponse,
   };
 };
 
-export default useEnrolCourse;
+function enrollCourse(
+  payload: TEnrolCoursePayload,
+  token: string,
+  onSuccess: (res: any) => void,
+  onError: (err: any) => void
+) {
+  axios({
+    method: "POST",
+    data: payload,
+    url: `https://brandme-2.onrender.com/api/courses/enroll/`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  })
+    .then(onSuccess)
+    .catch(onError);
+}
+
+export default enrollCourse;

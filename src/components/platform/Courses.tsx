@@ -7,8 +7,11 @@ import ProgressBar from "../resuable/ProgressBar";
 import axios from "axios";
 import { globalKey } from "@/stores/globalStore";
 import useGetAllCourses from "@/hooks/queries/useGetAllCourses";
+import enrollCourse from "@/hooks/mutations/useEnrolCourse";
 import { Loader } from "@mantine/core";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import Image from "next/image";
 
 interface iCourseCardProp {
@@ -21,10 +24,41 @@ const Courses = () => {
   const { data, isSuccess, isError, isLoading } = useGetAllCourses();
   const [courses, setCourses] = useState<iCourse[]>([]);
 
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const startCourse = (i: number) => {
+    let data = localStorage.getItem(globalKey)!;
+    if (data === null) return;
+
+    let token = JSON.parse(data).access_token;
+    let id: string | number = JSON.parse(data).id;
+
+    if (!token || !id) return;
+
+    setLoading(true);
+
+    enrollCourse(
+      {
+        course_id: courses[i].id,
+        user_id: id,
+      },
+      token,
+      (res: any) => {
+        setSelectedCourse(i);
+        setLoading(false);
+      },
+      (err: any) => {
+        setLoading(false);
+        toast.error("An error occurred. Please try again");
+      }
+    );
+  };
+
   useEffect(() => {
     if (!isLoading && isSuccess) {
       let courseArray: iCourse[] = data.map((val, i) => {
         return {
+          id: val.id,
           image: val.banner_content,
           name: val.title,
           description: val.description,
@@ -87,7 +121,7 @@ const Courses = () => {
               key={i}
               course={course}
               onStart={() => {
-                setSelectedCourse(i);
+                startCourse(i);
               }}
             />
           );

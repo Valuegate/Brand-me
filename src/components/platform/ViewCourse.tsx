@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { iCourse, iVideoData } from "./types";
 
 import { MdDone } from "react-icons/md";
@@ -6,6 +6,8 @@ import { AiFillLock } from "react-icons/ai";
 import { HiPlay } from "react-icons/hi2";
 import { BiTimeFive } from "react-icons/bi";
 import ProgressBar from "../resuable/ProgressBar";
+
+import getCourseById from "@/hooks/queries/useGetCourseByID";
 
 export interface iViewCourseProp {
   course: iCourse;
@@ -16,6 +18,9 @@ const ViewCourse: FC<iViewCourseProp> = ({ course }) => {
     course.details.videos[course.details.currentVideo];
 
   let nextVideoIndex = course.details.currentVideo + 1;
+
+  
+
 
   return (
     <div className="flex flex-col items-center w-full">
