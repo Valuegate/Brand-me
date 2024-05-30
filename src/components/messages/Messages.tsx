@@ -6,32 +6,55 @@ import Footer from "../resuable/Footer/Footer";
 import { convertDate } from "@/functions/dateFunctions";
 import { Loader } from "@mantine/core";
 
-interface iMessage {
-  username: string;
-  email: string;
-  message: string;
-  date: Date;
-}
+import { getMessages, iMessage } from "@/hooks/queries/useGetMessages";
+import { globalKey } from "@/stores/globalStore";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Messages = () => {
   const [messages, setMessages] = useState<iMessage[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    setMessages(
-      Array(6).fill({
-        username: "Alina Molchan The Beast of the ocean",
-        email: "alinamolchan@gmail.com",
-        message:
-          "This class will give you all the insights for great and successful user reseah you will learn the basics of UX research and come up.",
-        date: new Date(),
-      })
+    let token = localStorage.getItem(globalKey)!;
+    token = JSON.parse(token).access_token;
+
+    getMessages(
+      token,
+      (res) => {
+        let msgs = res.data.map((mg: any, i: number) => {
+          return {
+            username: mg.name,
+            email: mg.email,
+            message: mg.message,
+            date: new Date(mg.timestamp),
+          };
+        });
+        setMessages(msgs);
+        setLoading(false);
+      },
+      (err) => {
+        toast.error("Unable to retrieve your messages. Please try again");
+        setLoading(false);
+      }
     );
-    setLoading(false);
   }, []);
 
   return (
     <>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <div className="fixed top-0 left-0 right-0 z-10">
         <NavBar index={-1} />
       </div>
@@ -67,16 +90,16 @@ const Messages = () => {
                     className={`${
                       i !== messages.length - 1 &&
                       "border-b border-faint-border"
-                    } flex w-full items-center px-5 py-3`}
+                    } flex w-full justify-between items-center px-5 py-3`}
                   >
                     <p className="font-cocogoose-light font-bold text-[16px] text-black w-[5%]">
                       {i + 1}
                     </p>
 
-                    <p className="font-cocogoose-light font-bold text-[16px] text-center text-black w-[20%]">
+                    <p className="font-cocogoose-light font-bold text-[16px] text-center text-black w-[19%]">
                       {msg.username}
                     </p>
-                    <p className="font-cocogoose-light font-bold text-[16px] text-black w-[20%]">
+                    <p className="font-cocogoose-light font-bold text-[16px] text-black w-[19%]">
                       {msg.email}
                     </p>
                     <p className="font-cocogoose-light font-bold text-[16px] text-black w-[40%]">

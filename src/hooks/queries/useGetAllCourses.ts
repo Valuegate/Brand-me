@@ -3,6 +3,7 @@ import { COURSES } from "@/services/routes";
 import { useQuery } from "@tanstack/react-query";
 
 interface iGetCourseResponse {
+  id: string | number;
   title: string;
   description: string;
   banner_content: string;
@@ -36,5 +37,6 @@ const useGetAllCourses = () => {
     isSuccess,
   };
 };
+
 
 export default useGetAllCourses;

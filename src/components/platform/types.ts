@@ -1,6 +1,7 @@
 
 
 export type iCourse = {
+    id: string | number;
     image: string;
     name: string;
     description: string;

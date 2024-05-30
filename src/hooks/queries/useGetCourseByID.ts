@@ -2,8 +2,9 @@ import { fetcher } from "@/lib/fetcher";
 import { COURSES } from "@/services/routes";
 import { useQuery } from "@tanstack/react-query";
 
-interface iGetCourseResponse {}
+import axios from "axios"
 
+interface iGetCourseResponse {}
 
 const useGetCourseByID = (id: string) => {
   const { isLoading, data, isError, isSuccess } = useQuery({
@@ -26,4 +27,22 @@ const useGetCourseByID = (id: string) => {
   };
 };
 
-export default useGetCourseByID;
+function getCourseById(
+  id: string,
+  token: string,
+  onSuccess: (res: any) => void,
+  onError: (err: any) => void
+) {
+  axios({
+    method: "GET",
+    url: `https://brandme-2.onrender.com/api/courses/content/${id}/`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  })
+    .then(onSuccess)
+    .catch(onError);
+}
+
+export default getCourseById;
