@@ -10,9 +10,10 @@ interface iCommentCardProp {
     name: string;
     date: string;
     message: string;
+    onLike: () => void;
   }
 
-const CommentCard: FC<iCommentCardProp> = ({ name, date, message }) => {
+const CommentCard: FC<iCommentCardProp> = ({ name, date, message, onLike }) => {
     return (
         <>
             <div className='w-full border-none shadow-md rounded-lg'>
@@ -36,7 +37,7 @@ const CommentCard: FC<iCommentCardProp> = ({ name, date, message }) => {
                     <div className="flex items-center mt-5 md:flex-col justify-between">
                         <div className="flex items-center gap-4">
                             <div className="flex gap-1">
-                                <ThumbUpIcon className='text-light-blue'/>
+                                <ThumbUpIcon onClick={onLike} className='text-light-blue cursor-pointer'/>
                                 <h4 className='text-gray-10 text-base'>28</h4>
                             </div>
                             <div className="flex gap-1">
