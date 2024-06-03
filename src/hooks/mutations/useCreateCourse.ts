@@ -1,39 +1,23 @@
 import { fetcher } from "@/lib/fetcher";
 import { AUTH_ROUTES } from "@/services/routes";
+import { tCourseCreationData } from "@/stores/quizStore";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
-
-export type TCreateCoursePayload = {
-  title: string;
-  description: string;
-  instructor: string;
-  banner: File;
-  modules: TModule[];
-};
-
-export type TModule = {
-  title: string;
-  duration: string;
-  is_completed: boolean;
-  text_content: string;
-  video_content: File;
-};
 
 export interface iCourseCreationResponse {}
 
 export function createCourse(
-  payload: TCreateCoursePayload,
+  payload: tCourseCreationData,
   token: string,
   onSuccess: (res: any) => void,
   onError: (err: any) => void
 ) {
-  
   let form: FormData = new FormData();
   form.append("title", payload.title);
   form.append("description", payload.description);
   form.append("banner_content", payload.banner);
   form.append("instructor", payload.instructor);
-  
+
   payload.modules.forEach((module, i) => {
     form.append(`modules[${i}].title`, module.title);
     form.append(`modules[${i}].is_completed`, module.is_completed.toString());
@@ -41,6 +25,16 @@ export function createCourse(
     form.append(`modules[${i}].video_content`, module.video_content);
   });
 
+  form.append(`quizzes[0].title`, payload.quiz.title);
+  form.append(`quizzes[0].description`, payload.quiz.description);
+
+  payload.quiz.questions.forEach((que, i) => {
+    form.append(`quizzes[0].questions[${i}].text`, que.text);
+    que.choices.map((ans, index) => {
+      form.append(`quizzes[0].questions[${i}].choices[${index}]`, ans);
+    });
+    form.append(`quizzes[0].questions[${i}].is_correct`, que.is_correct);
+  });
 
   axios({
     method: "POST",
@@ -57,7 +51,7 @@ export function createCourse(
 
 const useCreateCourse = () => {
   const mutation = useMutation({
-    mutationFn: async (payload: TCreateCoursePayload) => {
+    mutationFn: async (payload: tCourseCreationData) => {
       try {
         const response = await fetcher(AUTH_ROUTES.LOGIN, "POST", payload);
         return response.data;

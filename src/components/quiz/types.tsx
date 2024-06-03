@@ -71,9 +71,8 @@ export const QuizComponent: FC<QuizComponentProp> = ({
 export const SingleQuizComponent: FC<{
   question: string;
   answers: string[];
-  point: string;
   index: number;
-}> = ({ question, answers, point, index }) => {
+}> = ({ question, answers, index }) => {
   return (
     <div className="flex flex-col rounded-lg gap-5 px-5 py-3 justify-between items-start bg-brand-30 w-full">
       <p
@@ -112,7 +111,6 @@ export const SingleQuizComponent: FC<{
           );
         })}
       </div>
-      <div className="text-brand font-cocogoose md:hidden">{point} points</div>
     </div>
   );
 };

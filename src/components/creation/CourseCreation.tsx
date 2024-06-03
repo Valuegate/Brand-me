@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, FC } from "react";
 
 import InputComponent from "../resuable/InputComponent";
 import InputAreaComponent from "../resuable/InputAreaComponent";
 
 import { MdUpload, MdAddCircleOutline } from "react-icons/md";
 
-import { createCourse, TModule } from "@/hooks/mutations/useCreateCourse";
+import { createCourse } from "@/hooks/mutations/useCreateCourse";
 import { globalKey } from "@/stores/globalStore";
 
 import { getBase64, getVideoCover } from "@/functions/fileFunction";
@@ -18,19 +18,20 @@ import { Loader } from "@mantine/core";
 import { FaPlay } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 
-const CourseCreation = () => {
-  const [banner, setBanner] = useState<File | null>(null);
+import { TModule, useQuizCreateStore } from "@/stores/quizStore";
+
+const CourseCreation: FC<{ proceed: () => void }> = ({ proceed }) => {
+  const title = useQuizCreateStore((state) => state.title);
+  const description = useQuizCreateStore((state) => state.description);
+  const instructor = useQuizCreateStore((state) => state.instructor);
+  const modules = useQuizCreateStore((state) => state.modules);
+
   const [bannerData, setBannerData] = useState<string>("");
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [instructor, setInstructor] = useState<string>("");
-  const [modules, setModules] = useState<TModule[]>([]);
 
   const [moduleTitle, setModuleTitle] = useState<string>("");
   const [moduleDescription, setModuleDescription] = useState<string>("");
   const [moduleDuration, setModuleDuration] = useState<string>("");
   const [moduleVideo, setModuleVideo] = useState<File | null>(null);
-  const [loading, isLoading] = useState<boolean>(false);
 
   const bannerRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLInputElement>(null);
@@ -47,48 +48,39 @@ const CourseCreation = () => {
     setModuleVideo(null);
   };
 
-  // Modules content can be pptx, pdf
-  // Google Translate
-  // Footer: Efektas logo is stretched
+  const validate = () => {
+    if (!checkFields()) return;
 
-  const resetCourse = () => {
-    setBannerData("");
-    setBanner(null);
-    setTitle("");
-    setDescription("");
-    setInstructor("");
-    setModules([]);
+    if (modules.length === 0) {
+      toast.error("Please provide at least one module for your course");
+      return;
+    }
+
+    proceed();
   };
 
-  const create = () => {
-    let token = localStorage.getItem(globalKey)!;
-    if (token === null) return;
+  const checkFields = () => {
+    if (title.length === 0) {
+      toast.error("Please provide a course title");
+      return false;
+    }
 
-    token = JSON.parse(token).access_token;
+    if (description.length === 0) {
+      toast.error("Please provide a course description");
+      return false;
+    }
 
-    isLoading(true);
+    if (instructor.length === 0) {
+      toast.error("Please provide a course instructor");
+      return false;
+    }
 
-    createCourse(
-      {
-        title: title,
-        description: description,
-        instructor: instructor,
-        banner: banner!,
-        modules: modules,
-      },
-      token,
-      (res) => {
-        isLoading(false);
-        toast.success("Your course has been created. Thank You");
-        resetCourse();
-        resetModule();
-        setPage(0);
-      },
-      (err) => {
-        isLoading(false);
-        toast.error("An error occurred. Please try again later");
-      }
-    );
+    if (bannerData.length === 0) {
+      toast.error("Please provide a course banner image");
+      return false;
+    }
+
+    return true;
   };
 
   return (
@@ -158,11 +150,11 @@ const CourseCreation = () => {
                       getBase64(firstFile)
                         .then((res) => {
                           setBannerData(res as string);
-                          setBanner(firstFile);
+                          useQuizCreateStore.setState({ banner: firstFile });
                         })
                         .catch((err) => {
                           setBannerData("");
-                          setBanner(null);
+                          useQuizCreateStore.setState({ banner: "" });
                         });
                     }
                   }}
@@ -176,13 +168,13 @@ const CourseCreation = () => {
                 type="text"
                 placeholder="e.g Foundational Course"
                 onChange={(e) => {
-                  setTitle(e.target.value);
+                  useQuizCreateStore.setState({ title: e.target.value });
                 }}
               />
               <InputAreaComponent
                 label="Course Description"
                 onChange={(e) => {
-                  setDescription(e.target.value);
+                  useQuizCreateStore.setState({ description: e.target.value });
                 }}
                 placeholder="Type here..."
                 value={description}
@@ -194,12 +186,12 @@ const CourseCreation = () => {
                 value={instructor}
                 placeholder="e.g John Doe"
                 onChange={(e) => {
-                  setInstructor(e.target.value);
+                  useQuizCreateStore.setState({ instructor: e.target.value });
                 }}
               />
               <button
                 onClick={() => {
-                  if (page === 0) {
+                  if (page === 0 && checkFields()) {
                     setPage(1);
                   }
                 }}
@@ -234,13 +226,13 @@ const CourseCreation = () => {
                             pre.push(post[index]);
                           }
 
-                          setModules(pre);
+                          useQuizCreateStore.setState({ modules: pre });
                         }}
                         className="absolute cursor-pointer flex justify-center items-center -top-2 -right-2 size-7 rounded-full bg-white"
                       >
                         <MdDelete size={"22px"} fill="#FF0000" />
                       </div>
-                      
+
                       <div className="flex items-center justify-between">
                         <p className="text-[16px] font-cocogoose text-brand">
                           U{i + 1}
@@ -256,7 +248,7 @@ const CourseCreation = () => {
 
               <div className="flex flex-col gap-1">
                 <p className="font-cocogoose text-[16px] text-brand">
-                  Upload Video
+                  Module File
                 </p>
                 <div
                   onClick={() => {
@@ -329,38 +321,49 @@ const CourseCreation = () => {
               {page === 1 && (
                 <button
                   onClick={() => {
-                    if (
-                      moduleTitle.length !== 0 &&
-                      moduleDescription.length !== 0 &&
-                      moduleDuration.length !== 0 &&
-                      moduleVideo !== null
-                    ) {
-                      if (moduleVideo === null) return;
-
-                      let modl: TModule = {
-                        title: moduleTitle,
-                        is_completed: false,
-                        duration: moduleDuration,
-                        text_content: moduleDescription,
-                        video_content: moduleVideo!,
-                      };
-
-                      if (editIndex === -1) {
-                        let m = modules;
-                        m.push(modl);
-                        setModules(m);
-                      } else {
-                        let newArray = modules.slice(0, editIndex);
-                        newArray.push(modl);
-                        let post = modules.slice(editIndex + 1);
-                        for (let i = 0; i < post.length; ++i) {
-                          newArray.push(post[i]);
-                        }
-                        setModules(newArray);
-                      }
-
-                      resetModule();
+                    if (moduleTitle.length === 0) {
+                      toast.error("Please provide a module title");
+                      return;
                     }
+
+                    if (moduleDescription.length === 0) {
+                      toast.error("Please provide a module content");
+                      return;
+                    }
+
+                    if (moduleDuration.length === 0) {
+                      toast.error("Please provide a module duration");
+                      return;
+                    }
+
+                    if (moduleVideo === null) {
+                      toast.error("Please select a module file");
+                      return;
+                    }
+
+                    let modl: TModule = {
+                      title: moduleTitle,
+                      is_completed: false,
+                      duration: moduleDuration,
+                      text_content: moduleDescription,
+                      video_content: moduleVideo!,
+                    };
+
+                    if (editIndex === -1) {
+                      let m = modules;
+                      m.push(modl);
+                      useQuizCreateStore.setState({ modules: m });
+                    } else {
+                      let newArray = modules.slice(0, editIndex);
+                      newArray.push(modl);
+                      let post = modules.slice(editIndex + 1);
+                      for (let i = 0; i < post.length; ++i) {
+                        newArray.push(post[i]);
+                      }
+                      useQuizCreateStore.setState({ modules: newArray });
+                    }
+
+                    resetModule();
                   }}
                   className="w-full mt-10 bg-brand-30 flex justify-center items-center gap-2 rounded-lg h-[50px] text-brand font-cocogoose"
                 >
@@ -369,13 +372,12 @@ const CourseCreation = () => {
                 </button>
               )}
               <button
-                onClick={create}
+                onClick={validate}
                 className={`w-full ${
                   page === 0 && "mt-10"
                 } bg-brand rounded-lg h-[50px] text-white font-cocogoose`}
               >
-                {loading && <Loader color="#fff" />}
-                {!loading && (page === 0 ? "Proceed" : "Publish")}
+                Proceed
               </button>
             </div>
           </>
