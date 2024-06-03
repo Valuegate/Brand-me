@@ -16,7 +16,7 @@ export function createCourse(
   form.append("title", payload.title);
   form.append("description", payload.description);
   form.append("banner_content", payload.banner);
-  form.append("instructor", payload.instructor);
+  // form.append("instructor", payload.instructor);
 
   payload.modules.forEach((module, i) => {
     form.append(`modules[${i}].title`, module.title);

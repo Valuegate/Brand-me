@@ -35,15 +35,14 @@ const useEnrollCourse = () => {
 };
 
 function enrollCourse(
-  payload: TEnrolCoursePayload,
+  id: string | number,
   token: string,
   onSuccess: (res: any) => void,
   onError: (err: any) => void
 ) {
   axios({
     method: "POST",
-    data: payload,
-    url: `https://brandme-2.onrender.com/api/courses/enroll/`,
+    url: `https://brandme-2.onrender.com/api/courses/courses/${id}/enroll/`,
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",

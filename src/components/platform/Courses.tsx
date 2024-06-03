@@ -24,35 +24,7 @@ const Courses = () => {
   const { data, isSuccess, isError, isLoading } = useGetAllCourses();
   const [courses, setCourses] = useState<iCourse[]>([]);
 
-  const [loading, setLoading] = useState<boolean>(false);
 
-  const startCourse = (i: number) => {
-    let data = localStorage.getItem(globalKey)!;
-    if (data === null) return;
-
-    let token = JSON.parse(data).access_token;
-    let id: string | number = JSON.parse(data).id;
-
-    if (!token || !id) return;
-
-    setLoading(true);
-
-    enrollCourse(
-      {
-        course_id: courses[i].id,
-        user_id: id,
-      },
-      token,
-      (res: any) => {
-        setSelectedCourse(i);
-        setLoading(false);
-      },
-      (err: any) => {
-        setLoading(false);
-        toast.error("An error occurred. Please try again");
-      }
-    );
-  };
 
   useEffect(() => {
     if (!isLoading && isSuccess) {
@@ -84,7 +56,7 @@ const Courses = () => {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col w-full items-center justify-center h-40">
+      <div className="flex flex-col w-full items-center justify-center h-[40vh]">
         <Loader size={"26px"} />
       </div>
     );
@@ -121,7 +93,7 @@ const Courses = () => {
               key={i}
               course={course}
               onStart={() => {
-                startCourse(i);
+                setSelectedCourse(i);
               }}
             />
           );

@@ -70,10 +70,10 @@ const CourseCreation: FC<{ proceed: () => void }> = ({ proceed }) => {
       return false;
     }
 
-    if (instructor.length === 0) {
-      toast.error("Please provide a course instructor");
-      return false;
-    }
+    // if (instructor.length === 0) {
+    //   toast.error("Please provide a course instructor");
+    //   return false;
+    // }
 
     if (bannerData.length === 0) {
       toast.error("Please provide a course banner image");
@@ -179,7 +179,7 @@ const CourseCreation: FC<{ proceed: () => void }> = ({ proceed }) => {
                 placeholder="Type here..."
                 value={description}
               />
-              <InputComponent
+              {/* <InputComponent
                 width="w-full"
                 label="Course Instructor"
                 type="text"
@@ -188,7 +188,7 @@ const CourseCreation: FC<{ proceed: () => void }> = ({ proceed }) => {
                 onChange={(e) => {
                   useQuizCreateStore.setState({ instructor: e.target.value });
                 }}
-              />
+              /> */}
               <button
                 onClick={() => {
                   if (page === 0 && checkFields()) {
