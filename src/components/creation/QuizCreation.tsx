@@ -48,16 +48,24 @@ const QuizCreation:FC<{resetPage: () => void}> = ({resetPage}) => {
     setQuestions([]);
   };
 
-  const validate = () => {
+  const checkFields = () => {
     if (title.length === 0) {
       toast.error("Please provide a quiz title");
-      return;
+      return false;
     }
 
     if (instructions.length === 0) {
-      toast.error("Please provide instructions for the quiz");
-      return;
+      toast.error("Please provide a quiz instruction");
+      return false;
     }
+
+    return true;
+  };
+
+
+  const validate = () => {
+    if(!checkFields()) return;
+
 
     if (questions.length === 0) {
       toast.error("Please provide at least one question for your quiz");
@@ -147,7 +155,7 @@ const QuizCreation:FC<{resetPage: () => void}> = ({resetPage}) => {
 
               <button
                 onClick={() => {
-                  if (page === 0) {
+                  if (page === 0 && checkFields()) {
                     setPage(1);
                   }
                 }}
@@ -300,33 +308,44 @@ const QuizCreation:FC<{resetPage: () => void}> = ({resetPage}) => {
               {page === 1 && (
                 <button
                   onClick={() => {
-                    if (
-                      question.length !== 0 &&
-                      answers.length !== 0 &&
-                      correctOption !== -1
-                    ) {
-                      let que: tQuestion = {
-                        text: question,
-                        choices: answers,
-                        is_correct: answers[correctOption],
-                      };
 
-                      if (editIndex === -1) {
-                        let m = questions;
-                        m.push(que);
-                        setQuestions(m);
-                      } else {
-                        let newArray = questions.slice(0, editIndex);
-                        newArray.push(que);
-                        let post = questions.slice(editIndex + 1);
-                        for (let i = 0; i < post.length; ++i) {
-                          newArray.push(post[i]);
-                        }
-                        setQuestions(newArray);
-                      }
-
-                      resetQuestion();
+                    if (question.length === 0) {
+                      toast.error("Please provide a quiz question");
+                      return;
                     }
+
+                    if (answers.length < 2) {
+                      toast.error("Please provide at least 2 answers");
+                      return;
+                    }
+
+                    if (correctOption === -1) {
+                      toast.error("Please choose a correct answer from the ones provided");
+                      return;
+                    }
+                    
+
+                    let que: tQuestion = {
+                      text: question,
+                      choices: answers,
+                      is_correct: answers[correctOption],
+                    };
+
+                    if (editIndex === -1) {
+                      let m = questions;
+                      m.push(que);
+                      setQuestions(m);
+                    } else {
+                      let newArray = questions.slice(0, editIndex);
+                      newArray.push(que);
+                      let post = questions.slice(editIndex + 1);
+                      for (let i = 0; i < post.length; ++i) {
+                        newArray.push(post[i]);
+                      }
+                      setQuestions(newArray);
+                    }
+
+                    resetQuestion();
                   }}
                   className="w-full mt-10 bg-brand-30 flex justify-center items-center gap-2 rounded-lg h-[50px] text-brand font-cocogoose"
                 >
