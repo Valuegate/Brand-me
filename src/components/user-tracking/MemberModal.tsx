@@ -144,6 +144,7 @@ const MemberModal: FC<{
                             <MdDone size={"16px"} fill="#FFFFFF" />
                           </div>
                         </div>
+                        // </div>//
                       );
                     }
                   )}
