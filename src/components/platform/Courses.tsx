@@ -7,8 +7,6 @@ import { Loader } from "@mantine/core";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import Image from "next/image";
-
 interface iCourseCardProp {
   course: iCourse;
   onStart: () => void;
