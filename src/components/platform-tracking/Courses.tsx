@@ -28,6 +28,7 @@ const Courses = () => {
           details: {
             videos: val.modules.map((md, index) => {
               return {
+                id: md.id,
                 name: md.title,
                 description: md.text_content,
                 duration: "8 min",
