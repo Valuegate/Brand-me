@@ -100,7 +100,7 @@ const QuizCreation: FC<{ resetPage: () => void }> = ({ resetPage }) => {
           useQuizCreateStore.getState().clear();
           resetQuiz();
           resetPage();
-        }, 3000);
+        }, 2000);
       },
       (err) => {
         isLoading(false);
