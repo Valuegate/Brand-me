@@ -18,6 +18,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { Loader } from "@mantine/core";
 import Footer from "../resuable/Footer/Footer";
 import NavBar from "../resuable/NavBar/NavBar";
+import { HiDownload } from "react-icons/hi";
+import Link from "next/link";
 
 export interface iViewCourseProp {
   course: iCourse;
@@ -76,8 +78,30 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
         setLoading(false);
 
         setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+          // window.location.reload();
+
+          //TODO: This is just a temporary fix pending Paul fix the is completed field reflecting for real
+          let next = course.details.currentVideo + 1;
+          let pg = next / course.details.videos.length;
+
+          if (next <= course.details.videos.length) {
+            let videos = course.details.videos;
+            videos[course.details.currentVideo].complete = true;
+
+            setCourse({
+              ...course,
+              progress: pg,
+              details: {
+                ...course.details,
+                currentVideo: next,
+                videos: videos,
+              },
+            });
+            setCurrentVideo(course.details.videos[next]);
+          }
+
+          setNextVideoIndex(next);
+        }, 500);
       },
       (err: any) => {
         toast.error("Unable to mark the module as completed. Please try again");
@@ -115,7 +139,7 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
               image: c.banner_content,
               name: c.title,
               description: c.description,
-              progress: 0.3,
+              progress: 0,
               details: {
                 videos: c.modules.map((md: any, index: number) => {
                   return {
@@ -239,13 +263,11 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                 course.details.videos.length - 1 && (
                 <div className="flex flex-col w-full md:hidden">
                   <h2 className="font-cocogoose text-[20px] text-brand">
-                    Continue Watching
+                    Next Module
                   </h2>
                   <div className="bg-light-blue-30 w-[350px] p-5 rounded-3xl">
-                    <div className="w-full h-[200px] rounded-3xl bg-gradient-to-b from-light-blue-0 to-brand-30 flex justify-center items-center">
-                      <div className="p-4 rounded-full bg-brand-49">
-                        <HiPlay size={"48px"} fill="#1C274D" />
-                      </div>
+                    <div className="w-full h-[200px] rounded-3xl text-brand text-xl font-cocogoose bg-brand-30 flex justify-center items-center">
+                      Module File
                     </div>
                     <div className="mt-3 flex items-center justify-between">
                       <div className="bg-brand w-[32px] h-[32px] rounded-lg flex justify-center items-center font-cocogoose-light text-white text-[18px]">
@@ -269,17 +291,24 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                 <div className="flex flex-col w-full">
                   <div className="flex gap-10 items-center md:justify-center w-full">
                     <h2 className="font-cocogoose text-brand text-[20px]">
-                      Course {course.details.currentVideo + 1}
+                      {course.name}
                     </h2>
                     <div className="text-brand font-cocogoose-light font-bold gap-2 flex items-center">
                       <BiTimeFive size={"26px"} />
                       {currentVideo.duration}
                     </div>
                   </div>
-                  <div className="w-full h-[400px] md:h-[200px] rounded-3xl bg-gradient-to-b from-light-blue-0 to-brand-30 flex justify-center items-center">
-                    <div className="p-4 rounded-full bg-brand-49">
-                      <HiPlay size={"42px"} fill="#1C274D" />
-                    </div>
+                  <div className="w-full h-[400px] md:h-[200px] mt-5 rounded-3xl bg-brand-30 flex flex-col gap-4 justify-center items-center">
+                    <h2 className="text-brand text-xl font-cocogoose">
+                      Module File
+                    </h2>
+                    <Link
+                      href={currentVideo.video}
+                      target="__blank"
+                      className="p-4 rounded-full bg-brand-49"
+                    >
+                      <HiDownload size={"42px"} fill="#1C274D" />
+                    </Link>
                   </div>
                   <div className="my-16 md:my-8 gap-3 flex flex-col w-full">
                     <h2 className="font-cocogoose text-[22px] md:text-[18px] md:text-center text-brand">

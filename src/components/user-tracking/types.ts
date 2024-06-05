@@ -9,10 +9,9 @@ export interface iAdmin {
   }
 
   export interface iMember {
+    id: string | number,
     image: string | StaticImageData;
     name: string;
     email: string;
-    courses: number;
     date: Date;
-    online: boolean;
   }
