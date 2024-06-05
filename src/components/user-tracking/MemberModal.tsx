@@ -36,7 +36,7 @@ const MemberModal: FC<{
                   height={100}
                   className="size-[100px] rounded-full"
                 />
-                {member.online && (
+                {/* {member.online && (
                   <Image
                     src={Active}
                     alt={""}
@@ -44,7 +44,7 @@ const MemberModal: FC<{
                     height={20}
                     className="size-5 rounded-full absolute bottom-0 right-0"
                   />
-                )}
+                )} */}
               </div>
               <h2 className="text-lg font-cocogoose text-brand">
                 {member.name}
