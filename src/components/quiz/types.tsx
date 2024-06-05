@@ -11,7 +11,7 @@ import { Loader } from "@mantine/core";
 export interface QuizComponentProp {
   index: number;
   quiz: QuizData;
-  pickedAnswers: string[];
+  pickedAnswer: string;
   onSelect: (val: number, picked: boolean) => void;
 }
 
@@ -19,27 +19,20 @@ export const QuizComponent: FC<QuizComponentProp> = ({
   quiz,
   index,
   onSelect,
-  pickedAnswers,
+  pickedAnswer,
 }) => {
   return (
     <div className="flex md:flex-col justify-between items-start ">
-      <h1 className="font-cocogoose text-brand text-[24px] md:text-[18px]">
+      <h1 className="font-cocogoose w-[50px] md:w-full text-brand text-[24px] md:text-[18px]">
         {index + 1}.
       </h1>
-      <div className="flex flex-col w-[80%] md:w-full md:mt-2">
+      <div className="flex flex-col w-[calc(100%-50px)] md:w-full md:mt-2">
         <p className="text-brand font-cocogoose-light font-bold text-[18px] md:text-[16px]">
           {quiz.question}
-          <br />
-          <span className="font-cocogoose">
-            {quiz.point} point{quiz.point === 1 ? "" : "s"}
-          </span>
         </p>
         <div className="mt-5 flex flex-col gap-3">
           {quiz.answers.map((ans, i) => {
-            let picked =
-              pickedAnswers.find((ele) => {
-                ele === ans;
-              }) !== undefined;
+            let picked = ans === pickedAnswer;
             return (
               <div
                 key={i}
@@ -60,9 +53,6 @@ export const QuizComponent: FC<QuizComponentProp> = ({
             );
           })}
         </div>
-      </div>
-      <div className="text-brand font-cocogoose bg-brand-49 px-3 py-2 rounded-lg md:hidden">
-        {quiz.point} point{quiz.point === 1 ? "" : "s"}
       </div>
     </div>
   );

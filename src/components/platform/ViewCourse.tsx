@@ -1,3 +1,5 @@
+"use client";
+
 import React, { FC, useEffect, useState } from "react";
 import { iCourse, iVideoData } from "./types";
 
@@ -9,37 +11,137 @@ import ProgressBar from "../resuable/ProgressBar";
 
 import getCourseById from "@/hooks/queries/useGetCourseByID";
 import enrollCourse from "@/hooks/mutations/useEnrolCourse";
+import completeModule from "@/hooks/mutations/useCompleteModule";
 import { globalKey } from "@/stores/globalStore";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Loader } from "@mantine/core";
+import Footer from "../resuable/Footer/Footer";
+import NavBar from "../resuable/NavBar/NavBar";
 
 export interface iViewCourseProp {
   course: iCourse;
 }
 
-const ViewCourse: FC<iViewCourseProp> = ({ course }) => {
-  const [loading, setLoading] = useState<boolean>(false);
+const ViewCourse: FC<{ id: string }> = ({ id }) => {
+  const [loading, setLoading] = useState<boolean>(true);
 
-  let currentVideo: iVideoData =
-    course.details.videos[course.details.currentVideo];
+  const [currentVideo, setCurrentVideo] = useState<iVideoData>({
+    complete: false,
+    description: "",
+    duration: "",
+    id: "",
+    name: "",
+    video: "",
+  });
+  const [nextVideoIndex, setNextVideoIndex] = useState<number>(0);
 
-  let nextVideoIndex = course.details.currentVideo + 1;
+  const [course, setCourse] = useState<iCourse>({
+    id: "",
+    image: "",
+    name: "",
+    description: "",
+    progress: 0,
+    details: {
+      videos: [],
+      currentVideo: 0,
+      quizDone: false,
+    },
+  });
 
-  const startCourse = () => {
+  function complete(id: number | string) {
     let data = localStorage.getItem(globalKey)!;
-    if (data === null) return;
+    if (data === null) {
+      setLoading(false);
+      toast.error("Please login again");
+      return;
+    }
 
     let token = JSON.parse(data).access_token;
-    if (!token) return;
+    if (!token) {
+      setLoading(false);
+      toast.error("Please login again");
+      return;
+    }
 
     setLoading(true);
 
-    enrollCourse(
-      course.id,
+    completeModule(
+      id,
       token,
       (res: any) => {
+        toast.success(
+          "Congratulations. You have successfully completed this module."
+        );
         setLoading(false);
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      },
+      (err: any) => {
+        toast.error("Unable to mark the module as completed. Please try again");
+        setLoading(false);
+      }
+    );
+  }
+
+  const startCourse = () => {
+    let data = localStorage.getItem(globalKey)!;
+    if (data === null) {
+      setLoading(false);
+      toast.error("Please login again");
+      return;
+    }
+
+    let token = JSON.parse(data).access_token;
+    if (!token) {
+      setLoading(false);
+      toast.error("Please login again");
+      return;
+    }
+
+    enrollCourse(
+      id,
+      token,
+      (res: any) => {
+        getCourseById(
+          id,
+          token,
+          (r: any) => {
+            let c = r.data;
+            c = {
+              id: c.id,
+              image: c.banner_content,
+              name: c.title,
+              description: c.description,
+              progress: 0.3,
+              details: {
+                videos: c.modules.map((md: any, index: number) => {
+                  return {
+                    id: md.id,
+                    name: md.title,
+                    description: md.text_content,
+                    duration: "8 min",
+                    complete: md.is_completed,
+                    video: md.video_content,
+                  };
+                }),
+                currentVideo: 0,
+                quizDone: false,
+              },
+            };
+
+            setCourse(c);
+            setCurrentVideo(c.details.videos[c.details.currentVideo]);
+            setNextVideoIndex(c.details.currentVideo + 1);
+            setLoading(false);
+          },
+          (e: any) => {
+            setLoading(false);
+            toast.error("An error occurred. Please try again");
+          }
+        );
       },
       (err: any) => {
         setLoading(false);
@@ -66,12 +168,16 @@ const ViewCourse: FC<iViewCourseProp> = ({ course }) => {
         pauseOnHover
         theme="dark"
       />
+      <div className="fixed top-0 left-0 right-0 z-10">
+        <NavBar index={0} />
+      </div>
+      <div className="h-32" />
       {loading ? (
         <div className="flex flex-col w-full items-center justify-center h-[40vh]">
           <Loader size={"26px"} />
         </div>
-      ) : (
-        <div className="flex flex-col items-center w-full">
+      ) : !loading && course.name !== "" ? (
+        <div className="flex flex-col items-center w-full px-20 md:px-5">
           <h1 className="font-cocogoose text-[56px] md:text-[24px]">
             {course.name}
           </h1>
@@ -183,7 +289,12 @@ const ViewCourse: FC<iViewCourseProp> = ({ course }) => {
                       {currentVideo.description}
                     </p>
                   </div>
-                  <button className="mb-6 bg-brand text-white text-[18px] font-cocogoose flex gap-1 items-center justify-center w-[270px] md:w-full h-[45px] rounded-lg">
+                  <button
+                    onClick={() => {
+                      complete(currentVideo.id);
+                    }}
+                    className="mb-6 bg-brand text-white text-[18px] font-cocogoose flex gap-1 items-center justify-center w-[270px] md:w-full h-[45px] rounded-lg"
+                  >
                     Mark As Complete
                     <MdDone size={"26px"} />
                   </button>
@@ -198,7 +309,9 @@ const ViewCourse: FC<iViewCourseProp> = ({ course }) => {
                   </p>
                   <button
                     onClick={() => {
-                      window.location.assign("/quiz/id");
+                      window.location.assign(
+                        "/platform/course/quiz/" + course.id
+                      );
                     }}
                     className="mt-10 mb-6 bg-brand text-white text-[18px] font-cocogoose flex gap-1 items-center justify-center w-[200px] md:w-full h-[45px] rounded-lg"
                   >
@@ -236,7 +349,12 @@ const ViewCourse: FC<iViewCourseProp> = ({ course }) => {
             )}
           </div>
         </div>
+      ) : (
+        <div className="flex flex-col w-full text-brand font-cocogoose text-xl items-center justify-center h-[40vh]">
+          An error occurred. Please try again
+        </div>
       )}
+      <Footer />
     </>
   );
 };

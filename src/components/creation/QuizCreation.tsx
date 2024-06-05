@@ -19,7 +19,7 @@ import { tQuestion, useQuizCreateStore } from "@/stores/quizStore";
 import { Loader } from "@mantine/core";
 import { createCourse } from "@/hooks/mutations/useCreateCourse";
 
-const QuizCreation:FC<{resetPage: () => void}> = ({resetPage}) => {
+const QuizCreation: FC<{ resetPage: () => void }> = ({ resetPage }) => {
   const [title, setTitle] = useState<string>("");
   const [instructions, setInstructions] = useState<string>("");
   const [questions, setQuestions] = useState<tQuestion[]>([]);
@@ -62,10 +62,8 @@ const QuizCreation:FC<{resetPage: () => void}> = ({resetPage}) => {
     return true;
   };
 
-
   const validate = () => {
-    if(!checkFields()) return;
-
+    if (!checkFields()) return;
 
     if (questions.length === 0) {
       toast.error("Please provide at least one question for your quiz");
@@ -95,12 +93,14 @@ const QuizCreation:FC<{resetPage: () => void}> = ({resetPage}) => {
       useQuizCreateStore.getState(),
       token,
       (res) => {
-        isLoading(false);
-        setPage(0)
         toast.success("Your course has been created. Thank You");
-        useQuizCreateStore.getState().clear();
-        resetQuiz();
-        resetPage();
+        isLoading(false);
+        setTimeout(() => {
+          setPage(0);
+          useQuizCreateStore.getState().clear();
+          resetQuiz();
+          resetPage();
+        }, 3000);
       },
       (err) => {
         isLoading(false);
@@ -308,7 +308,6 @@ const QuizCreation:FC<{resetPage: () => void}> = ({resetPage}) => {
               {page === 1 && (
                 <button
                   onClick={() => {
-
                     if (question.length === 0) {
                       toast.error("Please provide a quiz question");
                       return;
@@ -320,10 +319,11 @@ const QuizCreation:FC<{resetPage: () => void}> = ({resetPage}) => {
                     }
 
                     if (correctOption === -1) {
-                      toast.error("Please choose a correct answer from the ones provided");
+                      toast.error(
+                        "Please choose a correct answer from the ones provided"
+                      );
                       return;
                     }
-                    
 
                     let que: tQuestion = {
                       text: question,
