@@ -11,6 +11,7 @@ interface iGetCourseResponse {
 }
 
 interface iCourseModule {
+  id: string | number;
   title: string;
   is_completed: boolean;
   text_content: string;

@@ -35,7 +35,7 @@ function getCourseById(
 ) {
   axios({
     method: "GET",
-    url: `https://brandme-2.onrender.com/api/courses/content/${id}/`,
+    url: `https://brandme-2.onrender.com/api/courses/courses/${id}/`,
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",

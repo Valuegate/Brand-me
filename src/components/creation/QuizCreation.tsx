@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 
 import InputComponent from "../resuable/InputComponent";
 import InputAreaComponent from "../resuable/InputAreaComponent";
@@ -13,55 +13,101 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { MdDelete } from "react-icons/md";
-import ComboComponent from "../resuable/ComboComponent";
 
 import { SingleQuizComponent } from "../quiz/types";
+import { tQuestion, useQuizCreateStore } from "@/stores/quizStore";
+import { Loader } from "@mantine/core";
+import { createCourse } from "@/hooks/mutations/useCreateCourse";
 
-type tQuestion = {
-  question: string;
-  type: string;
-  answers: string[];
-  point: string;
-};
-
-const QuizCreation = () => {
+const QuizCreation: FC<{ resetPage: () => void }> = ({ resetPage }) => {
+  const [title, setTitle] = useState<string>("");
   const [instructions, setInstructions] = useState<string>("");
-  const [points, setPoints] = useState<string>("");
-  const [duration, setDuration] = useState<string>("");
-
   const [questions, setQuestions] = useState<tQuestion[]>([]);
-
+  const [correctOption, setCorrectOption] = useState<number>(-1);
   const [question, setQuestion] = useState<string>("");
-  const [type, setType] = useState<string>("");
   const [answer, setAnswer] = useState<string>("");
   const [answers, setAnswers] = useState<string[]>([]);
-  const [point, setPoint] = useState<string>("");
 
   const [editIndex, setEditIndex] = useState<number>(-1);
   const [viewAll, setViewAll] = useState<boolean>(false);
 
   const [page, setPage] = useState<number>(0);
 
+  const [loading, isLoading] = useState<boolean>(false);
+
   const resetQuestion = () => {
     setEditIndex(-1);
+    setCorrectOption(-1);
     setQuestion("");
-    setType("");
     setAnswers([]);
-    setPoint("");
   };
 
   const resetQuiz = () => {
+    setTitle("");
     setInstructions("");
-    setPoints("");
-    setDuration("");
     setQuestions([]);
+  };
+
+  const checkFields = () => {
+    if (title.length === 0) {
+      toast.error("Please provide a quiz title");
+      return false;
+    }
+
+    if (instructions.length === 0) {
+      toast.error("Please provide a quiz instruction");
+      return false;
+    }
+
+    return true;
+  };
+
+  const validate = () => {
+    if (!checkFields()) return;
+
+    if (questions.length === 0) {
+      toast.error("Please provide at least one question for your quiz");
+      return;
+    }
+
+    useQuizCreateStore.setState({
+      quiz: {
+        description: instructions,
+        title: title,
+        questions: questions,
+      },
+    });
+
+    create();
   };
 
   const create = () => {
     let token = localStorage.getItem(globalKey)!;
-    token = JSON.parse(token).access_token;
-  };
+    if (token === null) return;
 
+    token = JSON.parse(token).access_token;
+
+    isLoading(true);
+
+    createCourse(
+      useQuizCreateStore.getState(),
+      token,
+      (res) => {
+        toast.success("Your course has been created. Thank You");
+        isLoading(false);
+        setTimeout(() => {
+          setPage(0);
+          useQuizCreateStore.getState().clear();
+          resetQuiz();
+          resetPage();
+        }, 3000);
+      },
+      (err) => {
+        isLoading(false);
+        toast.error("An error occurred. Please try again later");
+      }
+    );
+  };
   return (
     <>
       <ToastContainer
@@ -87,6 +133,17 @@ const QuizCreation = () => {
               Quiz Overview
             </h2>
             <div className="mt-10 w-[60%] flex flex-col gap-5">
+              <InputComponent
+                width="w-full"
+                label="Quiz Title"
+                type="text"
+                value={title}
+                placeholder="e.g Foundational Course Quiz"
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                }}
+              />
+
               <InputAreaComponent
                 label="Quiz Instructions"
                 value={instructions}
@@ -96,29 +153,9 @@ const QuizCreation = () => {
                 }}
               />
 
-              <InputComponent
-                width="w-full"
-                label="Quiz Total Points"
-                type="text"
-                value={points}
-                placeholder="e.g 100"
-                onChange={(e) => {
-                  setPoints(e.target.value);
-                }}
-              />
-              <InputComponent
-                width="w-full"
-                label="Quiz Duration (mins)"
-                type="text"
-                value={duration}
-                placeholder="e.g 180"
-                onChange={(e) => {
-                  setDuration(e.target.value);
-                }}
-              />
               <button
                 onClick={() => {
-                  if (page === 0) {
+                  if (page === 0 && checkFields()) {
                     setPage(1);
                   }
                 }}
@@ -148,9 +185,8 @@ const QuizCreation = () => {
                       >
                         <SingleQuizComponent
                           index={i}
-                          question={q.question}
-                          answers={q.answers}
-                          point={q.point}
+                          question={q.text}
+                          answers={q.choices}
                         />
                         <div
                           onClick={() => {
@@ -191,22 +227,7 @@ const QuizCreation = () => {
                   setQuestion(e.target.value);
                 }}
               />
-              <ComboComponent
-                label="Answer Type"
-                hint="Select"
-                onSelect={(val: number) => {
-                  setType(
-                    val === 0
-                      ? "Single Selected Option"
-                      : "Multiple Selected Options"
-                  );
-                }}
-                options={[
-                  "Single Selected Option",
-                  "Multiple Selected Options",
-                ]}
-                value={type}
-              />
+
               <div className={`w-full flex flex-col gap-1`}>
                 <p className="font-cocogoose text-[16px] text-brand ">
                   Answers
@@ -233,8 +254,12 @@ const QuizCreation = () => {
                   />
                 </div>
               </div>
+
               {answers.length > 0 && (
                 <div className="flex flex-col gap-2 w-full">
+                  <p className="text-brand font-cocogoose-light font-bold text-[16px]">
+                    Click on any of the answers to select as the correct answer
+                  </p>
                   {answers.map((ans, i) => {
                     return (
                       <div
@@ -247,9 +272,17 @@ const QuizCreation = () => {
                               wordWrap: "break-word",
                               width: "inherit",
                             }}
-                            className="font-cocogoose-light font-bold text-brand text-[16px]"
+                            onClick={() => {
+                              setCorrectOption(i);
+                            }}
+                            className={`${
+                              correctOption === i
+                                ? "font-cocogoose"
+                                : "font-cocogoose-light font-bold"
+                            }  text-brand text-[16px] cursor-pointer`}
                           >
                             {ans}
+                            {correctOption === i && " (correct option)"}
                           </p>
                         </div>
 
@@ -271,49 +304,48 @@ const QuizCreation = () => {
                   })}
                 </div>
               )}
-              <InputComponent
-                width="w-full"
-                label="Point"
-                type="text"
-                value={point}
-                placeholder="e.g 1"
-                onChange={(e) => {
-                  setPoint(e.target.value);
-                }}
-              />
 
               {page === 1 && (
                 <button
                   onClick={() => {
-                    if (
-                      question.length !== 0 &&
-                      type.length !== 0 &&
-                      answers.length !== 0 &&
-                      point.length !== 0
-                    ) {
-                      let que: tQuestion = {
-                        question: question,
-                        answers: answers,
-                        point: point,
-                        type: type,
-                      };
-
-                      if (editIndex === -1) {
-                        let m = questions;
-                        m.push(que);
-                        setQuestions(m);
-                      } else {
-                        let newArray = questions.slice(0, editIndex);
-                        newArray.push(que);
-                        let post = questions.slice(editIndex + 1);
-                        for (let i = 0; i < post.length; ++i) {
-                          newArray.push(post[i]);
-                        }
-                        setQuestions(newArray);
-                      }
-
-                      resetQuestion();
+                    if (question.length === 0) {
+                      toast.error("Please provide a quiz question");
+                      return;
                     }
+
+                    if (answers.length < 2) {
+                      toast.error("Please provide at least 2 answers");
+                      return;
+                    }
+
+                    if (correctOption === -1) {
+                      toast.error(
+                        "Please choose a correct answer from the ones provided"
+                      );
+                      return;
+                    }
+
+                    let que: tQuestion = {
+                      text: question,
+                      choices: answers,
+                      is_correct: answers[correctOption],
+                    };
+
+                    if (editIndex === -1) {
+                      let m = questions;
+                      m.push(que);
+                      setQuestions(m);
+                    } else {
+                      let newArray = questions.slice(0, editIndex);
+                      newArray.push(que);
+                      let post = questions.slice(editIndex + 1);
+                      for (let i = 0; i < post.length; ++i) {
+                        newArray.push(post[i]);
+                      }
+                      setQuestions(newArray);
+                    }
+
+                    resetQuestion();
                   }}
                   className="w-full mt-10 bg-brand-30 flex justify-center items-center gap-2 rounded-lg h-[50px] text-brand font-cocogoose"
                 >
@@ -322,14 +354,13 @@ const QuizCreation = () => {
                 </button>
               )}
               <button
-                onClick={create}
+                onClick={validate}
                 className={`w-full ${
                   page === 0 && "mt-10"
                 } bg-brand rounded-lg h-[50px] text-white font-cocogoose`}
               >
-                {/* {loading && <Loader color="#fff" />} */}
-                {/* {!loading && (page === 0 ? "Proceed" : "Launch")} */}
-                Launch
+                {loading && <Loader color="#fff" />}
+                {!loading && (page === 0 ? "Proceed" : "Launch")}
               </button>
             </div>
           </>

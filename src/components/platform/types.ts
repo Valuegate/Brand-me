@@ -17,6 +17,7 @@ export type iCourseDetails = {
 
 
 export type iVideoData = {
+    id: string | number;
     name: string;
     description: string;
     duration: string;

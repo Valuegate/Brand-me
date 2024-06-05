@@ -8,78 +8,79 @@ import Footer from "../resuable/Footer/Footer";
 import { Loader } from "@mantine/core";
 
 import { QuizComponent, QuizComponentProp } from "./types";
+import getCourseById from "@/hooks/queries/useGetCourseByID";
+import { globalKey } from "@/stores/globalStore";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-function setQuiz() {
-  useQuizStore.setState({
-    quiz: [
-      {
-        question:
-          "You are walking your client through the initial phases of the design process. You explain that in the empathy phase, you get to know the users. You create personas and from there, you create user stories. Your client is not sure what you mean by user stories. How should you explain this? Select all that apply.",
-        point: 1,
-        answers: [
-          "A user story identifies the obstacle that is at issue.",
-          "A user story introduces the user.",
-          "A user story provides the background information of all of the users who took part in the empathy interviews.",
-          "A user story states the ultimate goal and how the obstacle will be overcome.",
-        ],
-        singleSelection: false,
-      },
-      {
-        question:
-          "A junior UX designer has participated in their first empathy interviews and has now helped with creating personas. As the next step, you have asked them to create user stories. They ask what constitutes a good user story. How should you respond?",
-        point: 1,
-        answers: [
-          "A good user story provides the team with memorable moments from the empathy interviews and offers insight into the target users’ personalities.",
-          "A good user story informs the UX design team about the user preferences for style, including colors, images, and iconography.",
-          "A good user story will help the client understand the target users for the product that is being designed.",
-          "A good user story can inspire empathetic design decisions by making the design approach user-centered.",
-        ],
-        singleSelection: false,
-      },
-      {
-        question:
-          "You are walking your client through the initial phases of the design process. You explain that in the empathy phase, you get to know the users. You create personas and from there, you create user stories. Your client is not sure what you mean by user stories. How should you explain this? Select all that apply.",
-        point: 1,
-        answers: [
-          "A user story identifies the obstacle that is at issue.",
-          "A user story introduces the user.",
-          "A user story provides the background information of all of the users who took part in the empathy interviews.",
-          "A user story states the ultimate goal and how the obstacle will be overcome.",
-        ],
-        singleSelection: false,
-      },
-      {
-        question:
-          "A junior UX designer has participated in their first empathy interviews and has now helped with creating personas. As the next step, you have asked them to create user stories. They ask what constitutes a good user story. How should you respond?",
-        point: 1,
-        answers: [
-          "A good user story provides the team with memorable moments from the empathy interviews and offers insight into the target users’ personalities.",
-          "A good user story informs the UX design team about the user preferences for style, including colors, images, and iconography.",
-          "A good user story will help the client understand the target users for the product that is being designed.",
-          "A good user story can inspire empathetic design decisions by making the design approach user-centered.",
-        ],
-        singleSelection: false,
-      },
-    ],
-    pickedAnswers: Array(4).fill([]),
-  });
-}
 
-const Quiz = () => {
-  const quiz = useQuizStore((state) => state.quiz);
-  const pickedAnswers = useQuizStore((state) => state.pickedAnswers);
+const Quiz: FC<{ id: string }> = ({ id }) => {
+  const [loading, setLoading] = useState<boolean>(true);
+  const [quiz, setQuiz] = useState<QuizData[]>([]);
+  const [pickedAnswers, setPickedAnswers] = useState<string[]>([])
+
+  const startQuiz = () => {
+    let data = localStorage.getItem(globalKey)!;
+    if (data === null) {
+      setLoading(false);
+      toast.error("Please login again");
+      return;
+    }
+
+    let token = JSON.parse(data).access_token;
+    if (!token) {
+      setLoading(false);
+      toast.error("Please login again");
+      return;
+    }
+
+    getCourseById(
+      id,
+      token,
+      (res: any) => {
+        let quizzes = res.data.quizzes[0];
+        let data: QuizData[] = quizzes.questions.map((que: any, i: number) => {
+          return {
+            question: que.text,
+            point: 0,
+            answers: que.choices,
+            singleSelection: true,
+          };
+        });
+        setPickedAnswers(Array(data.length).fill(""))
+        setQuiz(data);
+        setLoading(false);
+      },
+      (e: any) => {
+        setLoading(false);
+        toast.error("An error occurred. Please try again");
+      }
+    );
+  };
 
   useEffect(() => {
-    setQuiz();
+    startQuiz();
   }, []);
 
   return (
     <>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <div className="fixed z-10 top-0 left-0 right-0">
         <QuizNavBar />
       </div>
       <div className="h-32" />
-      {quiz.length !== 0 && (
+      {!loading && quiz.length !== 0 && (
         <div className="px-32 md:px-[5%] pb-20 md:pb-0">
           <div className="bg-light-blue-30 rounded-[30px] md:rounded-[25px] w-full h-fit p-8 md:p-5 flex flex-col gap-10">
             {quiz.map((q, i) => {
@@ -89,30 +90,32 @@ const Quiz = () => {
                   index={i}
                   quiz={q}
                   onSelect={(val, picked) => {
-                    let p_answers = pickedAnswers[i];
                     let answers = q.answers;
-                    if (picked) {
-                      p_answers.push(answers[val]);
-                    } else {
-                      //p_answers.sl
-                    }
+                    pickedAnswers[i] = picked ? answers[val] : "";
+                    setPickedAnswers(pickedAnswers);
                   }}
-                  pickedAnswers={pickedAnswers[i]}
+                  pickedAnswer={pickedAnswers[i]}
                 />
               );
             })}
           </div>
         </div>
       )}
-      {quiz.length === 0 && (
+
+      {loading && (
         <div className="flex flex-col items-center justify-center w-full h-[40vh]">
-          <Loader size={"32px"} color="primary" />
+          <Loader size={"32px"}  />
+        </div>
+      )}
+
+      {!loading && quiz.length === 0 && (
+        <div className="flex flex-col w-full text-brand font-cocogoose text-xl items-center justify-center h-[40vh]">
+          An error occurred. Please try again
         </div>
       )}
       <Footer />
     </>
   );
 };
-
 
 export default Quiz;

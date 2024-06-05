@@ -1,13 +1,8 @@
 import React, { useState, FC, useEffect } from "react";
 
 import { iCourse } from "./types";
-import ViewCourse from "./ViewCourse";
-import ProgressBar from "../resuable/ProgressBar";
-
-import axios from "axios";
-import { globalKey } from "@/stores/globalStore";
 import useGetAllCourses from "@/hooks/queries/useGetAllCourses";
-import enrollCourse from "@/hooks/mutations/useEnrolCourse";
+
 import { Loader } from "@mantine/core";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -20,39 +15,8 @@ interface iCourseCardProp {
 }
 
 const Courses = () => {
-  const [selectedCourse, setSelectedCourse] = useState<number>(-1);
   const { data, isSuccess, isError, isLoading } = useGetAllCourses();
   const [courses, setCourses] = useState<iCourse[]>([]);
-
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const startCourse = (i: number) => {
-    let data = localStorage.getItem(globalKey)!;
-    if (data === null) return;
-
-    let token = JSON.parse(data).access_token;
-    let id: string | number = JSON.parse(data).id;
-
-    if (!token || !id) return;
-
-    setLoading(true);
-
-    enrollCourse(
-      {
-        course_id: courses[i].id,
-        user_id: id,
-      },
-      token,
-      (res: any) => {
-        setSelectedCourse(i);
-        setLoading(false);
-      },
-      (err: any) => {
-        setLoading(false);
-        toast.error("An error occurred. Please try again");
-      }
-    );
-  };
 
   useEffect(() => {
     if (!isLoading && isSuccess) {
@@ -66,6 +30,7 @@ const Courses = () => {
           details: {
             videos: val.modules.map((md, index) => {
               return {
+                id: md.id,
                 name: md.title,
                 description: md.text_content,
                 duration: "8 min",
@@ -84,7 +49,7 @@ const Courses = () => {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col w-full items-center justify-center h-40">
+      <div className="flex flex-col w-full items-center justify-center h-[40vh]">
         <Loader size={"26px"} />
       </div>
     );
@@ -111,7 +76,7 @@ const Courses = () => {
     );
   }
 
-  return selectedCourse === -1 ? (
+  return (
     <div className="flex flex-col items-center w-full">
       <h1 className="font-cocogoose text-[56px] md:text-[24px]">All Courses</h1>
       <div className="mt-20 md:mt-10 grid grid-cols-3 md:grid-cols-1 gap-10 md:gap-5 w-full">
@@ -121,7 +86,7 @@ const Courses = () => {
               key={i}
               course={course}
               onStart={() => {
-                startCourse(i);
+                window.location.assign("/platform/course/" + course.id);
               }}
             />
           );
@@ -133,8 +98,6 @@ const Courses = () => {
         </div>
       )}
     </div>
-  ) : (
-    <ViewCourse course={courses[selectedCourse]} />
   );
 };
 

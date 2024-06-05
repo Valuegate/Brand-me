@@ -138,7 +138,7 @@ const NavBar: FC<NavProp> = ({ index }) => {
         },
         {
           name: "Online Course",
-          link: "/course",
+          link: "/online-course",
         },
         {
           name: "Contact",
