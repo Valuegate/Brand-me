@@ -18,7 +18,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { Loader } from "@mantine/core";
 import Footer from "../resuable/Footer/Footer";
 import NavBar from "../resuable/NavBar/NavBar";
-import { HiDownload } from "react-icons/hi";
+
+import { HiBookOpen } from "react-icons/hi";
 import Link from "next/link";
 
 export interface iViewCourseProp {
@@ -27,6 +28,9 @@ export interface iViewCourseProp {
 
 const ViewCourse: FC<{ id: string }> = ({ id }) => {
   const [loading, setLoading] = useState<boolean>(true);
+
+  const [numPages, setNumPages] = useState<number>();
+  const [pageNumber, setPageNumber] = useState<number>(1);
 
   const [currentVideo, setCurrentVideo] = useState<iVideoData>({
     complete: false,
@@ -50,6 +54,10 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
       quizDone: false,
     },
   });
+
+  function onDocumentLoadSuccess({ numPages }: { numPages: number }): void {
+    setNumPages(numPages);
+  }
 
   function complete(id: number | string) {
     let data = localStorage.getItem(globalKey)!;
@@ -300,15 +308,15 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                   </div>
                   <div className="w-full h-[400px] md:h-[200px] mt-5 rounded-3xl bg-brand-30 flex flex-col gap-4 justify-center items-center">
                     <h2 className="text-brand text-xl font-cocogoose">
-                      Module File
+                      Read Module Document
                     </h2>
                     <Link
-                      href={currentVideo.video}
-                      target="__blank"
+                      href={`/platform/course/read?id=${id}&index=${course.details.currentVideo}`} 
                       className="p-4 rounded-full bg-brand-49"
                     >
-                      <HiDownload size={"42px"} fill="#1C274D" />
+                      <HiBookOpen size={"42px"} fill="#1C274D" />
                     </Link>
+                    
                   </div>
                   <div className="my-16 md:my-8 gap-3 flex flex-col w-full">
                     <h2 className="font-cocogoose text-[22px] md:text-[18px] md:text-center text-brand">
