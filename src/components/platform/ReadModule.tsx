@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 import { ToastContainer, toast } from "react-toastify";
@@ -13,7 +13,19 @@ import { Loader } from "@mantine/core";
 import { globalKey } from "@/stores/globalStore";
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
+
+const Fallback = () => <div>Loading...</div>;
+
 const ReadModule = () => {
+  return (
+    <Suspense fallback={<Fallback />}>
+      <Content />
+    </Suspense>
+  );
+};
+
+
+const Content = () => {
   const [numPages, setNumPages] = useState<number>();
   const [success, setSuccess] = useState<boolean>(false);
   const [pageNumber, setPageNumber] = useState<number>(1);
