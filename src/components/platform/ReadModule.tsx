@@ -26,6 +26,8 @@ const ReadModule = () => {
   );
 };
 
+
+
 const Content = () => {
   const [numPages, setNumPages] = useState<number>();
   const [success, setSuccess] = useState<boolean>(false);
