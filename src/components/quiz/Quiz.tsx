@@ -9,15 +9,16 @@ import { Loader } from "@mantine/core";
 
 import { QuizComponent, QuizComponentProp } from "./types";
 import getCourseById from "@/hooks/queries/useGetCourseByID";
+import submitQuiz from "@/hooks/mutations/useSubmitQuiz";
 import { globalKey } from "@/stores/globalStore";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 const Quiz: FC<{ id: string }> = ({ id }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [quiz, setQuiz] = useState<QuizData[]>([]);
-  const [pickedAnswers, setPickedAnswers] = useState<string[]>([])
+  const [pickedAnswers, setPickedAnswers] = useState<string[]>([]);
+  const [quizID, setQuizID] = useState<string | number>("");
 
   const startQuiz = () => {
     let data = localStorage.getItem(globalKey)!;
@@ -40,14 +41,19 @@ const Quiz: FC<{ id: string }> = ({ id }) => {
       (res: any) => {
         let quizzes = res.data.quizzes[0];
         let data: QuizData[] = quizzes.questions.map((que: any, i: number) => {
+          let ans = que.choices.map((an: any, index: number) => {
+            return an.text;
+          });
+
           return {
             question: que.text,
             point: 0,
-            answers: que.choices,
+            answers: ans,
             singleSelection: true,
           };
         });
-        setPickedAnswers(Array(data.length).fill(""))
+        setQuizID(quizzes.id);
+        setPickedAnswers(Array(data.length).fill(""));
         setQuiz(data);
         setLoading(false);
       },
@@ -57,6 +63,44 @@ const Quiz: FC<{ id: string }> = ({ id }) => {
       }
     );
   };
+
+  function submit() {
+    let data = localStorage.getItem(globalKey)!;
+    if (data === null) {
+      setLoading(false);
+      toast.error("Please login again");
+      return;
+    }
+
+    let token = JSON.parse(data).access_token;
+    if (!token) {
+      setLoading(false);
+      toast.error("Please login again");
+      return;
+    }
+
+    setLoading(true);
+
+    submitQuiz(
+      {
+        quiz: quizID,
+        answers: [
+          
+        ]
+
+      },
+      token,
+      (res: any) => {
+
+        toast.success("Congrats, your quiz has been submitted");
+        window.location.replace("/platform");
+      },
+      (err: any) => {
+        toast.error("An error occurred. Please try again"); 
+        setLoading(false);
+      }
+    );
+  }
 
   useEffect(() => {
     startQuiz();
@@ -89,22 +133,30 @@ const Quiz: FC<{ id: string }> = ({ id }) => {
                   key={i}
                   index={i}
                   quiz={q}
-                  onSelect={(val, picked) => {
-                    let answers = q.answers;
-                    pickedAnswers[i] = picked ? answers[val] : "";
+                  onSelect={(val: number) => {
+                    pickedAnswers[i] = q.answers[val];
+                    console.log(pickedAnswers);
                     setPickedAnswers(pickedAnswers);
                   }}
                   pickedAnswer={pickedAnswers[i]}
                 />
               );
             })}
+
+            <button
+              onClick={submit}
+              className={`w-[200px] ${"mt-10"} bg-brand rounded-lg h-[50px] text-white font-cocogoose`}
+            >
+              {loading && <Loader color="#fff" />}
+              {!loading && "Submit"}
+            </button>
           </div>
         </div>
       )}
 
       {loading && (
         <div className="flex flex-col items-center justify-center w-full h-[40vh]">
-          <Loader size={"32px"}  />
+          <Loader size={"32px"} />
         </div>
       )}
 

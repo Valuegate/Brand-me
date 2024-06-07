@@ -12,7 +12,7 @@ export interface QuizComponentProp {
   index: number;
   quiz: QuizData;
   pickedAnswer: string;
-  onSelect: (val: number, picked: boolean) => void;
+  onSelect: (val: number) => void;
 }
 
 export const QuizComponent: FC<QuizComponentProp> = ({
@@ -40,7 +40,7 @@ export const QuizComponent: FC<QuizComponentProp> = ({
               >
                 <div
                   onClick={() => {
-                    onSelect(i, !picked);
+                    onSelect(i);
                   }}
                   className={`${
                     picked ? "bg-light-blue" : "border border-brand"
