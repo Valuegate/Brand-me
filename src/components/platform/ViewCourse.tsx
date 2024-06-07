@@ -232,10 +232,8 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                       <div className="bg-brand w-[32px] h-[32px] rounded-lg flex justify-center items-center font-cocogoose-light text-white text-[18px]">
                         U{i + 1}
                       </div>
-                      <p className="font-cocogoose-light w-[calc(100%-64px)] text-center font-bold text-brand text-[18px]">
-                        {video.name} <span className="font-cocogoose">(</span>
-                        <span className="font-cocogoose">{video.duration}</span>
-                        <span className="font-cocogoose">)</span>
+                      <p className="font-cocogoose-light w-[calc(100%-100px)] line-clamp-1 text-center font-bold text-brand text-[18px]">
+                        {video.name}  
                       </p>
 
                       <div
@@ -311,12 +309,11 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                       Read Module Document
                     </h2>
                     <Link
-                      href={`/platform/course/read?id=${id}&index=${course.details.currentVideo}`} 
+                      href={`/platform/course/read?id=${id}&index=${course.details.currentVideo}`}
                       className="p-4 rounded-full bg-brand-49"
                     >
                       <HiBookOpen size={"42px"} fill="#1C274D" />
                     </Link>
-                    
                   </div>
                   <div className="my-16 md:my-8 gap-3 flex flex-col w-full">
                     <h2 className="font-cocogoose text-[22px] md:text-[18px] md:text-center text-brand">

@@ -13,8 +13,10 @@ import { Loader } from "@mantine/core";
 import { globalKey } from "@/stores/globalStore";
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
+import "react-pdf/dist/esm/Page/AnnotationLayer.css";
+import "react-pdf/dist/esm/Page/TextLayer.css";
 
-const Fallback = () => <div>Loading...</div>;
+const Fallback = () => <Loader />;
 
 const ReadModule = () => {
   return (
@@ -24,13 +26,13 @@ const ReadModule = () => {
   );
 };
 
-
 const Content = () => {
   const [numPages, setNumPages] = useState<number>();
   const [success, setSuccess] = useState<boolean>(false);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(true);
   const [expand, setExpand] = useState<boolean>(true);
+  const [title, setTitle] = useState<string>("");
   const [bookUrl, setBookUrl] = useState<string>("");
 
   const searchParams = useSearchParams();
@@ -74,6 +76,7 @@ const Content = () => {
       id!,
       token,
       (res: any) => {
+        setTitle(res.data.modules[modIndex].title);
         setBookUrl(res.data.modules[modIndex].video_content);
         setLoading(false);
         setSuccess(true);
@@ -116,12 +119,31 @@ const Content = () => {
       )}
       {!loading && success && (
         <>
-          <div className={`w-full ${expand ? "h-[40vh]" : "h-auto"} flex justify-center`}>
+          <div
+            className={`w-full ${
+              expand ? "h-[40vh]" : "h-auto"
+            } flex flex-col items-center justify-center gap-5`}
+          >
+            <h2 className="text-brand font-cocogoose text-xl">{title}</h2>
             <Document
               file={bookUrl}
               onLoadSuccess={onDocumentLoadSuccess}
+              loading={<Loader size={"26px"} />}
             >
-              <Page width={800} height={500} pageNumber={pageNumber} />
+              {Array(numPages)
+                .fill(0)
+                .map((n, i) => {
+                  return (
+                    <Page
+                      renderTextLayer={false}
+                      renderAnnotationLayer={false}
+                      width={900}
+                      pageNumber={i + 1}
+                      className={`bg-error`}
+                      loading={""}
+                    />
+                  );
+                })}
             </Document>
           </div>
         </>
