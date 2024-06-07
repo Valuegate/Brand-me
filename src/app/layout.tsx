@@ -10,6 +10,8 @@ import localFont from "@next/font/local";
 import "./globals.css";
 import "@mantine/core/styles.css";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import 'core-js/features/promise';
+
 
 const cocogooseRegular = localFont({
   src: "../assets/Cocogoose Regular.woff2",
