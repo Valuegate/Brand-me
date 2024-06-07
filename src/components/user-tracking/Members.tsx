@@ -48,8 +48,8 @@ const Members = () => {
             id: us.id,
             email: us.email,
             name: `${us.first_name} ${us.last_name}`,
-            image: ProfileImage,
-            date: new Date(),
+            image: us.image === null ? ProfileImage : us.image,
+            date: new Date(us.date_joined),
           };
         });
 
