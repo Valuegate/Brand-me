@@ -7,5 +7,5 @@ export const metadata = {
 }
 
 export default function ReadModulePage() {
-  return <div />
+  return <ReadModule />
 }

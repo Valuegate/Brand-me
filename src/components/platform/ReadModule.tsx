@@ -11,7 +11,7 @@ import Footer from "../resuable/Footer/Footer";
 import NavBar from "../resuable/NavBar/NavBar";
 import { Loader } from "@mantine/core";
 import { globalKey } from "@/stores/globalStore";
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/nbuild/pdf.worker.min.mjs`;
 
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "react-pdf/dist/esm/Page/TextLayer.css";
