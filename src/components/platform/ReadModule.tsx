@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 import { ToastContainer, toast } from "react-toastify";
