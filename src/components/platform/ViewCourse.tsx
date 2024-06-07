@@ -9,6 +9,7 @@ import { HiPlay } from "react-icons/hi2";
 import { BiTimeFive } from "react-icons/bi";
 import ProgressBar from "../resuable/ProgressBar";
 
+import getUserProgress from "@/hooks/queries/useGetUserProgress";
 import getCourseById from "@/hooks/queries/useGetCourseByID";
 import enrollCourse from "@/hooks/mutations/useEnrolCourse";
 import completeModule from "@/hooks/mutations/useCompleteModule";
@@ -21,6 +22,7 @@ import NavBar from "../resuable/NavBar/NavBar";
 
 import { HiBookOpen } from "react-icons/hi";
 import Link from "next/link";
+import { BsHandIndexThumbFill } from "react-icons/bs";
 
 export interface iViewCourseProp {
   course: iCourse;
@@ -28,9 +30,6 @@ export interface iViewCourseProp {
 
 const ViewCourse: FC<{ id: string }> = ({ id }) => {
   const [loading, setLoading] = useState<boolean>(true);
-
-  const [numPages, setNumPages] = useState<number>();
-  const [pageNumber, setPageNumber] = useState<number>(1);
 
   const [currentVideo, setCurrentVideo] = useState<iVideoData>({
     complete: false,
@@ -54,10 +53,6 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
       quizDone: false,
     },
   });
-
-  function onDocumentLoadSuccess({ numPages }: { numPages: number }): void {
-    setNumPages(numPages);
-  }
 
   function complete(id: number | string) {
     let data = localStorage.getItem(globalKey)!;
@@ -83,32 +78,33 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
         toast.success(
           "Congratulations. You have successfully completed this module."
         );
-        setLoading(false);
 
         setTimeout(() => {
-          // window.location.reload();
+          window.location.reload();
 
           //TODO: This is just a temporary fix pending Paul fix the is completed field reflecting for real
-          let next = course.details.currentVideo + 1;
-          let pg = next / course.details.videos.length;
+        //   let next = course.details.currentVideo + 1;
+        //   let pg = next / course.details.videos.length;
 
-          if (next <= course.details.videos.length) {
-            let videos = course.details.videos;
-            videos[course.details.currentVideo].complete = true;
+        //   if (next <= course.details.videos.length) {
+        //     let videos = course.details.videos;
+        //     videos[course.details.currentVideo].complete = true;
 
-            setCourse({
-              ...course,
-              progress: pg,
-              details: {
-                ...course.details,
-                currentVideo: next,
-                videos: videos,
-              },
-            });
-            setCurrentVideo(course.details.videos[next]);
-          }
+        //     setCourse({
+        //       ...course,
+        //       progress: pg,
+        //       details: {
+        //         ...course.details,
+        //         currentVideo: next,
+        //         videos: videos,
+        //       },
+        //     });
+        //     setCurrentVideo(course.details.videos[next]);
+        //   }
 
-          setNextVideoIndex(next);
+        //   setNextVideoIndex(next);
+
+
         }, 500);
       },
       (err: any) => {
@@ -141,15 +137,14 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
           id,
           token,
           (r: any) => {
-            let c = r.data;
-            c = {
-              id: c.id,
-              image: c.banner_content,
-              name: c.title,
-              description: c.description,
+            let co = {
+              id: r.data.id,
+              image: r.data.banner_content,
+              name: r.data.title,
+              description: r.data.description,
               progress: 0,
               details: {
-                videos: c.modules.map((md: any, index: number) => {
+                videos: r.data.modules.map((md: any, index: number) => {
                   return {
                     id: md.id,
                     name: md.title,
@@ -164,20 +159,72 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
               },
             };
 
-            setCourse(c);
-            setCurrentVideo(c.details.videos[c.details.currentVideo]);
-            setNextVideoIndex(c.details.currentVideo + 1);
-            setLoading(false);
+            let courseTitle = co.name;
+            let total = co.details.videos.length;
+
+            getUserProgress(
+              token,
+              (result: any) => {
+                let totalDoneInCourse = 0;
+                let completedModules: any[] = [];
+
+                let data = result.data;
+
+                data.map((d: any, i: number) => {
+                  if (d.course_title === courseTitle) {
+                    totalDoneInCourse += 1;
+                    completedModules.push(d.module);
+                  }
+                });
+
+                let pg = totalDoneInCourse / total;
+                co.progress = pg;                
+                co.details.videos.map((vd: any, i: number) => {
+                  for(let i = 0; i < completedModules.length; i++) {
+                    if(completedModules[i] === vd.id) {
+                      vd.complete = true;
+                      break;
+                    }
+                  }
+                });
+                co.details.currentVideo = totalDoneInCourse;
+
+                setCourse(co);
+                setCurrentVideo(co.details.videos[co.details.currentVideo]);
+                setNextVideoIndex(co.details.currentVideo + 1);
+                setLoading(false);
+              },
+              (error: any) => {
+                setCourse({
+                  id: "",
+                  image: "",
+                  name: "",
+                  description: "",
+                  progress: 0,
+                  details: {
+                    videos: [],
+                    currentVideo: 0,
+                    quizDone: false,
+                  },
+                });
+                setCurrentVideo(course.details.videos[0]);
+                setNextVideoIndex(0);
+                setLoading(false);
+                console.log("Error 3", error);
+              }
+            );
           },
           (e: any) => {
             setLoading(false);
             toast.error("An error occurred. Please try again");
+            console.log("Error 2");
           }
         );
       },
       (err: any) => {
         setLoading(false);
         toast.error("An error occurred. Please try again");
+        console.log("Error 1");
       }
     );
   };
@@ -185,6 +232,24 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
   useEffect(() => {
     startCourse();
   }, []);
+
+
+  const selectModule = (index : number) => {
+    if(index === course.details.videos.length && course.progress < 0.98) return;
+
+    if(index < course.details.videos.length) {
+      setCurrentVideo(course.details.videos[index]);
+    }
+    
+    setNextVideoIndex(index + 1);
+    setCourse({
+      ...course,
+      details: {
+        ...course.details,
+        currentVideo: index,
+      },
+    });
+  }
 
   return (
     <>
@@ -208,7 +273,7 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
         <div className="flex flex-col w-full items-center justify-center h-[40vh]">
           <Loader size={"26px"} />
         </div>
-      ) : !loading && course.name !== "" ? (
+      ) : !loading && course.id !== "" ? (
         <div className="flex flex-col items-center w-full px-20 md:px-5">
           <h1 className="font-cocogoose text-[56px] md:text-[24px]">
             {course.name}
@@ -227,13 +292,14 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                   return (
                     <div
                       key={i}
-                      className="flex items-center w-full justify-between"
+                      onClick={() => selectModule(i)}
+                      className="flex items-center w-full justify-between cursor-pointer  "
                     >
                       <div className="bg-brand w-[32px] h-[32px] rounded-lg flex justify-center items-center font-cocogoose-light text-white text-[18px]">
                         U{i + 1}
                       </div>
                       <p className="font-cocogoose-light w-[calc(100%-100px)] line-clamp-1 text-center font-bold text-brand text-[18px]">
-                        {video.name}  
+                        {video.name}
                       </p>
 
                       <div
@@ -246,7 +312,9 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                     </div>
                   );
                 })}
-                <div className="flex items-center w-full justify-between">
+                <div className="flex items-center w-full justify-between cursor-pointer" 
+                  onClick={() => selectModule(course.details.videos.length)}
+                >
                   <div className="bg-brand w-[32px] h-[32px] rounded-lg flex justify-center items-center font-cocogoose-light text-white text-[18px]">
                     U{course.details.videos.length + 1}
                   </div>
