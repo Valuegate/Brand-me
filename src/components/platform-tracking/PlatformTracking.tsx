@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import NavBar from "../resuable/NavBar/NavBar";
 import Courses from "./Courses";
 import Footer from "../resuable/Footer/Footer";
@@ -15,6 +15,8 @@ const PlatformTracking = () => {
     <Community key={"Community key"} />,
     <Courses key={"Courses Key"} />,
   ];
+
+  
 
   return (
     <>

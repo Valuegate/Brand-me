@@ -7,9 +7,13 @@ type QuizDetails = {
 };
 
 export type QuizData = {
+  id: string | number;
   question: string;
   point: number;
-  answers: string[];
+  answers: {
+    id: string | number;
+    text: string;
+  }[];
   singleSelection: boolean;
 };
 
