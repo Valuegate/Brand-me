@@ -1,7 +1,4 @@
-import { fetcher } from "@/lib/fetcher";
-import { COURSES } from "@/services/routes";
-import { useMutation } from "@tanstack/react-query";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
 
 
@@ -14,7 +11,6 @@ export function makePost(
   axios({
     method: "POST",
     data: {
-      title: "Dummy Title",
       content: payload,
     },
     url: `https://brandme-2.onrender.com/api/community/posts/`,
@@ -28,7 +24,7 @@ export function makePost(
 }
 
 export function likePost(
-  postID: string,
+  postID: string | number,
   token: string,
   onSuccess: (res: any) => void,
   onError: (err: any) => void

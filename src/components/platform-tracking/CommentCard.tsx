@@ -1,66 +1,102 @@
-import Image from 'next/image';
-import React, { FC } from 'react';
-import { PiPushPin } from 'react-icons/pi';
-import Avatar from '@/assets/Ellipse_593.png';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import CommentIcon from '@mui/icons-material/Comment';
-import Link from 'next/link';
+import Image from "next/image";
+import React, { FC, useEffect, useState } from "react";
+import Avatar from "@/assets/Ellipse_593.png";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import CommentIcon from "@mui/icons-material/Comment";
+import Link from "next/link";
+import { iPost } from "./types";
+import { convertDate } from "@/functions/dateFunctions";
+import { globalKey } from "@/stores/globalStore";
+
+import { likePost } from "@/hooks/mutations/useCreatePost";
 
 interface iCommentCardProp {
-    name: string;
-    date: string;
-    message: string;
+  post: iPost;
+}
+
+const CommentCard: FC<iCommentCardProp> = ({ post }) => {
+  const [liked, setLiked] = useState<boolean>(false);
+  const [initialLength, setLength] = useState<number>(0);
+
+  function hasLiked() {
+    let token = localStorage.getItem(globalKey)!;
+    let id = JSON.parse(token).id;
+
+    post.likes.forEach((like) => {
+      if (like.user.id === id) {
+        setLiked(true);
+      }
+    });
+
+    setLength(post.likes.length);
   }
 
-const CommentCard: FC<iCommentCardProp> = ({ name, date, message }) => {
-    return (
-        <>
-            <div className='w-full border-none shadow-md rounded-lg'>
-                <div className='flex justify-between px-4 py-4 rounded-t-lg bg-light-blue-30 text-black'>
-                    <div className="flex gap-1 items-center">
-                        <PiPushPin className='text-gray-10 h-5 w-5' />
-                        <p className='text-lg font-cocogoose'>Pinned</p>
-                    </div>
-                    <p className='text-lg font-cocogoose'>Hide</p>
-                </div>
-                <div className="px-8 md:px-2 py-8">
-                    <div className="flex items-center gap-3">
-                        <Image src={Avatar} alt={''} width={50} height={50} />
-                        <div>
-                        <h2 className='text-black font-cocogoose text-lg'>{name}</h2>
-                        <p className='text-base text-gray-10 font-semibold'>{date}</p>
-                        </div>
-                    </div>
-                    <p className='text-black text-base md:text-[15px] font-cocogoose mt-4'>{message}</p>
+  const like = () => {
+    let data = localStorage.getItem(globalKey)!;
+    if (data === null) return;
 
-                    <div className="flex items-center mt-5 md:flex-col justify-between">
-                        <div className="flex items-center gap-4">
-                            <div className="flex gap-1">
-                                <ThumbUpIcon className='text-light-blue'/>
-                                <h4 className='text-gray-10 text-base'>28</h4>
-                            </div>
-                            <div className="flex gap-1">
-                                <CommentIcon className='text-gray-10' />
-                                <h4 className='text-gray-10 text-base'>28</h4>
-                            </div>
-                            <div className='flex items-center md:flex-col'>
-                                <div className="flex items-center">
-                                    <Image src={Avatar} alt={''} width={20} height={20} />
-                                    <Image src={Avatar} alt={''} width={20} height={20} />
-                                    <Image src={Avatar} alt={''} width={20} height={20} />
-                                    <Image src={Avatar} alt={''} width={20} height={20} />
-                                </div>
-                                <h4 className='text-gray-10 text-base'>New comments 2 days ago</h4>
-                            </div>
-                        </div>
-                        <Link href={''} className='md:mt-4'>
-                        <h2 className='text-sm font-cocogoose text-light-blue'>View comments</h2>
-                        </Link>
-                    </div>
-                </div>
+    let token = JSON.parse(data).access_token;
+
+    likePost(
+      post.id,
+      token,
+      (res: any) => {
+
+        setLiked(true);
+        setLength(initialLength + 1);
+      },
+      (err: any) => {}
+    );
+  };
+
+  useEffect(() => {
+    hasLiked();
+  }, []);
+
+  return (
+    <>
+      <div className="w-full border-none shadow-custom rounded-lg">
+        <div className="px-8 md:px-2 py-8">
+          <div className="flex items-center gap-3">
+            <Image src={Avatar} alt={""} width={50} height={50} />
+            <div>
+              <h2 className="text-black font-cocogoose text-lg">
+                {post.user.first_name}
+              </h2>
+              <p className="text-base text-gray-10 font-semibold">
+                {convertDate(new Date(post.created_at))}
+              </p>
             </div>
-        </>
-    )
-}
+          </div>
+          <p className="text-black text-base md:text-[15px] font-cocogoose mt-4">
+            {post.content}
+          </p>
+
+          <div className="flex items-center mt-5 md:flex-col justify-between">
+            <div className="flex items-center gap-4">
+              <div className="flex gap-1">
+                <ThumbUpIcon
+                  onClick={like}
+                  className={`${liked ? "text-light-blue" : "text-gray-10"} cursor-pointer`}
+                />
+                <h4 className="text-gray-10 text-base">{initialLength}</h4>
+              </div>
+              <div className="flex gap-1">
+                <CommentIcon className="text-gray-10" />
+                <h4 className="text-gray-10 text-base">{post.comments.length}</h4>
+              </div>
+              
+            </div>
+            <Link href={""} className="md:mt-4">
+              <h2 className="text-sm font-cocogoose text-light-blue">
+                View comments
+              </h2>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default CommentCard;

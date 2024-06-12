@@ -138,12 +138,6 @@ const Members = () => {
                           >
                             View Profile
                           </p>
-                          <p className="text-contrast-base cursor-pointer med-3 leading-[32px] hover:bg-brand hover:text-white hover:rounded flex items-center px-4 h-10 transition-all ease-in duration-300">
-                            Deactivate
-                          </p>
-                          <p className="text-contrast-base cursor-pointer med-3 leading-[32px] hover:bg-brand hover:text-white hover:rounded flex items-center px-4 h-10 transition-all ease-in duration-300">
-                            Delete
-                          </p>
                         </div>
                       }
                       custom={`absolute ${

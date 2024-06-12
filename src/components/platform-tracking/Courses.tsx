@@ -48,7 +48,7 @@ const Courses = () => {
   if (isLoading) {
     return (
       <div className="flex flex-col w-full items-center justify-center h-40">
-        <Loader size={"26px"} />
+        <Loader />
       </div>
     );
   }
@@ -84,28 +84,17 @@ const Courses = () => {
       <div className="w-full px-20">
         <div className="flex flex-col w-full shadow-custom bg-white">
           <div className="w-full flex justify-between items-center h-16 px-5">
-            <h2 className="font-cocogoose text-[16px] text-black w-[5%]">
+            <h2 className="font-cocogoose text-[16px] text-black w-[10%]">
               S/N
             </h2>
-            <h2 className="font-cocogoose text-[16px] text-black w-[20%]">
+            <h2 className="font-cocogoose text-[16px] text-black w-[50%]">
               Course Name
             </h2>
             <h2 className="font-cocogoose text-[16px] text-black w-[10%]">
               Modules
             </h2>
-            <h2 className="font-cocogoose text-[16px] text-black w-[10%]">
-              Activation
-            </h2>
-            <h2 className="font-cocogoose text-[16px] text-black w-[10%]">
-              Completion
-            </h2>
-            <h2 className="font-cocogoose text-[16px] text-black w-[10%]">
-              Views
-            </h2>
-            <h2 className="font-cocogoose text-[16px] text-black w-[10%]">
-              Status
-            </h2>
-            <h2 className="font-cocogoose text-[16px] text-black w-[5%]">
+            
+            <h2 className="font-cocogoose text-end text-[16px] text-black w-[10%]">
               Actions
             </h2>
           </div>
@@ -119,26 +108,15 @@ const Courses = () => {
                     i % 2 === 1
                   } h-[65px] items-center px-2`}
                 >
-                  <h2 className="w-[5%] med-3 text-contrast-70">{i + 1}</h2>
-                  <h2 className="w-[20%] med-3 text-contrast-70 line-clamp-1">
+                  <h2 className="w-[10%] med-3 text-contrast-70">{i + 1}</h2>
+                  <h2 className="w-[50%] med-3 text-contrast-70 line-clamp-1">
                     {course.name}
                   </h2>
-                  <h2 className="w-[10%] med-3 text-contrast-70">
+                  <h2 className="w-[10%] med-3 text-contrast-70 text-center">
                     {course.details.videos.length}
                   </h2>
-                  <h2 className="w-[10%] med-3 text-contrast-70">12202</h2>
-                  <h2 className="w-[10%] med-3 text-contrast-70">6464</h2>
-                  <h2 className="w-[10%] med-3 text-contrast-70">73</h2>
-                  <h2 className={`w-[10%] med-3`}>
-                    <div
-                      className={`${
-                        true ? "text-green-100" : "text-error"
-                      } w-fit`}
-                    >
-                      {true ? "Active" : "Disabled"}
-                    </div>
-                  </h2>
-                  <div className="w-[5%] med-3 text-contrast-70 flex justify-end cursor-pointer">
+                  
+                  <div className="w-[10%] med-3 text-contrast-70 flex justify-end cursor-pointer">
                     <DropdownIcon
                       icon={<MdMoreVert size={"24px"} fill="#000000" />}
                       child={
@@ -153,9 +131,6 @@ const Courses = () => {
                           </p>
                           <p className="text-contrast-base cursor-pointer med-3 leading-[32px] hover:bg-brand hover:text-white hover:rounded flex items-center px-4 h-10 transition-all ease-in duration-300">
                             Edit Course
-                          </p>
-                          <p className="text-contrast-base cursor-pointer med-3 leading-[32px] hover:bg-brand hover:text-white hover:rounded flex items-center px-4 h-10 transition-all ease-in duration-300">
-                            Disable
                           </p>
                           <p className="text-contrast-base cursor-pointer med-3 leading-[32px] hover:bg-brand hover:text-white hover:rounded flex items-center px-4 h-10 transition-all ease-in duration-300">
                             Delete Course
