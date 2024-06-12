@@ -263,7 +263,7 @@ const CourseCreation: FC<{ proceed: () => void }> = ({ proceed }) => {
                     <>
                       <MdUpload size={"26px"} className="text-brand" />
                       <p className="text-brand font-cocogoose-light text-center font-bold text-[16px]">
-                        Upload your file with a 30MB maximum limit
+                        Upload your PDF File with a 30MB maximum limit
                       </p>
                     </>
                   )}
@@ -276,7 +276,7 @@ const CourseCreation: FC<{ proceed: () => void }> = ({ proceed }) => {
                 <input
                   type="file"
                   style={{ display: "none" }}
-                  accept="application/pdf,application/vnd.openxmlformats-officedocument.presentationml.presentation"
+                  accept="application/pdf"
                   ref={videoRef}
                   onChange={(e) => {
                     let files: FileList | null = e.target.files;

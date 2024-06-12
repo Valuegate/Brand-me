@@ -96,7 +96,7 @@ const Messages = () => {
                       {i + 1}
                     </p>
 
-                    <p className="font-cocogoose-light font-bold text-[16px] text-center text-black w-[19%]">
+                    <p className="font-cocogoose-light font-bold text-[16px] text-black w-[19%]">
                       {msg.username}
                     </p>
                     <p className="font-cocogoose-light font-bold text-[16px] text-black w-[19%]">

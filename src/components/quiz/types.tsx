@@ -11,8 +11,8 @@ import { Loader } from "@mantine/core";
 export interface QuizComponentProp {
   index: number;
   quiz: QuizData;
-  pickedAnswer: string;
-  onSelect: (val: number, picked: boolean) => void;
+  pickedAnswer: {id: string | number, text: string};
+  onSelect: (val: number) => void;
 }
 
 export const QuizComponent: FC<QuizComponentProp> = ({
@@ -32,7 +32,7 @@ export const QuizComponent: FC<QuizComponentProp> = ({
         </p>
         <div className="mt-5 flex flex-col gap-3">
           {quiz.answers.map((ans, i) => {
-            let picked = ans === pickedAnswer;
+            let picked = ans.id === pickedAnswer.id;
             return (
               <div
                 key={i}
@@ -40,7 +40,7 @@ export const QuizComponent: FC<QuizComponentProp> = ({
               >
                 <div
                   onClick={() => {
-                    onSelect(i, !picked);
+                    onSelect(i);
                   }}
                   className={`${
                     picked ? "bg-light-blue" : "border border-brand"
@@ -48,7 +48,7 @@ export const QuizComponent: FC<QuizComponentProp> = ({
                 >
                   {picked && <MdDone size={"24px"} />}
                 </div>
-                <p className="w-[calc(100%-32px)]">{ans}</p>
+                <p className="w-[calc(100%-32px)]">{ans.text}</p>
               </div>
             );
           })}

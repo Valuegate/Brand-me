@@ -48,7 +48,7 @@ const Courses = () => {
   if (isLoading) {
     return (
       <div className="flex flex-col w-full items-center justify-center h-[40vh]">
-        <Loader size={"26px"} />
+        <Loader />
       </div>
     );
   }
