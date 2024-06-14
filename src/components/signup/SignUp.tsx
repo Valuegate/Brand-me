@@ -1,4 +1,5 @@
 "use client";
+// import React, { useEffect, useState } from "react";
 import React, { useEffect, useState } from "react";
 import NavBar from "../resuable/NavBar/NavBar";
 import Footer from "../resuable/Footer/Footer";
