@@ -8,7 +8,12 @@ import { iPost } from "./types";
 import { convertDate } from "@/functions/dateFunctions";
 import { globalKey } from "@/stores/globalStore";
 
-import { likePost } from "@/hooks/mutations/useCreatePost";
+import { commentPost, likePost, getPostComments } from "@/hooks/mutations/useCreatePost";
+import { useDisclosure } from "@mantine/hooks";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import { Loader, Modal } from "@mantine/core";
 
 interface iCommentCardProp {
   post: iPost;
@@ -16,9 +21,20 @@ interface iCommentCardProp {
 
 const CommentCard: FC<iCommentCardProp> = ({ post }) => {
   const [liked, setLiked] = useState<boolean>(false);
-  const [initialLength, setLength] = useState<number>(0);
+  const [commented, setCommented] = useState<boolean>(false);
+  const [likesCount, setLikesCount] = useState<number>(0);
+  const [commentsCount, setCommentsCount] = useState<number>(0);
 
-  function hasLiked() {
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const [commentText, setCommentText] = useState<string>("");
+  const [opened, { open, close }] = useDisclosure(false);
+  const [opened2, { open: open2, close: close2 }] = useDisclosure(false);
+
+  const [comments, setComments] = useState<iCommentComment[]>([]);
+
+
+  function process() {
     let token = localStorage.getItem(globalKey)!;
     let id = JSON.parse(token).id;
 
@@ -28,7 +44,14 @@ const CommentCard: FC<iCommentCardProp> = ({ post }) => {
       }
     });
 
-    setLength(post.likes.length);
+    post.comments.forEach((comment) => {
+      if (comment.user.id === id) {
+        setCommented(true);
+      }
+    });
+
+    setLikesCount(post.likes.length);
+    setCommentsCount(post.comments.length);
   }
 
   const like = () => {
@@ -41,20 +64,87 @@ const CommentCard: FC<iCommentCardProp> = ({ post }) => {
       post.id,
       token,
       (res: any) => {
-
-        setLiked(true);
-        setLength(initialLength + 1);
+        let initial = liked;
+        setLiked(!initial);
+        setLikesCount(likesCount + (initial ? -1 : 1));
       },
-      (err: any) => {}
+      (err: any) => {
+        toast.error(
+          "An error occurred while liking/unliking this post. Please try again"
+        );
+      }
     );
   };
 
+  const comment = () => {
+    let data = localStorage.getItem(globalKey)!;
+    if (data === null) return;
+
+    let token = JSON.parse(data).access_token;
+
+    setLoading(true);
+
+    commentPost(
+      post.id,
+      commentText,
+      token,
+      (res: any) => {
+        setCommented(true);
+        setCommentsCount(commentsCount + 1);
+        setCommentText("");
+        setLoading(false);
+        close();
+        toast.success("You have successfully commented on this post");
+      },
+      (err: any) => {
+        setLoading(false);
+        toast.error("An error occurred. Please try again");
+      }
+    );
+  };
+
+  const getCommentsForPost = () => {
+    let data = localStorage.getItem(globalKey)!;
+    if (data === null) return;
+
+    let token = JSON.parse(data).access_token;
+
+    setLoading(true);
+
+    open2();
+
+    getPostComments(
+      post.id,
+      token,
+      (res: any) => {
+        setLoading(false);
+        setComments(res.data as iCommentComment[]);
+      },
+      (err: any) => {
+        setLoading(false);
+        toast.error("Could not get the comments under this post")
+      }
+    )
+  }
+
   useEffect(() => {
-    hasLiked();
+    process();
   }, []);
 
   return (
     <>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <div className="w-full border-none shadow-custom rounded-lg">
         <div className="px-8 md:px-2 py-8">
           <div className="flex items-center gap-3">
@@ -77,25 +167,97 @@ const CommentCard: FC<iCommentCardProp> = ({ post }) => {
               <div className="flex gap-1">
                 <ThumbUpIcon
                   onClick={like}
-                  className={`${liked ? "text-light-blue" : "text-gray-10"} cursor-pointer`}
+                  className={`${
+                    liked ? "text-light-blue" : "text-gray-10"
+                  } cursor-pointer`}
                 />
-                <h4 className="text-gray-10 text-base">{initialLength}</h4>
+                <h4 className="text-gray-10 text-base">{likesCount}</h4>
               </div>
               <div className="flex gap-1">
-                <CommentIcon className="text-gray-10" />
-                <h4 className="text-gray-10 text-base">{post.comments.length}</h4>
+                <CommentIcon
+                  onClick={() => {
+                    setCommentText("");
+                    open();
+                  }}
+                  className={`${
+                    commented ? "text-light-blue" : "text-gray-10"
+                  } cursor-pointer`}
+                />
+                <h4 className="text-gray-10 text-base">{commentsCount}</h4>
               </div>
-              
             </div>
-            <Link href={""} className="md:mt-4">
-              <h2 className="text-sm font-cocogoose text-light-blue">
+            <h2 className="text-sm font-cocogoose text-light-blue md:mt-4 cursor-pointer" onClick={getCommentsForPost}>
                 View comments
               </h2>
-            </Link>
           </div>
         </div>
       </div>
+      <Modal opened={opened} onClose={close} centered>
+        {loading ? (
+          <div className="w-full h-40 flex justify-center items-center">
+            <Loader />
+          </div>
+        ) : (
+          <div className="w-full flex flex-col gap-3">
+            <textarea
+              placeholder="Write a comment"
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+              className="border border-gray-10 w-full p-2 font-cocogoose text-[16px] resize-none h-[200px] focus:outline-none"
+            />
+
+            <button
+              onClick={comment}
+              className="font-cocogoose text-white text-[16px] h-10 rounded bg-brand"
+            >
+              Submit
+            </button>
+          </div>
+        )}
+      </Modal>
+      <Modal opened={opened2} onClose={close2} centered>
+        {loading ? (
+          <div className="w-full h-40 flex justify-center items-center">
+            <Loader />
+          </div>
+        ) : (
+          <div className="w-full flex flex-col overflow-y-scroll gap-10">
+            {
+              comments.map((cm, i) => {
+                return <PostComments key={i} {...cm} />
+              })
+            }
+          </div>
+        )}
+      </Modal>
     </>
+  );
+};
+
+interface iCommentComment {
+  user: {
+    first_name: string;
+  };
+  created_at: string;
+  content: string;
+}
+
+const PostComments: FC<iCommentComment> = ({ user, created_at, content }) => {
+  return (
+    <div className="w-full">
+      <div className="flex items-center gap-3">
+        <Image src={Avatar} alt={""} width={50} height={50} />
+        <div>
+          <h2 className="text-black font-cocogoose text-md">{user.first_name}</h2>
+          <p className="text-base text-gray-10 font-semibold">
+            {convertDate(new Date(created_at))}
+          </p>
+        </div>
+      </div>
+      <p className="text-black text-base font-cocogoose mt-4">
+        {content}
+      </p>
+    </div>
   );
 };
 
