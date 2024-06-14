@@ -16,6 +16,8 @@ const Courses = () => {
   const { data, isSuccess, isError, isLoading } = useGetAllCourses();
   const [courses, setCourses] = useState<iCourse[]>([]);
 
+  
+
   useEffect(() => {
     if (!isLoading && isSuccess) {
       let courseArray: iCourse[] = data.map((val, i) => {

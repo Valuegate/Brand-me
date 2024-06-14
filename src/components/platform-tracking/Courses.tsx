@@ -10,11 +10,16 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
 
+import { useDeleteCourse } from "@/hooks/mutations/useDeleteCourse";
+import { globalKey } from "@/stores/globalStore";
+
 const Courses = () => {
   const [selected, setSelected] = useState<number>(-1);
   const [courses, setCourses] = useState<iCourse[]>([]);
   const { data, isSuccess, isError, isLoading } = useGetAllCourses();
   const [opened, { open, close }] = useDisclosure(false);
+
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
   useEffect(() => {
     if (!isLoading && isSuccess) {
@@ -45,7 +50,7 @@ const Courses = () => {
     }
   }, [isLoading, isSuccess, data]);
 
-  if (isLoading) {
+  if (isLoading || isDeleting) {
     return (
       <div className="flex flex-col w-full items-center justify-center h-40">
         <Loader />
@@ -70,6 +75,7 @@ const Courses = () => {
           pauseOnHover
           theme="dark"
         />
+        An error occurred. Please try again
       </div>
     );
   }
@@ -79,8 +85,48 @@ const Courses = () => {
     open();
   };
 
+  const deleteCourse = (id: string | number) => {
+    let token = localStorage.getItem(globalKey);
+    if (token === null) {
+      toast.error("You need to login first");
+      return;
+    }
+
+    token = JSON.parse(token).access_token;
+
+    setIsDeleting(true);
+
+    useDeleteCourse(
+      id,
+      token!,
+      (res: any) => {
+        toast.success("You have successfully deleted the course");
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      },
+      (err: any) => {
+        toast.error("An error occurred while deleting the course");
+        setIsDeleting(false);
+      }
+    );
+  };
+
   return (
     <>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <div className="w-full px-20">
         <div className="flex flex-col w-full shadow-custom bg-white">
           <div className="w-full flex justify-between items-center h-16 px-5">
@@ -93,7 +139,7 @@ const Courses = () => {
             <h2 className="font-cocogoose text-[16px] text-black w-[10%]">
               Modules
             </h2>
-            
+
             <h2 className="font-cocogoose text-end text-[16px] text-black w-[10%]">
               Actions
             </h2>
@@ -115,7 +161,7 @@ const Courses = () => {
                   <h2 className="w-[10%] med-3 text-contrast-70 text-center">
                     {course.details.videos.length}
                   </h2>
-                  
+
                   <div className="w-[10%] med-3 text-contrast-70 flex justify-end cursor-pointer">
                     <DropdownIcon
                       icon={<MdMoreVert size={"24px"} fill="#000000" />}
@@ -132,7 +178,10 @@ const Courses = () => {
                           <p className="text-contrast-base cursor-pointer med-3 leading-[32px] hover:bg-brand hover:text-white hover:rounded flex items-center px-4 h-10 transition-all ease-in duration-300">
                             Edit Course
                           </p>
-                          <p className="text-contrast-base cursor-pointer med-3 leading-[32px] hover:bg-brand hover:text-white hover:rounded flex items-center px-4 h-10 transition-all ease-in duration-300">
+                          <p
+                            onClick={() => deleteCourse(course.id)}
+                            className="text-contrast-base cursor-pointer med-3 leading-[32px] hover:bg-brand hover:text-white hover:rounded flex items-center px-4 h-10 transition-all ease-in duration-300"
+                          >
                             Delete Course
                           </p>
                         </div>
