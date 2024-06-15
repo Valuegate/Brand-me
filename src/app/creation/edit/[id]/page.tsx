@@ -1,11 +1,11 @@
-import EditCourse from "@/components/creation/edit/EditCourse";
-import { Metadata } from "next";
+// import EditCourse from "@/components/creation/edit/EditCourse";
+// import { Metadata } from "next";
 
-export const metadata : Metadata = {
-    title: "Edit Course"
-}
+// export const metadata : Metadata = {
+//     title: "Edit Course"
+// }
 
-export default function EditCoursePage({params} :any) {
-    const {id} = params;
-    return <EditCourse id={id}/>
-}
+// export default function EditCoursePage({params} :any) {
+//     const {id} = params;
+//     return <EditCourse id={id}/>
+// }

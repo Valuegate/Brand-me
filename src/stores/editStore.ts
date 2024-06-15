@@ -13,14 +13,14 @@ export interface iMainCourse {
     video_content: string | File;
   }[];
   quizzes: {
-    id: string | number;
+    id?: string | number;
     title: string;
     description: string;
     questions: {
-      id: number | string;
+      id?: number | string;
       text: string;
       choices: {
-        id: string | number;
+        id?: string | number;
         text: string;
         is_correct: boolean;
       }[];

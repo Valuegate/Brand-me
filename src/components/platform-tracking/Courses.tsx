@@ -176,9 +176,9 @@ const Courses = () => {
                           >
                             View Course
                           </p>
-                          <Link href={`/creation/edit/${course.id}`} className="text-contrast-base cursor-pointer med-3 leading-[32px] hover:bg-brand hover:text-white hover:rounded flex items-center px-4 h-10 transition-all ease-in duration-300">
+                          {/* <Link href={`/creation/edit/${course.id}`} className="text-contrast-base cursor-pointer med-3 leading-[32px] hover:bg-brand hover:text-white hover:rounded flex items-center px-4 h-10 transition-all ease-in duration-300">
                             Edit Course
-                          </Link>
+                          </Link> */}
                           <p
                             onClick={() => deleteCourse(course.id)}
                             className="text-contrast-base cursor-pointer med-3 leading-[32px] hover:bg-brand hover:text-white hover:rounded flex items-center px-4 h-10 transition-all ease-in duration-300"
