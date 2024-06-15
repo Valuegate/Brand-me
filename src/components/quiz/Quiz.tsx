@@ -23,7 +23,7 @@ const Quiz: FC<{ id: string }> = ({ id }) => {
   const [quizID, setQuizID] = useState<string | number>("");
 
   const startQuiz = () => {
-    let data = localStorage.getItem(globalKey)!;
+    let data = localStorage.getItem(globalKey);
     if (data === null) {
       setLoading(false);
       toast.error("Please login again");
