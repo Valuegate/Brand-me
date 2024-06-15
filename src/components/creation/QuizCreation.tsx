@@ -19,6 +19,11 @@ import { tQuestion, useQuizCreateStore } from "@/stores/quizStore";
 import { Loader } from "@mantine/core";
 import { createCourse } from "@/hooks/mutations/useCreateCourse";
 
+import { GoArrowLeft } from "react-icons/go";
+
+import { Modal } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+
 const QuizCreation: FC<{ resetPage: () => void }> = ({ resetPage }) => {
   const [title, setTitle] = useState<string>("");
   const [instructions, setInstructions] = useState<string>("");
@@ -34,6 +39,7 @@ const QuizCreation: FC<{ resetPage: () => void }> = ({ resetPage }) => {
   const [page, setPage] = useState<number>(0);
 
   const [loading, isLoading] = useState<boolean>(false);
+  const [opened, { open, close }] = useDisclosure(true);
 
   const resetQuestion = () => {
     setEditIndex(-1);
@@ -78,7 +84,7 @@ const QuizCreation: FC<{ resetPage: () => void }> = ({ resetPage }) => {
       },
     });
 
-    create();
+    open();
   };
 
   const create = () => {
@@ -122,7 +128,43 @@ const QuizCreation: FC<{ resetPage: () => void }> = ({ resetPage }) => {
         pauseOnHover
         theme="dark"
       />
-      <div className="w-full bg-light-blue-30 md:bg-white rounded-[30px] flex flex-col items-center p-10 md:px-0 ">
+      <Modal opened={opened} onClose={close} centered>
+        <div className="flex flex-col w-full gap-3">
+          <h2 className="text-center font-cocogoose text-[24px]">Note</h2>
+
+          <p className="text-center font-cocogoose-light text-[18px] font-bold">
+            {page === 0
+              ? "Please ensure that all information is correct when creating the quiz. Once a quiz is created, it cannot be modified."
+              : " Please review the information provided very carefully before submitting. The quiz cannot be modified once created."}
+          </p>
+
+          <div className="flex justify-between items-center mt-5">
+            {page === 1 && (
+              <button
+                onClick={close}
+                className="bg-brand-49 h-10 rounded w-[160px] text-lg text-brand font-cocogoose"
+              >
+                Cancel
+              </button>
+            )}
+            <button
+              onClick={() => {
+                close();
+                if (page === 1) {
+                  create();
+                }
+              }}
+              className={`bg-brand ${
+                page === 1 ? "w-[160px]" : "w-full"
+              } text-lg h-10 rounded text-white font-cocogoose`}
+            >
+              Proceed
+            </button>
+          </div>
+        </div>
+      </Modal>
+
+      <div className="w-full bg-light-blue-30 md:bg-white rounded-[30px] flex flex-col items-center p-10 md:px-0 relative">
         {page === 0 ? (
           <>
             <div className="size-[80px] bg-brand rounded-full flex items-center justify-center text-white text-[40px] leading-[44px] font-semibold">
@@ -167,6 +209,13 @@ const QuizCreation: FC<{ resetPage: () => void }> = ({ resetPage }) => {
           </>
         ) : (
           <>
+            <div
+              onClick={() => setPage(0)}
+              className="w-fit flex gap-2 items-center absolute top-8 text-2xl cursor-pointer left-10 text-brand font-cocogoose"
+            >
+              <GoArrowLeft size={"26px"} />
+              Go Back
+            </div>
             <div className="size-[80px] bg-brand rounded-full flex items-center justify-center text-white text-[40px] leading-[44px] font-semibold">
               2
               <span className="font-medium text-[26px] leading-[30px]">/2</span>

@@ -7,18 +7,18 @@ import InputAreaComponent from "../resuable/InputAreaComponent";
 
 import { MdUpload, MdAddCircleOutline } from "react-icons/md";
 
-import { createCourse } from "@/hooks/mutations/useCreateCourse";
-import { globalKey } from "@/stores/globalStore";
-
-import { getBase64, getVideoCover } from "@/functions/fileFunction";
+import { getBase64 } from "@/functions/fileFunction";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
-import { Loader } from "@mantine/core";
-import { FaPlay } from "react-icons/fa6";
+
 import { MdDelete } from "react-icons/md";
 
 import { TModule, useQuizCreateStore } from "@/stores/quizStore";
+import { GoArrowLeft } from "react-icons/go";
+
+import { Modal } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 
 const CourseCreation: FC<{ proceed: () => void }> = ({ proceed }) => {
   const title = useQuizCreateStore((state) => state.title);
@@ -30,7 +30,6 @@ const CourseCreation: FC<{ proceed: () => void }> = ({ proceed }) => {
 
   const [moduleTitle, setModuleTitle] = useState<string>("");
   const [moduleDescription, setModuleDescription] = useState<string>("");
-  const [moduleDuration, setModuleDuration] = useState<string>("");
   const [moduleVideo, setModuleVideo] = useState<File | null>(null);
 
   const bannerRef = useRef<HTMLInputElement>(null);
@@ -40,11 +39,12 @@ const CourseCreation: FC<{ proceed: () => void }> = ({ proceed }) => {
 
   const [page, setPage] = useState<number>(0);
 
+  const [opened, { open, close }] = useDisclosure(true);
+
   const resetModule = () => {
     setEditIndex(-1);
     setModuleTitle("");
     setModuleDescription("");
-    setModuleDuration("");
     setModuleVideo(null);
   };
 
@@ -56,7 +56,7 @@ const CourseCreation: FC<{ proceed: () => void }> = ({ proceed }) => {
       return;
     }
 
-    proceed();
+    open();
   };
 
   const checkFields = () => {
@@ -69,11 +69,6 @@ const CourseCreation: FC<{ proceed: () => void }> = ({ proceed }) => {
       toast.error("Please provide a course description");
       return false;
     }
-
-    // if (instructor.length === 0) {
-    //   toast.error("Please provide a course instructor");
-    //   return false;
-    // }
 
     if (bannerData.length === 0) {
       toast.error("Please provide a course banner image");
@@ -97,7 +92,40 @@ const CourseCreation: FC<{ proceed: () => void }> = ({ proceed }) => {
         pauseOnHover
         theme="dark"
       />
-      <div className="w-full bg-light-blue-30 md:bg-white rounded-[30px] flex flex-col items-center p-10 md:px-0 ">
+      <Modal opened={opened} onClose={close} centered>
+        <div className="flex flex-col w-full gap-3">
+          <h2 className="text-center font-cocogoose text-[24px]">Note</h2>
+
+          <p className="text-center font-cocogoose-light text-[18px] font-bold">
+            {page === 0
+              ? "Please ensure that all information is correct when creating the course. Once a course is created, it cannot be modified."
+              : " Please review the information provided very carefully before submitting. The course cannot be modified once created."}
+          </p>
+
+          <div className="flex justify-between items-center mt-5">
+            {page === 1 && (
+              <button
+                onClick={close}
+                className="bg-brand-49 h-10 rounded w-[160px] text-lg text-brand font-cocogoose"
+              >
+                Cancel
+              </button>
+            )}
+            <button
+              onClick={() => {
+                close();
+                if (page === 1) {
+                  proceed();
+                }
+              }}
+              className={`bg-brand ${page === 1 ? "w-[160px]" : "w-full"} text-lg h-10 rounded text-white font-cocogoose`}
+            >
+              Proceed
+            </button>
+          </div>
+        </div>
+      </Modal>
+      <div className="w-full bg-light-blue-30 md:bg-white rounded-[30px] flex flex-col items-center p-10 md:px-0 relative">
         {page === 0 ? (
           <>
             <div className="size-[80px] bg-brand rounded-full flex items-center justify-center text-white text-[40px] leading-[44px] font-semibold">
@@ -179,16 +207,7 @@ const CourseCreation: FC<{ proceed: () => void }> = ({ proceed }) => {
                 placeholder="Type here..."
                 value={description}
               />
-              {/* <InputComponent
-                width="w-full"
-                label="Course Instructor"
-                type="text"
-                value={instructor}
-                placeholder="e.g John Doe"
-                onChange={(e) => {
-                  useQuizCreateStore.setState({ instructor: e.target.value });
-                }}
-              /> */}
+
               <button
                 onClick={() => {
                   if (page === 0 && checkFields()) {
@@ -203,6 +222,14 @@ const CourseCreation: FC<{ proceed: () => void }> = ({ proceed }) => {
           </>
         ) : (
           <>
+            <div
+              onClick={() => setPage(0)}
+              className="w-fit flex gap-2 items-center absolute top-8 text-2xl cursor-pointer left-10 text-brand font-cocogoose"
+            >
+              <GoArrowLeft size={"26px"} />
+              Go Back
+            </div>
+
             <div className="size-[80px] bg-brand rounded-full flex items-center justify-center text-white text-[40px] leading-[44px] font-semibold">
               2
               <span className="font-medium text-[26px] leading-[30px]">/2</span>
@@ -222,9 +249,7 @@ const CourseCreation: FC<{ proceed: () => void }> = ({ proceed }) => {
                         onClick={() => {
                           let pre = modules.slice(0, i);
                           let post = modules.slice(i + 1);
-                          for (let index = 0; i < post.length; ++index) {
-                            pre.push(post[index]);
-                          }
+                          pre.concat(post);
 
                           useQuizCreateStore.setState({ modules: pre });
                         }}
@@ -308,16 +333,6 @@ const CourseCreation: FC<{ proceed: () => void }> = ({ proceed }) => {
                 placeholder="Type here..."
                 value={moduleDescription}
               />
-              <InputComponent
-                width="w-full"
-                label="Module Duration"
-                type="text"
-                value={moduleDuration}
-                placeholder="e.g 8 mins"
-                onChange={(e) => {
-                  setModuleDuration(e.target.value);
-                }}
-              />
               {page === 1 && (
                 <button
                   onClick={() => {
@@ -331,11 +346,6 @@ const CourseCreation: FC<{ proceed: () => void }> = ({ proceed }) => {
                       return;
                     }
 
-                    if (moduleDuration.length === 0) {
-                      toast.error("Please provide a module duration");
-                      return;
-                    }
-
                     if (moduleVideo === null) {
                       toast.error("Please select a module file");
                       return;
@@ -344,7 +354,7 @@ const CourseCreation: FC<{ proceed: () => void }> = ({ proceed }) => {
                     let modl: TModule = {
                       title: moduleTitle,
                       is_completed: false,
-                      duration: moduleDuration,
+                      duration: "",
                       text_content: moduleDescription,
                       video_content: moduleVideo!,
                     };

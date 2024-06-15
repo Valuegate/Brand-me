@@ -38,9 +38,9 @@ export function editCourse(
   });
 
   axios({
-    method: "POST",
+    method: "PUT",
     data: form,
-    url: `https://brandme-2.onrender.com/api/courses/courses/create/`,
+    url: `https://brandme-2.onrender.com/api/courses/courses/${payload.id}/edit/`,
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "multipart/form-data",
