@@ -1,5 +1,6 @@
 import { fetcher } from "@/lib/fetcher";
 import { AUTH_ROUTES } from "@/services/routes";
+import { iMainCourse } from "@/stores/editStore";
 import { tCourseCreationData } from "@/stores/quizStore";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
@@ -7,16 +8,16 @@ import axios, { AxiosError } from "axios";
 export interface iCourseCreationResponse {}
 
 export function editCourse(
-  payload: tCourseCreationData,
+  payload: iMainCourse,
   token: string,
   onSuccess: (res: any) => void,
   onError: (err: any) => void
 ) {
+
   let form: FormData = new FormData();
   form.append("title", payload.title);
   form.append("description", payload.description);
-  form.append("banner_content", payload.banner);
-  // form.append("instructor", payload.instructor);
+  form.append("banner_content", payload.banner_content);
 
   payload.modules.forEach((module, i) => {
     form.append(`modules[${i}].title`, module.title);
@@ -25,15 +26,16 @@ export function editCourse(
     form.append(`modules[${i}].video_content`, module.video_content);
   });
 
-  form.append(`quizzes[0].title`, payload.quiz.title);
-  form.append(`quizzes[0].description`, payload.quiz.description);
+  form.append(`quizzes[0].title`, payload.quizzes[0].title);
+  form.append(`quizzes[0].description`, payload.quizzes[0].description);
 
-  payload.quiz.questions.forEach((que, i) => {
+  payload.quizzes[0].questions.forEach((que, i) => {
     form.append(`quizzes[0].questions[${i}].text`, que.text);
     que.choices.map((ans, index) => {
-      form.append(`quizzes[0].questions[${i}].choices[${index}]`, ans);
+      form.append(`quizzes[0].questions[${i}].choices[${index}].text`, ans.text);
+      form.append(`quizzes[0].questions[${i}].choices[${index}]is_correct`, ans.is_correct.toString());
     });
-    form.append(`quizzes[0].questions[${i}].is_correct`, que.is_correct);
+    
   });
 
   axios({

@@ -5,7 +5,7 @@ const nextConfig = {
     NEXTAUTH_SECRET: "zTxlgWpmNVnkpkaKFKrpGCdEGAmVof/C/agCX4MTVc4=",
   },
   images: {
-    domains: [""], // Add your S3 bucket domain here
+    domains: ['brandme2.s3.amazonaws.com'],
   },
   webpack: (config) => {
     config.resolve.alias.canvas = false;

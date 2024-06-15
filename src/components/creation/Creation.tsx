@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect, useState, ReactNode } from "react";
+import React, { useState, ReactNode } from "react";
 
 import NavBar from "../resuable/NavBar/NavBar";
 import Footer from "../resuable/Footer/Footer";
@@ -10,7 +10,7 @@ import QuizCreation from "./QuizCreation";
 
 const Creation = () => {
   const [currentTab, setCurrentTab] = useState<number>(0);
-  const tabs: string[] = ["Course Creation", "Quiz Creation"];
+  const tabs: string[] = ["Module Creation", "Quiz Creation"];
 
   const children: ReactNode[] = [
     <CourseCreation
