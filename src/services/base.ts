@@ -1,0 +1,1 @@
+export const baseUrl = "https://brandme-2.onrender.com/api";

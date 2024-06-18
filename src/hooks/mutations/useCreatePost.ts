@@ -1,5 +1,6 @@
 import axios from "axios";
 
+import {baseUrl} from "@/services/base";
 
 
 export function makePost(
@@ -13,7 +14,7 @@ export function makePost(
     data: {
       content: payload,
     },
-    url: `https://brandme-2.onrender.com/api/community/posts/`,
+    url: `${baseUrl}/community/posts/`,
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
@@ -34,7 +35,7 @@ export function likePost(
     data: {
       post: postID,
     },
-    url: `https://brandme-2.onrender.com/api/community/likes/`,
+    url: `${baseUrl}/community/likes/`,
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
@@ -58,7 +59,7 @@ export function commentPost(
       post: postID,
       content: comment,
     },
-    url: `https://brandme-2.onrender.com/api/community/comments/`,
+    url: `${baseUrl}/community/comments/`,
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
@@ -80,7 +81,7 @@ export function getPostComments(
     // data: {
     //   post: postID,
     // },
-    url: `https://brandme-2.onrender.com/api/community/comments/`,
+    url: `${baseUrl}/community/comments/`,
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",

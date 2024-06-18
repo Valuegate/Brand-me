@@ -19,6 +19,8 @@ import { iAccountProfileResponse } from '@/hooks/queries/useFetchAccountProfile'
 import axios from 'axios';
 import { globalKey } from '@/stores/globalStore';
 
+import {baseUrl} from "@/services/base";
+
 const Profile = () => {
   const [account, setAccount] = useState<iAccountProfileResponse>({
     id: -1,
@@ -47,7 +49,7 @@ const Profile = () => {
     token = JSON.parse(token).access_token;
     axios({
       method: "GET",
-      url: `https://brandme-2.onrender.com/api/accounts/profile/`,
+      url: `${baseUrl}/accounts/profile/`,
       headers: {
         Authorization: `Bearer ${token}`,
       },

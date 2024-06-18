@@ -1,6 +1,6 @@
 import axios from "axios"
 
-
+import {baseUrl} from "@/services/base";
 function getStatistics(
   token: string,
   onSuccess: (res: any) => void,
@@ -8,7 +8,7 @@ function getStatistics(
 ) {
   axios({
     method: "GET",
-    url: `https://brandme-2.onrender.com/api/accounts/statistics/`,
+    url: `${baseUrl}/accounts/statistics/`,
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",

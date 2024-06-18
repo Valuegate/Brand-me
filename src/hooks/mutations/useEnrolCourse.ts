@@ -3,6 +3,8 @@ import { COURSES } from "@/services/routes";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 
+import {baseUrl} from "@/services/base";
+
 export type TEnrolCoursePayload = {
   course_id: string | number;
   user_id: string | number;
@@ -42,7 +44,7 @@ function enrollCourse(
 ) {
   axios({
     method: "POST",
-    url: `https://brandme-2.onrender.com/api/courses/courses/${id}/enroll/`,
+    url: `${baseUrl}/courses/courses/${id}/enroll/`,
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",

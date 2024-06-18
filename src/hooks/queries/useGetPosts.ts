@@ -1,5 +1,5 @@
 import axios from "axios"
-
+import {baseUrl} from "@/services/base";
 
 function getPosts(
   token: string,
@@ -8,7 +8,7 @@ function getPosts(
 ) {
   axios({
     method: "GET",
-    url: `https://brandme-2.onrender.com/api/community/posts/`,
+    url: `${baseUrl}/community/posts/`,
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",

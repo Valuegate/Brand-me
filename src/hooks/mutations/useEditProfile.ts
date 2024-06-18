@@ -1,6 +1,4 @@
-import { fetcher } from "@/lib/fetcher";
-import { AUTH_ROUTES } from "@/services/routes";
-import { useMutation } from "@tanstack/react-query";
+import {baseUrl} from "@/services/base";
 import axios, { AxiosError } from "axios";
 
 export type TEditProfilePayload = {
@@ -21,7 +19,7 @@ export function editProfile(
   axios({
     method: "PUT",
     data: payload,
-    url: `https://brandme-2.onrender.com/api/accounts/profile/`,
+    url: `${baseUrl}/accounts/profile/`,
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "multipart/form-data",
