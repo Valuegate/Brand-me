@@ -1,8 +1,5 @@
-import { fetcher } from "@/lib/fetcher";
-import { AUTH_ROUTES } from "@/services/routes";
+import {baseUrl} from "@/services/base";
 import { iMainCourse } from "@/stores/editStore";
-import { tCourseCreationData } from "@/stores/quizStore";
-import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 
 
@@ -40,7 +37,7 @@ export function editCourse(
   axios({
     method: "PUT",
     data: form,
-    url: `https://brandme-2.onrender.com/api/courses/courses/${payload.id}/edit/`,
+    url: `${baseUrl}/courses/courses/${payload.id}/edit/`,
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "multipart/form-data",

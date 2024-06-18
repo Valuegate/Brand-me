@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
 
+import {baseUrl} from "@/services/base";
 
 export function useDeleteCourse(
   payload: string | number,
@@ -11,7 +12,7 @@ export function useDeleteCourse(
 
   axios({
     method: "DELETE",
-    url: `https://brandme-2.onrender.com/api/courses/courses/${payload}/delete/`,
+    url: `${baseUrl}/courses/courses/${payload}/delete/`,
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "multipart/form-data",

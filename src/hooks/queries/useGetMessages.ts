@@ -1,4 +1,5 @@
 import axios from "axios";
+import {baseUrl} from "@/services/base";
 
 export interface iMessage {
   username: string;
@@ -14,7 +15,7 @@ export function getMessages(
 ) {
   axios({
     method: "GET",
-    url: `https://brandme-2.onrender.com/api/contactus/messages/`,
+    url: `${baseUrl}/contactus/messages/`,
     headers: {
       Authorization: `Bearer ${token}`,
     },

@@ -1,5 +1,6 @@
 import axios from "axios"
 
+import {baseUrl} from "@/services/base";
 
 function getUserProgress(
   token: string,
@@ -8,7 +9,7 @@ function getUserProgress(
 ) {
   axios({
     method: "GET",
-    url: `https://brandme-2.onrender.com/api/courses/progress/`,
+    url: `${baseUrl}/courses/progress/`,
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",

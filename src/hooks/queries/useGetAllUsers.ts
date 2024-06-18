@@ -1,5 +1,6 @@
 import axios from "axios";
 
+import {baseUrl} from "@/services/base";
 
 function getAllUsers(
   token: string,
@@ -8,7 +9,7 @@ function getAllUsers(
 ) {
   axios({
     method: "GET",
-    url: `https://brandme-2.onrender.com/api/accounts/users/`,
+    url: `${baseUrl}/accounts/users/`,
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",

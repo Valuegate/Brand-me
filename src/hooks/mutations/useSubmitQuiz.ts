@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import {baseUrl} from "@/services/base";
+
 function submitQuiz(
   payload: any,
   token: string,
@@ -9,7 +11,7 @@ function submitQuiz(
   axios({
     method: "POST",
     data: payload,
-    url: `https://brandme-2.onrender.com/api/courses/submit-quiz/`,
+    url: `${baseUrl}/courses/submit-quiz/`,
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",

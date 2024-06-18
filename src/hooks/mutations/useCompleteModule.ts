@@ -1,5 +1,6 @@
 import axios from "axios";
 
+import {baseUrl} from "@/services/base";
 
 function completeModule(
   id: string | number,
@@ -9,7 +10,7 @@ function completeModule(
 ) {
   axios({
     method: "POST",
-    url: `https://brandme-2.onrender.com/api/courses/modules/${id}/complete/`,
+    url: `${baseUrl}/courses/modules/${id}/complete/`,
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",

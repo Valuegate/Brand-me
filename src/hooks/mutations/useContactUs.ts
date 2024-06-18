@@ -3,6 +3,8 @@ import { CONTACTUS_ROUTES } from "@/services/routes";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
+import {baseUrl} from "@/services/base";
+
 export type TContactPayload = { name: string; email: string; message: string;  };
 
 interface iDataResponse {
@@ -15,7 +17,7 @@ const useUserContactUs = () => {
   const mutation = useMutation({
     mutationFn: async (payload: TContactPayload) => {
       try {
-        const response = await fetcher(`https://brandme-2.onrender.com/api${CONTACTUS_ROUTES.CONTACT}`, "POST", payload);
+        const response = await fetcher(`${baseUrl}${CONTACTUS_ROUTES.CONTACT}`, "POST", payload);
         return response.data;
       } catch (err) {
         throw err;

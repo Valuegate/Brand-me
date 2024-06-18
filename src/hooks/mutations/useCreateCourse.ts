@@ -4,6 +4,8 @@ import { tCourseCreationData } from "@/stores/quizStore";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 
+import {baseUrl} from "@/services/base";
+
 export interface iCourseCreationResponse {}
 
 export function createCourse(
@@ -39,7 +41,7 @@ export function createCourse(
   axios({
     method: "POST",
     data: form,
-    url: `https://brandme-2.onrender.com/api/courses/courses/create/`,
+    url: `${baseUrl}/courses/courses/create/`,
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "multipart/form-data",

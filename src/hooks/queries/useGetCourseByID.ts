@@ -1,5 +1,5 @@
 import axios from "axios"
-
+import {baseUrl} from "@/services/base";
 
 function getCourseById(
   id: string,
@@ -9,7 +9,7 @@ function getCourseById(
 ) {
   axios({
     method: "GET",
-    url: `https://brandme-2.onrender.com/api/courses/courses/${id}/`,
+    url: `${baseUrl}/courses/courses/${id}/`,
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
