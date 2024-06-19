@@ -231,9 +231,9 @@ const AboutUsPage = () => {
                 related to marketing strategy, research, learning, training, and
                 practice in marketing management.
               </p>
-              <button className="text-light-blue bg-white px-5 md:w-full py-2 md:py-3 rounded-lg text-[20px] font-cocogoose">
+              <Link href={"https://vrmarketing.pt/"} target="__blank" className="text-light-blue bg-white px-5 md:w-full py-2 md:py-3 rounded-lg text-[20px] font-cocogoose">
                 Learn More
-              </button>
+              </Link>
             </div>
           </div>
         </section>
