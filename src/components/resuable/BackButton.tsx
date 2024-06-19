@@ -3,7 +3,7 @@ import React, { FC, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { GoArrowLeft } from "react-icons/go";
 
-const BackButton = () => {
+const BackButton: FC<{ color: string }> = ({ color }) => {
   const [pop, set] = useState<boolean>(false);
   const router = useRouter();
   const goBack = () => {
@@ -21,8 +21,12 @@ const BackButton = () => {
       className="flex gap-2 items-center w-fit cursor-pointer"
       onClick={goBack}
     >
-      <GoArrowLeft size={"26px"} fill={"#FFFFFF"} />
-      <p className={`text-white font-cocogoose-light font-bold text-[16px]`}>Back</p>
+      <GoArrowLeft size={"26px"} fill={color} />
+      <p
+        className={`text-[${color}] font-cocogoose text-lg`}
+      >
+        Back
+      </p>
     </div>
   );
 };

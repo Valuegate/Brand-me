@@ -1,5 +1,7 @@
 "use client";
 
+// ADD BACK BUTTON ON READ MODUKE PAGE. MAKE THE PAGE READABLE FROM THE CONTAINER
+
 import React, { FC, useEffect, useState } from "react";
 import { iCourse, iVideoData } from "./types";
 
@@ -24,12 +26,21 @@ import { HiBookOpen } from "react-icons/hi";
 import Link from "next/link";
 import { BsHandIndexThumbFill } from "react-icons/bs";
 
+import { pdfjs, Document, Page } from "react-pdf";
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
+
+import "react-pdf/dist/esm/Page/AnnotationLayer.css";
+import "react-pdf/dist/esm/Page/TextLayer.css";
+
 export interface iViewCourseProp {
   course: iCourse;
 }
 
 const ViewCourse: FC<{ id: string }> = ({ id }) => {
   const [loading, setLoading] = useState<boolean>(true);
+  const [numPages, setNumPages] = useState<number>(0);
+
+  const [reading, setReading] = useState<boolean>(false);
 
   const [currentVideo, setCurrentVideo] = useState<iVideoData>({
     complete: false,
@@ -53,6 +64,10 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
       quizDone: false,
     },
   });
+
+  function onDocumentLoadSuccess({ numPages }: { numPages: number }): void {
+    setNumPages(numPages);
+  }
 
   function complete(id: number | string) {
     let data = localStorage.getItem(globalKey)!;
@@ -83,28 +98,26 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
           window.location.reload();
 
           //TODO: This is just a temporary fix pending Paul fix the is completed field reflecting for real
-        //   let next = course.details.currentVideo + 1;
-        //   let pg = next / course.details.videos.length;
+          //   let next = course.details.currentVideo + 1;
+          //   let pg = next / course.details.videos.length;
 
-        //   if (next <= course.details.videos.length) {
-        //     let videos = course.details.videos;
-        //     videos[course.details.currentVideo].complete = true;
+          //   if (next <= course.details.videos.length) {
+          //     let videos = course.details.videos;
+          //     videos[course.details.currentVideo].complete = true;
 
-        //     setCourse({
-        //       ...course,
-        //       progress: pg,
-        //       details: {
-        //         ...course.details,
-        //         currentVideo: next,
-        //         videos: videos,
-        //       },
-        //     });
-        //     setCurrentVideo(course.details.videos[next]);
-        //   }
+          //     setCourse({
+          //       ...course,
+          //       progress: pg,
+          //       details: {
+          //         ...course.details,
+          //         currentVideo: next,
+          //         videos: videos,
+          //       },
+          //     });
+          //     setCurrentVideo(course.details.videos[next]);
+          //   }
 
-        //   setNextVideoIndex(next);
-
-
+          //   setNextVideoIndex(next);
         }, 500);
       },
       (err: any) => {
@@ -178,10 +191,10 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                 });
 
                 let pg = totalDoneInCourse / total;
-                co.progress = pg;                
+                co.progress = pg;
                 co.details.videos.map((vd: any, i: number) => {
-                  for(let i = 0; i < completedModules.length; i++) {
-                    if(completedModules[i] === vd.id) {
+                  for (let i = 0; i < completedModules.length; i++) {
+                    if (completedModules[i] === vd.id) {
                       vd.complete = true;
                       break;
                     }
@@ -233,14 +246,14 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
     startCourse();
   }, []);
 
+  const selectModule = (index: number) => {
+    if (index === course.details.videos.length && course.progress < 0.98)
+      return;
 
-  const selectModule = (index : number) => {
-    if(index === course.details.videos.length && course.progress < 0.98) return;
-
-    if(index < course.details.videos.length) {
+    if (index < course.details.videos.length) {
       setCurrentVideo(course.details.videos[index]);
     }
-    
+
     setNextVideoIndex(index + 1);
     setCourse({
       ...course,
@@ -249,7 +262,7 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
         currentVideo: index,
       },
     });
-  }
+  };
 
   return (
     <>
@@ -271,7 +284,7 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
       <div className="h-32" />
       {loading ? (
         <div className="flex flex-col w-full items-center justify-center h-[40vh]">
-          <Loader size={"26px"} />
+          <Loader />
         </div>
       ) : !loading && course.id !== "" ? (
         <div className="flex flex-col items-center w-full px-20 md:px-5">
@@ -312,7 +325,8 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                     </div>
                   );
                 })}
-                <div className="flex items-center w-full justify-between cursor-pointer" 
+                <div
+                  className="flex items-center w-full justify-between cursor-pointer"
                   onClick={() => selectModule(course.details.videos.length)}
                 >
                   <div className="bg-brand w-[32px] h-[32px] rounded-lg flex justify-center items-center font-cocogoose-light text-white text-[18px]">
@@ -372,17 +386,52 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                       {currentVideo.duration}
                     </div>
                   </div>
-                  <div className="w-full h-[400px] md:h-[200px] mt-5 rounded-3xl bg-brand-30 flex flex-col gap-4 justify-center items-center">
-                    <h2 className="text-brand text-xl font-cocogoose">
-                      Read Module Document
-                    </h2>
+                  <div className={`w-full h-[400px] md:h-[200px] mt-5 rounded-3xl bg-brand-30 flex flex-col gap-4 justify-center items-center ${reading && "overflow-y-scroll"}`}>
+                    {!reading ? (
+                      <>
+                        <h2 className="text-brand text-xl font-cocogoose">
+                          Read Module Document
+                        </h2>
+                        <div
+                          onClick={() => setReading(true)}
+                          className="p-4 rounded-full bg-brand-49 cursor-pointer"
+                        >
+                          <HiBookOpen size={"42px"} fill="#1C274D" />
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <Document
+                          file={currentVideo.video}
+                          onLoadSuccess={onDocumentLoadSuccess}
+                          loading={<Loader />}
+                        >
+                          {Array(numPages)
+                            .fill(0)
+                            .map((n, i) => {
+                              return (
+                                <Page
+                                  renderTextLayer={false}
+                                  renderAnnotationLayer={false}
+                                  width={700}
+                                  pageNumber={i + 1}
+                                  className={`bg-error`}
+                                  loading={""}
+                                />
+                              );
+                            })}
+                        </Document>
+                      </>
+                    )}
+                  </div>
+                  {reading && (
                     <Link
                       href={`/platform/course/read?id=${id}&index=${course.details.currentVideo}`}
-                      className="p-4 rounded-full bg-brand-49"
+                      className="text-end text-brand text-md font-cocogoose my-2"
                     >
-                      <HiBookOpen size={"42px"} fill="#1C274D" />
+                      Expand PDF
                     </Link>
-                  </div>
+                  )}
                   <div className="my-16 md:my-8 gap-3 flex flex-col w-full">
                     <h2 className="font-cocogoose text-[22px] md:text-[18px] md:text-center text-brand">
                       {currentVideo.name}
