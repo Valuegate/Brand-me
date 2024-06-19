@@ -70,7 +70,7 @@ const Partners = () => {
       breakTitle: "(V.A.E.V.)",
       description:
         "A non-profit, non-political organization aiming to empower people, promote peace, tolerance, and social equality through assisting individuals in acquiring knowledge and developing skills for professional and personal success. Focuses on providing community-based coaching, educational, and career opportunities for disadvantaged people, including immigrants, refugees, unemployed individuals, NEETs, and those from lower socio-economic backgrounds and with disabilities.",
-        link: "https://gvienna.org/",
+        link: "https://euresearch.at/",
     },
   ];
 
