@@ -15,6 +15,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/b
 
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "react-pdf/dist/esm/Page/TextLayer.css";
+import BackButton from "../resuable/BackButton";
 
 const Fallback = () => <Loader />;
 
@@ -25,8 +26,6 @@ const ReadModule = () => {
     </Suspense>
   );
 };
-
-
 
 const Content = () => {
   const [numPages, setNumPages] = useState<number>();
@@ -116,7 +115,7 @@ const Content = () => {
       <div className="h-32" />
       {loading && (
         <div className="flex flex-col w-full items-center justify-center h-[40vh]">
-          <Loader size={"26px"} />
+          <Loader />
         </div>
       )}
       {!loading && success && (
@@ -126,11 +125,15 @@ const Content = () => {
               expand ? "h-[40vh]" : "h-auto"
             } flex flex-col items-center justify-center gap-5`}
           >
+            <div className="fixed top-44 left-10">
+              <BackButton color="#1C274D" />
+            </div>
+
             <h2 className="text-brand font-cocogoose text-xl">{title}</h2>
             <Document
               file={bookUrl}
               onLoadSuccess={onDocumentLoadSuccess}
-              loading={<Loader size={"26px"} />}
+              loading={<Loader  />}
             >
               {Array(numPages)
                 .fill(0)

@@ -8,6 +8,7 @@ import Erasmus from "@/assets/Garage_erasmus_logo1.png";
 import Indepcie from "@/assets/logo INDEPCIE vectorizado2.png";
 import Vaev from "@/assets/VAEV_Logo-removebg-preview2.png";
 import Footer from "@/components/resuable/Footer/Footer";
+import Link from "next/link";
 
 interface iPartner {
   image: StaticImageData;
@@ -17,7 +18,10 @@ interface iPartner {
   description: string;
   preBold?: string;
   boldText?: string;
+  link: string;
 }
+
+// ADD LINKS
 
 const Partners = () => {
   const partners: iPartner[] = [
@@ -27,6 +31,7 @@ const Partners = () => {
       breakTitle: "(iEL)",
       description:
         "Mission: Supporting young people, education activities, innovation in education and training, and encouraging volunteering. Comprises experienced project managers, youth workers, facilitators, and creative professionals with a mission to create innovation, empowerment, participation, inclusion, and social entrepreneurship among disadvantaged youth.",
+        link: "https://innoedulab.eu/en/",
     },
     {
       image: Efektas,
@@ -36,6 +41,7 @@ const Partners = () => {
       boldText: "2016",
       description:
         ". Expertise in developing soft skills through various educational methodologies, tools, and approaches. Aims to educate local and international individuals and organizations using coaching, non-formal learning, applied neuroscience, applied psychology, and innovative instruments.      ",
+        link: "https://efektasgroup.com/",
     },
     {
       image: Erasmus,
@@ -45,6 +51,7 @@ const Partners = () => {
       boldText: "2012 ",
       description:
         "as the first professional network of the Erasmus Generation, in coordination with the European Commission. Aims to create a stronger Europe through and with the Erasmus Generation, with a focus on youth employment, valorization of soft skills, non-formal education, and inter-generational capacity building among alumni.",
+        link: "https://garagerasmus.org/",
     },
     {
       image: Indepcie,
@@ -55,6 +62,7 @@ const Partners = () => {
       boldText: "2018 ",
       description:
         ", focused on attitudinal training and improvement of human performance through coaching, Emotional Intelligence, soft skills, and Neuro Linguistic Programming (NLP). Specializes in developing techniques and strategies for individuals and organizations to achieve continuous improvement.",
+        link: "https://indepcie.com/",
     },
     {
       image: Vaev,
@@ -62,6 +70,7 @@ const Partners = () => {
       breakTitle: "(V.A.E.V.)",
       description:
         "A non-profit, non-political organization aiming to empower people, promote peace, tolerance, and social equality through assisting individuals in acquiring knowledge and developing skills for professional and personal success. Focuses on providing community-based coaching, educational, and career opportunities for disadvantaged people, including immigrants, refugees, unemployed individuals, NEETs, and those from lower socio-economic backgrounds and with disabilities.",
+        link: "https://gvienna.org/",
     },
   ];
 
@@ -111,9 +120,9 @@ const Partners = () => {
                     )}
                     {partner.description}
                   </p>
-                  <button className="text-white bg-light-blue px-5 md:w-full py-2 md:py-3 rounded-lg text-[20px] font-cocogoose">
+                  <Link href={partner.link} target="__blank" className="text-white bg-light-blue px-5 md:w-full py-2 md:py-3 rounded-lg text-[20px] font-cocogoose">
                     Learn More
-                  </button>
+                  </Link>
                 </div>
               </section>
             );

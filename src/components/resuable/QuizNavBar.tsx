@@ -11,7 +11,7 @@ const QuizNavBar = () => {
 
   return (
     <div className="w-full h-[10vh] bg-brand flex items-center justify-between justify-items-center px-12 md:px-[5%] border-none rounded-b-[40px] md:rounded-b-[25px]">
-      <BackButton />
+      <BackButton color="#FFFFFF"/>
       {/* <h2 className="font-cocogoose text-white text-[20px]">50:00:00</h2> */}
     </div>
   );
