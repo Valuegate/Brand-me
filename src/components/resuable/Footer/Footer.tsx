@@ -90,7 +90,7 @@ const Footer = () => {
             </div>
 
             <div className="flex justify-between w-full items-center">
-              <Link href={""} target="__blank">
+              <Link href={"https://euresearch.at/"} target="__blank">
                 <Image
                   src={Vaev}
                   alt={"VAEV logo"}
