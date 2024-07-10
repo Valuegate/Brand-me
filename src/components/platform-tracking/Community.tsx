@@ -15,23 +15,25 @@ import { makePost } from "@/hooks/mutations/useCreatePost";
 import { globalKey } from "@/stores/globalStore";
 
 import { iPost } from "./types";
+import { useTranslation } from 'react-i18next';
 
 const Community = () => {
   const [post, setPost] = useState<string>("");
   const [allPosts, setAllPosts] = useState<iPost[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const { t } = useTranslation();
 
   function createPost() {
     let token = localStorage.getItem(globalKey);
     if (token === null) {
-      toast.error("You need to login first");
+      toast.error(t('loginFirst'));
       return;
     }
 
     token = JSON.parse(token).access_token;
 
     if (post.length === 0) {
-      toast.error("Please provide a post");
+      toast.error(t('providePost'));
       return;
     }
 
@@ -41,22 +43,21 @@ const Community = () => {
       post,
       token!,
       (res: any) => {
-        toast.success("Post created successfully");
+        toast.success(t('postCreated'));
         setPost("");
         posts();
       },
       (err: any) => {
-        toast.error("An error occurred. Please try again");
+        toast.error(t('errorOccurred2'));
         setLoading(false);
       }
     );
   }
 
-
   function posts() {
     let token = localStorage.getItem(globalKey);
     if (token === null) {
-      toast.error("You need to login first");
+      toast.error(t('loginFirst'));
       setLoading(false);
       return;
     }
@@ -70,12 +71,11 @@ const Community = () => {
         setAllPosts(res.data as iPost[]);
       },
       (err: any) => {
-        toast.error("An error occurred. Please try again");
+        toast.error(t('errorOccurred2'));
         setLoading(false);
       }
     )
   }
-
 
   useEffect(() => {
     posts();
@@ -110,7 +110,7 @@ const Community = () => {
             <input
               className="w-full border-2 font-cocogoose border-brand shadow-custom rounded px-10 py-3 focus:outline-none"
               type="text"
-              placeholder="Write something..."
+              placeholder={t('writeSomething')}
               value={post}
               onChange={(e) => {
                 setPost(e.target.value);

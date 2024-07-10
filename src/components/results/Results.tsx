@@ -1,6 +1,6 @@
 "use client";
 import NavBar from "@/components/resuable/NavBar/NavBar";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Banner from "./Banner";
 
 import FlexComponent from "./FlexComponent";
@@ -30,15 +30,24 @@ import PD4 from "@/assets/results/Project_4.svg";
 import PD5 from "@/assets/results/Project_5.svg";
 import Footer from "../resuable/Footer/Footer";
 
-import { useGlobalStore } from "@/stores/globalStore";
+import { globalKey, useGlobalStore } from "@/stores/globalStore";
+import { useTranslation } from 'next-i18next';
 
 const Results = () => {
-  const loggedIn = useGlobalStore((state) => state.loggedIn);
+  const { t } = useTranslation();
+  const [loggedIn, setLoggedIn] = useState(false);
+  
+  useEffect(() => {
+    let data = localStorage.getItem(globalKey);
+    setLoggedIn(data !== null)
+    },
+    []
+  )
 
   return (
     <>
       <div className="fixed z-10 top-0 left-0 right-0">
-        <NavBar index={loggedIn ? 1 : 2} />
+        <NavBar index={loggedIn ? 1 : 2 } />
       </div>
       <div className="h-32" />
       <div className="px-32 md:px-[5%] flex flex-col">
@@ -47,138 +56,125 @@ const Results = () => {
           reports={[
             {
               image: Bam1,
-              text: "Create an accurate and relevant survey form.",
+              // text: "Create an accurate and relevant survey form.",
+
+
+              text: t("bam_reports.bam1_text"),
             },
             {
               image: Bam2,
-              preBold: "Collect at least",
-              boldText: "40",
-              text: "replies per nation and compile them into a practical, easy-to-read report.",
+              preBold: t("bam_reports.bam2_text"),
+              boldText: t("bam_reports.bam2_boldText"),
+              text: t("bam_reports.bam2_text"),
             },
             {
               image: Bam3,
-              preBold: "Defining",
-              boldText: "12",
-              text: "important areas for effective professional growth and personal brand construction.",
+              preBold: t("bam_reports.bam3_preBold"),
+              boldText: t("bam_reports.bam3_boldText"),
+              text: t("bam_reports.bam3_text"),
             },
             {
               image: Bam4,
-              text: "Advice and experiences shared by organizations helping populations.",
+              text: t("bam_reports.bam4_text"),
             },
             {
               image: Bam5,
-              text: "Uploading and sharing the report to the media and stakeholders.",
+              text: t("bam_reports.bam5_text"),
             },
             {
               image: Bam6,
-              text: "Raising awareness for career growth and personal branding among young NEETs and students.",
+              text: t("bam_reports.bam6_text"),
             },
           ]}
           arrangeRight={true}
-          title="BAM Report"
-          description="The BAM Report provides real-time insights on NEETs'
-              perspectives on education, career advice, development, and personal
-              branding in Portugal, Spain, Italy, Austria, Romania, and Lithuania.
-              Stakeholders in the youth sector benefit from this information."
-          trailing="The research will collect data on target groups' prospective
-              requirements in terms of employment, branding, professionalism, career
-              development, and labour market. This study is critical for the creation
-              of relevant and useful learning materials. The study will encourage
-              individuals and organisations to look deeper into the issue of personal
-              branding, resulting in the development of new initiatives, projects,
-              activities, and resources to address local and European concerns."
+          title={t("bam_report")}
+          description={t("bam_desc")}
+          trailing={t("bam_trailing")}
         />
         <FlexComponent
           reports={[
             {
               image: B1,
-              preBold: "Developing an e-learning program consisting of",
-              boldText: "12",
-              text: "modules to educate and support NEET participants and career advisors.",
+              preBold: t("branding_reports.b1_preBold"),
+              boldText: t("branding_reports.b1_boldText"),
+              text: t("branding_reports.b1_text"),
             },
             {
               image: B2,
-              text: "Translate content into partners' languages.",
+              text: t("branding_reports.b2_text"),
             },
             {
               image: B3,
-              text: "Creating online course infrastructure for engaging remote learners internationally.",
+              text: t("branding_reports.b3_text"),
             },
             {
               image: B4,
-              text: "Motivate kids to pursue careers and promote personal branding among young NEETs.",
+              text: t("branding_reports.b4_text"),
             },
           ]}
           arrangeRight={false}
-          title="Online Course of Personal Branding Skills"
-          description="The online branding course will provide 12 training modules and additional project resources for comprehensive learning."
-          trailing="The course will cover 12 critical skills for personal brand building and deployment, giving students a thorough grasp of how to apply what they've learned to advance their careers."
-        />
+          title={t("branding_course")}
+          description={t("branding_desc")}
+          trailing={t("branding_trailing")}
+                  />
         <FlexComponent
           reports={[
             {
               image: MD1,
-              text: "Researching, developing, and creating the BAM Manual.",
+              text: t("manual_reports.md1_text"),
             },
             {
               image: MD2,
-              text: "Promoting and distributing the BAM Manual.",
+              text: t("manual_reports.md2_text"),
             },
             {
               image: MD3,
-              text: "Raising awareness of personal brand training opportunities and activities.",
+              text: t("manual_reports.md3_text"),
             },
             {
               image: MD4,
-              text: "Engaging target groups to apply the BAM Manual and gain feedback on changes.",
+              text: t("manual_reports.md4_text"),
             },
             {
               image: MD5,
-              text: "Making it accessible to the intended audience.",
+              text: t("manual_reports.md5_text"),
             },
           ]}
           arrangeRight={true}
-          title="BAM Manual"
-          description="The BAM Manual will be prepared collaboratively by all stakeholders
-          under the leadership and supervision of IEL. The goals of this work
-          package are:"
-          trailing="These objectives complement previous project results and serve as a
-          valuable resource for the BAM project's overall execution. The BAM
-          Manual will increase the project's influence on local and worldwide
-          contexts and objectives by acting as an engagement tool for youth
-          workers, leaders, educators, and other players in the youth career
-          counselling and employment domains."
+          title={t("bam_manual")}
+          description={t("manual_desc")}
+          trailing={t("manual_trailing")}
         />
         <FlexComponent
           reports={[
             {
               image: PD1,
-              text: "Created project branding package.",
+              text: t("dissemination_reports.pd1_text"),
             },
             {
               image: PD2,
-              text: "Social media posts in partners official pages.",
+              text: t("dissemination_reports.pd2_text"),
             },
             {
               image: PD3,
-              text: "Training course for youth workers hosted in Italy.",
+              text: t("dissemination_reports.pd3_text"),
             },
             {
               image: PD4,
               preBold:
-                "Multiplier Events in all partners' countries involving at least",
-              boldText: "180",
-              text: "participants.",
+                t("dissemination_reports.pd4_preBold"),
+              boldText: t("dissemination_reports.pd4_boldText"),
+              text: t("dissemination_reports.pd4_text"),
             },
             {
               image: PD5,
-              text: "Dissemination campaign garagErasmus Foundation.",
+              text: t("dissemination_reports.pd5_text"),
             },
           ]}
           arrangeRight={false}
-          title="Project Dissemination"
+          title={t("project_dissemination")}
           description=""
-          trailing="The project dissemination activities aim to ensure the widespread reach and impact of the project outcomes across different countries and target groups."
+          trailing={t("dissemination_desc")}
         />
       </div>
       <Footer />

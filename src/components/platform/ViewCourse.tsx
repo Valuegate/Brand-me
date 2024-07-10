@@ -31,12 +31,14 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/b
 
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "react-pdf/dist/esm/Page/TextLayer.css";
+import { useTranslation } from 'next-i18next';
 
 export interface iViewCourseProp {
   course: iCourse;
 }
 
 const ViewCourse: FC<{ id: string }> = ({ id }) => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState<boolean>(true);
   const [numPages, setNumPages] = useState<number>(0);
 
@@ -73,14 +75,14 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
     let data = localStorage.getItem(globalKey)!;
     if (data === null) {
       setLoading(false);
-      toast.error("Please login again");
+      toast.error(t("loginAgain"));
       return;
     }
 
     let token = JSON.parse(data).access_token;
     if (!token) {
       setLoading(false);
-      toast.error("Please login again");
+      toast.error(t("loginAgain"));
       return;
     }
 
@@ -90,9 +92,7 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
       id,
       token,
       (res: any) => {
-        toast.success(
-          "Congratulations. You have successfully completed this module."
-        );
+        toast.success(t("success2"));
 
         setTimeout(() => {
           window.location.reload();
@@ -121,7 +121,7 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
         }, 500);
       },
       (err: any) => {
-        toast.error("Unable to mark the module as completed. Please try again");
+        toast.error(t("unableToMarkComplete"));
         setLoading(false);
       }
     );
@@ -131,14 +131,14 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
     let data = localStorage.getItem(globalKey)!;
     if (data === null) {
       setLoading(false);
-      toast.error("Please login again");
+      toast.error(t("loginAgain"));
       return;
     }
 
     let token = JSON.parse(data).access_token;
     if (!token) {
       setLoading(false);
-      toast.error("Please login again");
+      toast.error(t("loginAgain"));
       return;
     }
 
@@ -229,14 +229,14 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
           },
           (e: any) => {
             setLoading(false);
-            toast.error("An error occurred. Please try again");
+            toast.error(t("errorOccured2"));
             console.log("Error 2");
           }
         );
       },
       (err: any) => {
         setLoading(false);
-        toast.error("An error occurred. Please try again");
+        toast.error(t("errorOccured2"));
         console.log("Error 1");
       }
     );
@@ -333,7 +333,7 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                     U{course.details.videos.length + 1}
                   </div>
                   <p className="font-cocogoose-light w-[calc(100%-64px)] text-center font-bold text-brand text-[18px]">
-                    Quiz
+                    {t("quiz")}
                   </p>
                   <div
                     className={`${
@@ -351,11 +351,11 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                 course.details.videos.length - 1 && (
                 <div className="flex flex-col w-full md:hidden">
                   <h2 className="font-cocogoose text-[20px] text-brand">
-                    Next Module
+                    {t("nextModule")}
                   </h2>
                   <div className="bg-light-blue-30 w-[350px] p-5 rounded-3xl">
                     <div className="w-full h-[200px] rounded-3xl text-brand text-xl font-cocogoose bg-brand-30 flex justify-center items-center">
-                      Module File
+                    {t("moduleFile")}
                     </div>
                     <div className="mt-3 flex items-center justify-between">
                       <div className="bg-brand w-[32px] h-[32px] rounded-lg flex justify-center items-center font-cocogoose-light text-white text-[18px]">
@@ -390,7 +390,7 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                     {!reading ? (
                       <>
                         <h2 className="text-brand text-xl font-cocogoose">
-                          Read Module Document
+                        {t("readModuleDoc")}
                         </h2>
                         <div
                           onClick={() => setReading(true)}
@@ -429,7 +429,7 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                       href={`/platform/course/read?id=${id}&index=${course.details.currentVideo}`}
                       className="text-end text-brand text-md font-cocogoose my-2"
                     >
-                      Expand PDF
+                      {t("expandPDF")}
                     </Link>
                   )}
                   <div className="my-16 md:my-8 gap-3 flex flex-col w-full">
@@ -446,14 +446,14 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                     }}
                     className="mb-6 bg-brand text-white text-[18px] font-cocogoose flex gap-1 items-center justify-center w-[270px] md:w-full h-[45px] rounded-lg"
                   >
-                    Mark As Complete
+                    {t("markAsComplete")}
                     <MdDone size={"26px"} />
                   </button>
                 </div>
               ) : (
                 <div className="flex flex-col w-full md:items-center">
                   <h2 className="font-cocogoose text-brand text-[20px]">
-                    Instruction
+                    {t("instruction")}
                   </h2>
                   <p className="mt-5 text-[16px] text-brand font-cocogoose-light md:text-center font-bold">
                     {course.description}
@@ -464,9 +464,9 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                         "/platform/course/quiz/" + course.id
                       );
                     }}
-                    className="mt-10 mb-6 bg-brand text-white text-[18px] font-cocogoose flex gap-1 items-center justify-center w-[200px] md:w-full h-[45px] rounded-lg"
+                    className="mt-10 mb-6 bg-brand text-white text-[16px] font-cocogoose flex gap-1 items-center justify-center w-[200px] md:w-full h-[50px] rounded-lg"
                   >
-                    Start Quiz
+                    {t("startQuiz")}
                   </button>
                 </div>
               )}
@@ -475,7 +475,7 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
             {course.details.currentVideo < course.details.videos.length - 1 && (
               <div className="md:flex flex-col w-full hidden">
                 <h2 className="font-cocogoose text-[20px] text-brand">
-                  Continue Watching
+                  {t("continueWatching")}
                 </h2>
                 <div className="bg-light-blue-30 w-[350px] p-5 rounded-3xl">
                   <div className="w-full h-[200px] rounded-3xl bg-gradient-to-b from-light-blue-0 to-brand-30 flex justify-center items-center">

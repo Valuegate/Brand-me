@@ -4,29 +4,28 @@ import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useUserContactUs, { TContactPayload } from '@/hooks/mutations/useContactUs';
+import { useTranslation } from "react-i18next";
 
 const ContactForm = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const [credentials, setCredentials] = useState<TContactPayload>({
     name: "",
     email: "",
     message: "",
   });
-  // const [errorMsg, setErrorMsg] = useState<string>("");
-  // const [loading, setLoading] = useState<boolean>(false);
-  // const [isLoading, setLoading] = useState<boolean>(false);
 
-  const { isError, isLoading, isSuccess, Contact, error } = useUserContactUs();
+  const { isError, isLoading, isSuccess, Contact } = useUserContactUs();
 
   useEffect(() => {
     if (isError) {
-      toast.error("An error occurred. Please try again later");
+      toast.error(t("error"));
     }
   }, [isError]);
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success("Your message has been sent. Thank you for contacting us.");
+      toast.success(t("success"));
       setCredentials({ name: "", email: "", message: "" }); // Clear form details
       router.push("/contact");
     }
@@ -34,7 +33,7 @@ const ContactForm = () => {
 
   const handleContact = () => {
     if (!credentials.name || !credentials.email || !credentials.message) {
-      toast.error("Please fill in all fields.");
+      toast.error(t("fillFields"));
       return;
     }
     Contact(credentials);
@@ -53,17 +52,17 @@ const ContactForm = () => {
         pauseOnHover
         theme="dark" />
       <div className="bg-brand flex flex-col gap-10 items-center py-24 md:py-10 px-[30%] md:px-5 w-full rounded-3xl">
-        <h1 className="text-white font-cocogoose text-4xl md:text-2xl">Contact Us</h1>
+        <h1 className="text-white font-cocogoose text-4xl md:text-2xl">{t("contactUs")}</h1>
         <div className="flex flex-col w-full gap-10">
           <div className="flex flex-col gap-1 w-full">
             <label
               htmlFor="name"
               className="text-white font-cocogoose-light font-bold text-lg"
             >
-              Name
+              {t("name")}
             </label>
             <input
-            id='name'
+              id='name'
               type="text"
               value={credentials.name}
               onChange={(e) =>
@@ -80,10 +79,10 @@ const ContactForm = () => {
               htmlFor="email"
               className="text-white font-cocogoose-light font-bold text-lg"
             >
-              Email
+              {t("email")}
             </label>
             <input
-            id='email'
+              id='email'
               type="text"
               value={credentials.email}
               onChange={(e) =>
@@ -100,10 +99,10 @@ const ContactForm = () => {
               htmlFor="message"
               className="text-white font-cocogoose-light font-bold text-lg"
             >
-              Message
+              {t("message")}
             </label>
             <input
-            id='message'
+              id='message'
               type="text"
               value={credentials.message}
               onChange={(e) =>
@@ -121,7 +120,7 @@ const ContactForm = () => {
           onClick={handleContact}
           className="font-cocogoose text-light-blue text-xl bg-white px-16 md:w-full py-2 md:py-3 rounded-md">
           {isLoading && <Loader color='#1C274D' />}
-                {!isLoading && "Send"}
+          {!isLoading && t("send")}
         </button>
       </div>
     </>

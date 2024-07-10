@@ -20,8 +20,10 @@ import axios from 'axios';
 import { globalKey } from '@/stores/globalStore';
 
 import {baseUrl} from "@/services/base";
+import { useTranslation } from 'react-i18next';
 
 const Profile = () => {
+  const { t } = useTranslation();
   const [account, setAccount] = useState<iAccountProfileResponse>({
     id: -1,
     email: "",
@@ -117,14 +119,14 @@ const Profile = () => {
                         <span className="flex items-center md:justify-center gap-1 mt-2">
                           <PiRobotFill />
                           <p className="text-brand text-[15px] leading-[15px] font-cocogoose">
-                            Joined <strong>{convertDate(new Date(account.date_joined))}</strong>
+                            {t("joined")} <strong>{convertDate(new Date(account.date_joined))}</strong>
                           </p>
                         </span>
                       </div>
                     </span>
                     <Link href={"/settings"}>
                       <button className="text-white bg-brand px-8 py-2 rounded-lg text-[20px] leading-[21.8px] font-cocogoose">
-                        Edit Profile
+                      {t("editProfile")}
                       </button>
                     </Link>
                   </div>
@@ -149,7 +151,7 @@ const Profile = () => {
                   </div>
                 </div> */}
                 <div className='flex justify-center items-center gap-2'>
-                  <h2 className='text-brand font-cocogoose text-2xl'>Bio:</h2>
+                  <h2 className='text-brand font-cocogoose text-2xl'>{t("bio")}</h2>
                   <p className='text-brand font-cocogoose text-base'>
                 {account.bio}
                   </p>
@@ -160,13 +162,13 @@ const Profile = () => {
 
             <div className="bg-light-blue-30 px-8 py-4 md:px-5 rounded-2xl w-[35%] md:w-full">
               <h2 className="text-brand text-[25px] md:text-[18px] leading-[20px] font-cocogoose mb-2">
-                My Courses Statistics
+              {t("myCoursesStatistics")}
               </h2>
               <div className="mt-10">
                 <div className="flex gap-2 flex-col">
                   <div>
                     <p className="text-brand text-[20px] leading-[20px] font-cocogoose">
-                      Foundation Course
+                    {t("foundationCourse")}
                     </p>
                     <ProgressBar
                       backgroundColor="bg-brand-49"
@@ -178,7 +180,7 @@ const Profile = () => {
 
                   <div>
                     <p className="text-brand text-[20px] leading-[20px] font-cocogoose">
-                      Foundation Course
+                    {t("foundationCourse")}
                     </p>
                     <ProgressBar
                       backgroundColor="bg-brand-49"
@@ -190,7 +192,7 @@ const Profile = () => {
 
                   <div>
                     <p className="text-brand text-[20px] leading-[20px] font-cocogoose">
-                      Foundation Course
+                    {t("foundationCourse")}
                     </p>
                     <ProgressBar
                       backgroundColor="bg-brand-49"
@@ -202,7 +204,7 @@ const Profile = () => {
 
                   <div>
                     <p className="text-brand text-[20px] leading-[20px] font-cocogoose">
-                      Foundation Course
+                    {t("foundationCourse")}
                     </p>
                     <ProgressBar
                       backgroundColor="bg-brand-49"
@@ -218,7 +220,7 @@ const Profile = () => {
 
           <div className="bg-light-blue-30 px-8 py-4 md:py-5 rounded-2xl">
             <h2 className="text-brand text-[25px] md:text-[18px] leading-[20px] font-cocogoose mb-2">
-              My Weekly Activity
+            {t("myWeeklyActivity")}
             </h2>
 
             <div className="mt-8">

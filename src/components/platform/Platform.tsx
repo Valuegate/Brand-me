@@ -1,14 +1,16 @@
 "use client";
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useState, useEffect } from "react";
 import NavBar from "../resuable/NavBar/NavBar";
 import Courses from "./Courses";
 import Footer from "../resuable/Footer/Footer";
 import Community from "./Community";
-
+import { useTranslation } from 'next-i18next';
+import { globalKey } from "@/stores/globalStore";
 
 const Platform = () => {
+  const { t } = useTranslation();
   const [currentTab, setCurrentTab] = useState<number>(0);
-  const tabs: string[] = ["Classroom", "Community"];
+  const tabs: string[] = [t("classroom"), t("community")]
 
   const children: ReactNode[] = [
     <Courses key={"courses key"} />,

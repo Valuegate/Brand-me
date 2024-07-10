@@ -1,18 +1,19 @@
 import React from "react";
-
 import { useGlobalStore } from "@/stores/globalStore";
 import { convertDate } from "@/functions/dateFunctions";
 import { IoCalendar } from "react-icons/io5";
+import { useTranslation } from "react-i18next";
 
 const Notifications = () => {
   const notifications = useGlobalStore((state) => state.notifications);
+  const { t } = useTranslation();
 
   return (
     <div className="w-[900px] h-[70vh] bg-white shadow-custom top-[70px] -left-[40vw] rounded-lg mt-0  absolute flex flex-col z-10">
       <div className="flex justify-between items-center border-b-[1.5px] border-[#CDCDCD] px-10 h-[160px]">
-        <h2 className="font-cocogoose text-black text-[22px]">Notifications</h2>
+        <h2 className="font-cocogoose text-black text-[22px]">{t("notifications.title")}</h2>
         <h2 className="text-light-blue text-[20px] font-cocogoose">
-          Mark all as read
+          {t("notifications.markAllAsRead")}
         </h2>
       </div>
 

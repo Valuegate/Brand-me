@@ -1,5 +1,4 @@
 "use client";
-// import React, { useEffect, useState } from "react";
 import React, { useEffect, useState } from "react";
 import NavBar from "../resuable/NavBar/NavBar";
 import Footer from "../resuable/Footer/Footer";
@@ -18,8 +17,10 @@ import useAccountRegister, {
 } from "@/hooks/mutations/useAccountRegister";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const SignUp = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const [credentials, setCredentials] = useState<TSignupPayload>({
     first_name: "",
@@ -35,26 +36,24 @@ const SignUp = () => {
   const { isError, isLoading, isSuccess, Signup, error, data } =
     useAccountRegister();
 
-    useEffect(() => {
-      if (isError) {
-        setErrorMsg("An error occurred during signup. Please try again.");
-        let data = error.response?.data as any;
-        toast.error(data.errors.email[0]);
-      }
-    }, [isError, error]);
+  useEffect(() => {
+    if (isError) {
+      setErrorMsg(t("errorOccurred"));
+      let data = error.response?.data as any;
+      toast.error(data.errors.email[0]);
+    }
+  }, [isError, error]);
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success("Account created. Login to proceed");
+      toast.success(t("accountCreated"));
       router.push("/login");
     }
-  }, [isSuccess])
-
-  
+  }, [isSuccess]);
 
   const handleSignup = () => {
     if (credentials.password !== confirm) {
-      toast.error("The passwords do not match");
+      toast.error(t("passwordsDoNotMatch"));
       return;
     }
 
@@ -68,7 +67,8 @@ const SignUp = () => {
 
   return (
     <>
-      <ToastContainer position="top-center"
+      <ToastContainer
+        position="top-center"
         autoClose={3000}
         hideProgressBar={true}
         newestOnTop={false}
@@ -77,7 +77,8 @@ const SignUp = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="dark"/>
+        theme="dark"
+      />
       <div className="fixed z-10 top-0 left-0 right-0">
         <NavBar index={-1} />
       </div>
@@ -87,13 +88,13 @@ const SignUp = () => {
           <div className="px-10 md:px-5 py-[2rem] md:py-10">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-brand text-[30px] md:text-[24px] leading-[21.8px] font-cocogoose">
-                Sign Up
+                {t("signUp")}
               </h2>
               <Link
                 className="text-brand text-[20px] md:text-[16px] underline leading-[15px] font-cocogoose"
                 href={"/login"}
               >
-                Log In
+                {t("logIn")}
               </Link>
             </div>
 
@@ -121,7 +122,7 @@ const SignUp = () => {
                           htmlFor="email"
                           className="font-cocogoose-light font-bold text-[16px] text-brand"
                         >
-                          Email
+                          {t("email")}
                         </label>
                         <input
                           type="email"
@@ -149,7 +150,7 @@ const SignUp = () => {
                           htmlFor="email"
                           className="font-cocogoose-light font-bold text-[16px] text-brand"
                         >
-                          Password
+                          {t("password")}
                         </label>
 
                         <div className="relative w-full">
@@ -185,7 +186,7 @@ const SignUp = () => {
                         </div>
                         {!isPasswordValid && (
                           <p className="text-error text-sm mt-1">
-                            Password must be at least 6 characters long
+                            {t("passwordLengthError")}
                           </p>
                         )}
                       </div>
@@ -201,7 +202,7 @@ const SignUp = () => {
                           htmlFor="re-password"
                           className="font-cocogoose-light font-bold text-[16px] text-brand"
                         >
-                          Confirm your Password
+                          {t("confirmPassword")}
                         </label>
 
                         <div className="relative w-full">
@@ -239,7 +240,7 @@ const SignUp = () => {
                           htmlFor="firstname"
                           className="font-cocogoose-light font-bold text-[16px] text-brand"
                         >
-                          First Name
+                          {t("firstName")}
                         </label>
                         <input
                           type="text"
@@ -251,7 +252,7 @@ const SignUp = () => {
                               first_name: e.target.value,
                             })
                           }
-                          placeholder="Enter First Name"
+                          placeholder={t("enterFirstName")}
                           className="focus:outline-none bg-[#FFFFFF00] w-full font-cocogoose border-[3px] pl-4 text-[18px] border-brand rounded-lg h-[60px] placeholder:text-brand-49 text-brand"
                         />
                       </div>
@@ -266,7 +267,7 @@ const SignUp = () => {
                           htmlFor="lastname"
                           className="font-cocogoose-light font-bold text-[16px] text-brand"
                         >
-                          Last Name
+                          {t("lastName")}
                         </label>
                         <input
                           type="text"
@@ -278,19 +279,55 @@ const SignUp = () => {
                               last_name: e.target.value,
                             })
                           }
-                          placeholder="Enter Last Name"
+                          placeholder={t("enterLastName")}
                           className="focus:outline-none bg-[#FFFFFF00] w-full font-cocogoose border-[3px] pl-4 text-[18px] border-brand rounded-lg h-[60px] placeholder:text-brand-49 text-brand"
                         />
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-center mt-8">
+                    <div className="flex items-center gap-8 mt-4">
+                      <div className="mt-8 md:hidden">
+                        <Image src={Sort} alt={""} width={50} height={50} />
+                      </div>
+                      <div className="mb-4 flex flex-col gap-1 w-full">
+                        <label
+                          htmlFor="is"
+                          className="font-cocogoose-light font-bold text-[16px] text-brand"
+                        >
+                          {t("waitAMinute")}
+                        </label>
+                        <input
+                          type="checkbox"
+                          id="is"
+                          name="is"
+                          onChange={(e) => setTermsAgreed(e.target.checked)}
+                          className="focus:outline-none bg-[#FFFFFF00] w-full font-cocogoose border-[3px] pl-4 text-[18px] border-brand rounded-lg h-[60px] placeholder:text-brand-49 text-brand"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="mt-8 flex justify-center">
                       <button
                         type="submit"
+                        disabled={
+                          isLoading ||
+                          !credentials.email ||
+                          !credentials.password ||
+                          !credentials.first_name ||
+                          !credentials.last_name ||
+                          !termsAgreed ||
+                          !isPasswordValid
+                        }
+                        className={`w-full h-[80px] ${
+                          isLoading
+                            ? "bg-primary-300 cursor-not-allowed"
+                            : "bg-primary-500 hover:bg-primary-600"
+                        } text-white font-cocogoose font-bold text-[24px] rounded-3xl ${
+                          isLoading ? "" : "transition duration-300"
+                        }`}
                         onClick={handleSignup}
-                        className="text-white bg-brand px-8 md:w-full py-2 md:py-3 rounded-lg text-[20px] leading-[21.8px] font-cocogoose"
                       >
-                        {isLoading ? "Wait a minute....." : "Sign Up"}
+                        {t("send")}
                       </button>
                     </div>
                   </Form>
@@ -300,6 +337,7 @@ const SignUp = () => {
           </div>
         </div>
       </div>
+      <div className="mt-12" />
       <Footer />
     </>
   );

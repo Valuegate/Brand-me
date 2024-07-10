@@ -14,12 +14,14 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { Loader, Modal } from "@mantine/core";
+import { useTranslation } from 'next-i18next';
 
 interface iCommentCardProp {
   post: iPost;
 }
 
 const CommentCard: FC<iCommentCardProp> = ({ post }) => {
+  const { t } = useTranslation();
   const [liked, setLiked] = useState<boolean>(false);
   const [commented, setCommented] = useState<boolean>(false);
   const [likesCount, setLikesCount] = useState<number>(0);
@@ -187,7 +189,7 @@ const CommentCard: FC<iCommentCardProp> = ({ post }) => {
               </div>
             </div>
             <h2 className="text-sm font-cocogoose text-light-blue md:mt-4 cursor-pointer" onClick={getCommentsForPost}>
-                View comments
+                {t("viewComments")}
               </h2>
           </div>
         </div>

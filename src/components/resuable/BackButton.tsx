@@ -23,7 +23,7 @@ const BackButton: FC<{ color: string }> = ({ color }) => {
     >
       <GoArrowLeft size={"26px"} fill={color} />
       <p
-        className={`text-[${color}] font-cocogoose text-lg`}
+        className={`text-[#fff] font-cocogoose text-lg`}
       >
         Back
       </p>

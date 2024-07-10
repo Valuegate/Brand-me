@@ -1,11 +1,13 @@
 import React, { useState, FC, useEffect } from "react";
-
+import { useTranslation } from 'react-i18next';
 import { iCourse } from "./types";
 import useGetAllCourses from "@/hooks/queries/useGetAllCourses";
 
 import { Loader } from "@mantine/core";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// import { useTranslation } from 'next-i18next';
+import { t } from "i18next";
 
 interface iCourseCardProp {
   course: iCourse;
@@ -13,10 +15,9 @@ interface iCourseCardProp {
 }
 
 const Courses = () => {
+  const { t } = useTranslation();
   const { data, isSuccess, isError, isLoading } = useGetAllCourses();
   const [courses, setCourses] = useState<iCourse[]>([]);
-
-  
 
   useEffect(() => {
     if (!isLoading && isSuccess) {
@@ -56,7 +57,7 @@ const Courses = () => {
   }
 
   if (!isLoading && isError) {
-    toast.error("An error occurred. Please try again");
+    toast.error(t("error_occurred"));
 
     return (
       <div className="flex flex-col w-full items-center justify-center h-40">
@@ -78,7 +79,7 @@ const Courses = () => {
 
   return (
     <div className="flex flex-col items-center w-full">
-      <h1 className="font-cocogoose text-[56px] md:text-[24px]">All Courses</h1>
+      <h1 className="font-cocogoose text-[56px] md:text-[24px]">{t("all_courses")}</h1>
       <div className="mt-20 md:mt-10 grid grid-cols-3 md:grid-cols-1 gap-10 md:gap-5 w-full">
         {courses.map((course, i) => {
           return (
@@ -94,7 +95,7 @@ const Courses = () => {
       </div>
       {courses.length === 0 && (
         <div className="text-brand text-[24px] font-cocogoose">
-          There are no courses created yet!
+          {t("no_courses_created_yet")}
         </div>
       )}
     </div>
@@ -106,7 +107,7 @@ const CourseCard: FC<iCourseCardProp> = ({ course, onStart }) => {
     <div className="w-full h-[480px] md:h-[400px] bg-light-blue-30 rounded-xl p-[5%] justify-around items-center flex flex-col transition-colors duration-200 ease-in-out hover:bg-light-blue-50">
       <img
         src={course.image}
-        alt="course image"
+        alt={t("course_image")}
         className="w-full h-[200px] md:h-[160px] rounded-3xl"
       />
       <h1 className="mt-5 font-cocogoose text-brand text-[32px] md:text-[24px] text-center">
@@ -119,7 +120,7 @@ const CourseCard: FC<iCourseCardProp> = ({ course, onStart }) => {
         onClick={onStart}
         className="text-[18px] text-white bg-light-blue hover:bg-brand hover:text-light-blue font-cocogoose h-[45px] w-[200px] md:w-full rounded-lg transition-colors ease-in duration-200"
       >
-        Proceed
+        {t("proceed")}
       </button>
     </div>
   );

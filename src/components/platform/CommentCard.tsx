@@ -5,6 +5,7 @@ import Avatar from '@/assets/Ellipse_593.png';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import CommentIcon from '@mui/icons-material/Comment';
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 
 interface iCommentCardProp {
     name: string;
@@ -14,15 +15,17 @@ interface iCommentCardProp {
   }
 
 const CommentCard: FC<iCommentCardProp> = ({ name, date, message, onLike }) => {
+    const { t } = useTranslation();
+
     return (
         <>
             <div className='w-full border-none shadow-md rounded-lg'>
                 <div className='flex justify-between px-4 py-4 rounded-t-lg bg-light-blue-30 text-black'>
                     <div className="flex gap-1 items-center">
                         <PiPushPin className='text-gray-10 h-5 w-5' />
-                        <p className='text-lg font-cocogoose'>Pinned</p>
+                        <p className='text-lg font-cocogoose'>{t('pinned')}</p>
                     </div>
-                    <p className='text-lg font-cocogoose'>Hide</p>
+                    <p className='text-lg font-cocogoose'>{t('hide')}</p>
                 </div>
                 <div className="px-8 md:px-2 py-8">
                     <div className="flex items-center gap-3">
@@ -51,11 +54,11 @@ const CommentCard: FC<iCommentCardProp> = ({ name, date, message, onLike }) => {
                                     <Image src={Avatar} alt={''} width={20} height={20} />
                                     <Image src={Avatar} alt={''} width={20} height={20} />
                                 </div>
-                                <h4 className='text-gray-10 text-base'>New comments 2 days ago</h4>
+                                <h4 className='text-gray-10 text-base'>{t('newComments')}</h4>
                             </div>
                         </div>
                         <Link href={''} className='md:mt-4'>
-                        <h2 className='text-sm font-cocogoose text-light-blue'>View comments</h2>
+                        <h2 className='text-sm font-cocogoose text-light-blue'>{t('viewComments')}</h2>
                         </Link>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { ReactNode, useState } from "react";
-
+import { useTranslation } from "react-i18next";
 import NavBar from "../resuable/NavBar/NavBar";
 import Footer from "../resuable/Footer/Footer";
 import Profile from "./Profile";
@@ -9,13 +9,18 @@ import Password from "./Password";
 import Notification from "./Notification";
 
 const Settings = () => {
+  const { t } = useTranslation();
   const [index, setIndex] = useState<number>(0);
-  const tabs: string[] = ["Profile", "Password", "Notifications"];
+  const tabs: string[] = [
+    t("Profile"),
+    t("Password"),
+    t("Notifications"),
+  ];
   const children: ReactNode[] = [<Profile />, <Password />, <Notification />];
 
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 z-30">
+    <div className="fixed z-10 top-0 left-0 right-0">
         <NavBar index={-1} />
       </div>
       <div className="h-32" />
@@ -39,7 +44,7 @@ const Settings = () => {
         </div>
         <div className="w-[800px] md:w-full">{children[index]}</div>
         <div className="hidden md:flex flex-col md:w-full justify-between items-center gap-5 mt-0">
-          <h2 className="font-cocogoose text-brand text-xl underline">Other Settings</h2>
+          <h2 className="font-cocogoose text-brand text-xl underline">{t("Other Settings")}</h2>
         <div className="flex w-full justify-between items-center">
           <button
             onClick={() => {
@@ -48,7 +53,7 @@ const Settings = () => {
             className="bg-brand py-3 px-5 rounded-lg text-white font-cocogoose "
           >
             {
-              index === 0 ? "Password" : index === 1 ? "Notification" : "Profile"
+              index === 0 ? t("Password") : index === 1 ? t("Notification") : t("Profile")
             }
           </button>
           <button
@@ -58,7 +63,7 @@ const Settings = () => {
             className="bg-brand py-3 px-5 rounded-lg text-white font-cocogoose"
           >
             {
-              index === 0 ? "Notification" : index === 1 ? "Profile" : "Password"
+              index === 0 ? t("Notification") : index === 1 ? t("Profile") : t("Password")
             }
           </button>
         </div>

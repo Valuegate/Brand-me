@@ -3,9 +3,9 @@ import Link from "next/link";
 import { Drawer } from "@mantine/core";
 import { IoMdClose } from "react-icons/io";
 import Logo from "../Logo/Logo";
-
 import { iMobileDrawerProp } from "./types";
 import { globalKey } from "@/stores/globalStore";
+import { useTranslation } from "react-i18next";
 
 const MobileDrawer: FC<iMobileDrawerProp> = ({
   openedDrawer,
@@ -16,6 +16,8 @@ const MobileDrawer: FC<iMobileDrawerProp> = ({
   logout,
 }) => {
   const [username, setUsername] = useState<string>("");
+  const { t } = useTranslation();
+
   useEffect(() => {
     let localData: string | null = window.localStorage.getItem(globalKey);
     if (localData !== null) {
@@ -45,7 +47,7 @@ const MobileDrawer: FC<iMobileDrawerProp> = ({
             </div>
             {loggedIn && (
               <h2 className="my-5 text-xl font-cocogoose text-brand pl-5">
-                Welcome, {username}
+                {t('welcome')} {username}
               </h2>
             )}
             <div className="mt-10 flex flex-col gap-5 px-5">
@@ -54,14 +56,14 @@ const MobileDrawer: FC<iMobileDrawerProp> = ({
                   href={"/profile"}
                   className={`${"font-cocogoose-light font-bold"} text-brand text-[16px]`}
                 >
-                  Profile
+                  {t('profile')}
                 </Link>
               )}
               <Link
                 href={"/"}
                 className={`${"font-cocogoose-light font-bold"} text-brand text-[16px]`}
               >
-                Home
+                {t('home')}
               </Link>
               {navs.map((navItem, i) => {
                 return (
@@ -83,7 +85,7 @@ const MobileDrawer: FC<iMobileDrawerProp> = ({
                   href={"/notifications"}
                   className={`${"font-cocogoose-light font-bold"} text-brand text-[16px]`}
                 >
-                  Notifications
+                  {t('notification')}
                 </Link>
               )}
             </div>
@@ -93,7 +95,7 @@ const MobileDrawer: FC<iMobileDrawerProp> = ({
                   href={"/login"}
                   className={`${"font-cocogoose"} text-brand text-[18px] underline`}
                 >
-                  Sign In to Brand Me
+                  {t('signIn')}
                 </Link>
               </div>
             )}
@@ -103,7 +105,7 @@ const MobileDrawer: FC<iMobileDrawerProp> = ({
                   className="text-[#FF0000] font-cocogoose-light font-bold"
                   onClick={logout}
                 >
-                  Logout
+                  {t('logout')}
                 </h2>
               </div>
             )}

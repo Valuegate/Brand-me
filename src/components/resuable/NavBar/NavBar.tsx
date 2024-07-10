@@ -3,23 +3,18 @@
 import React, { FC, useEffect, useState, useRef } from "react";
 import Logo from "../Logo/Logo";
 import Link from "next/link";
-
 import { useGlobalStore, globalKey } from "@/stores/globalStore";
-import { useUserStore } from "@/stores/userStore";
-
 import { AiFillMessage } from "react-icons/ai";
 import { IoMdNotifications } from "react-icons/io";
 import { IoLogOut } from "react-icons/io5";
-
 import { FaBarsStaggered } from "react-icons/fa6";
-
 import Notifications from "./Notifications";
-
 import { Drawer } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import MobileDrawer from "./MobileDrawer";
-
 import { iNavItem } from "./types";
+import LanguageSwitcher from "@/components/LanguageSwitcher/LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
 export type NavProp = {
   index: number;
@@ -38,25 +33,19 @@ function setNotifications() {
 }
 
 const NavBar: FC<NavProp> = ({ index }) => {
+  const { t } = useTranslation();
   const [navs, setNavs] = useState<iNavItem[]>([]);
-  const [isNotificationClicked, setNotificationClicked] =
-    useState<boolean>(false);
+  const [isNotificationClicked, setNotificationClicked] = useState<boolean>(false);
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
   const [isAdmin, setAdmin] = useState<boolean>(false);
   const notifications = useGlobalStore((state) => state.notifications);
-
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  const [openedDrawer, { open: openDrawer, close: closeDrawer }] =
-    useDisclosure(false);
+  const [openedDrawer, { open: openDrawer, close: closeDrawer }] = useDisclosure(false);
 
   const handleOutsideClick = (event: MouseEvent) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node)
-    ) {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
       setIsOpen(false);
       setNotificationClicked(false);
     }
@@ -90,34 +79,34 @@ const NavBar: FC<NavProp> = ({ index }) => {
       if (isAdmin) {
         setNavs([
           {
-            name: "Platform Tracking",
+            name: t("Platform Tracking"),
             link: "/platform-tracking",
           },
           {
-            name: "User Tracking",
+            name: t("User Tracking"),
             link: "/user-tracking",
           },
           {
-            name: "Creation",
+            name: t("Creation"),
             link: "/creation",
           },
         ]);
       } else {
         setNavs([
           {
-            name: "Platform",
+            name: t("Platform"),
             link: "/platform",
           },
           {
-            name: "Results",
+            name: t("Results"),
             link: "/results",
           },
           {
-            name: "Contact",
+            name: t("Contact"),
             link: "/contact",
           },
           {
-            name: "How To Use",
+            name: t("How To Use"),
             link: "/how-to-use",
           },
         ]);
@@ -125,32 +114,28 @@ const NavBar: FC<NavProp> = ({ index }) => {
     } else {
       setNavs([
         {
-          name: "About",
+          name: t("About"),
           link: "/about",
         },
         {
-          name: "Partners",
+          name: t("Partners"),
           link: "/partners",
         },
         {
-          name: "Results",
+          name: t("Results"),
           link: "/results",
         },
         {
-          name: "Online Course",
+          name: t("Online Course"),
           link: "/online-course",
         },
         {
-          name: "Contact",
+          name: t("Contact"),
           link: "/contact",
-        },
-        {
-          name: "How To Use",
-          link: "/how-to-use",
         },
       ]);
     }
-  }, [loggedIn]);
+  }, [loggedIn, t]);
 
   const logout = () => {
     window.localStorage.removeItem(globalKey);
@@ -174,27 +159,29 @@ const NavBar: FC<NavProp> = ({ index }) => {
                     i === index
                       ? "font-cocogoose"
                       : "font-cocogoose-light font-bold"
-                  } text-white text-[16px]`}
+                  } text-white text-[15px]`}
                 >
                   {navItem.name}
                 </Link>
               );
             })}
+            <div>
+              <LanguageSwitcher />
+            </div>
           </div>
           {!loggedIn && (
             <div className="flex gap-4">
               <Link
                 href={"/login"}
-                className="text-white bg-light-blue-30 px-5 py-2 rounded-lg text-[20px] leading-[21.8px] font-cocogoose"
+                className="text-white bg-light-blue-30 px-5 py-2 rounded-lg text-[16px] leading-[19px] font-cocogoose"
               >
-                Login
+                {t("Login")}
               </Link>
-
               <Link
                 href={"/sign-up"}
-                className="text-brand bg-light-blue px-5 py-2 rounded-lg text-[20px] leading-[21.8px] font-cocogoose"
+                className="text-brand bg-light-blue px-5 py-2 rounded-lg text-[16px] leading-[19px] font-cocogoose"
               >
-                Sign Up
+                {t("Sign Up")}
               </Link>
             </div>
           )}
@@ -208,12 +195,11 @@ const NavBar: FC<NavProp> = ({ index }) => {
                   />
                 </Link>
               )}
-
               {!isAdmin && (
                 <>
                   <div
                     ref={dropdownRef}
-                    className="bg-light-blue-30 rounded-lg p-1 relative  "
+                    className="bg-light-blue-30 rounded-lg p-1 relative"
                   >
                     <IoMdNotifications
                       size={"24px"}
@@ -237,29 +223,28 @@ const NavBar: FC<NavProp> = ({ index }) => {
                     <div className="w-[32px] h-[32px] rounded-full bg-brand" />
                     <p className="line-clamp-1">{username}</p>
                     {isOpen && !isNotificationClicked && (
-                      <div className="absolute -right-5 mt-[24vh] text-[20px] flex flex-col bg-brand font-cocogoose rounded shadow-lg p-[5px]">
+                      <div className="absolute -right-5 mt-[24vh] text-[16px] flex flex-col bg-brand font-cocogoose rounded shadow-lg p-[5px]">
                         <Link
                           href="/profile"
                           className="px-4 py-2 hover:underline hover:text-white text-[#FFFFFF80]"
                         >
-                          Profile
+                          {t("Profile")}
                         </Link>
                         <Link
                           href="/settings"
                           className="px-4 py-2 hover:underline hover:text-white text-[#FFFFFF80]"
                         >
-                          Settings
+                          {t("Settings")}
                         </Link>
                       </div>
                     )}
                   </div>
                 </>
               )}
-
               <div className="bg-light-blue-30 rounded-lg p-1">
                 <IoLogOut
                   onClick={logout}
-                  size={"24px"}
+                  size={"18px"}
                   className="text-light-blue cursor-pointer"
                 />
               </div>

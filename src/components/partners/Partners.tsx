@@ -9,6 +9,7 @@ import Indepcie from "@/assets/logo INDEPCIE vectorizado2.png";
 import Vaev from "@/assets/VAEV_Logo-removebg-preview2.png";
 import Footer from "@/components/resuable/Footer/Footer";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
 interface iPartner {
   image: StaticImageData;
@@ -24,52 +25,53 @@ interface iPartner {
 // ADD LINKS
 
 const Partners = () => {
+  const { t } = useTranslation();
   const partners: iPartner[] = [
     {
       image: Innovation,
-      title: "Innovation Education Lab",
+      title: t("innovation_title"),
       breakTitle: "(iEL)",
       description:
-        "Mission: Supporting young people, education activities, innovation in education and training, and encouraging volunteering. Comprises experienced project managers, youth workers, facilitators, and creative professionals with a mission to create innovation, empowerment, participation, inclusion, and social entrepreneurship among disadvantaged youth.",
+        t("innovation_description"),
         link: "https://innoedulab.eu/en/",
     },
     {
       image: Efektas,
-      title: "Efektas Group",
+      title: t("efektas_title"),
       preBold:
-        "A Lithuanian education & training organization focusing on personal-professional development since ",
+        t("efektas_preBold"),
       boldText: "2016",
       description:
-        ". Expertise in developing soft skills through various educational methodologies, tools, and approaches. Aims to educate local and international individuals and organizations using coaching, non-formal learning, applied neuroscience, applied psychology, and innovative instruments.      ",
+        t("efektas_description"),
         link: "https://efektasgroup.com/",
     },
     {
       image: Erasmus,
-      title: "garagErasmus",
-      breakTitle: "Foundation (gE)",
-      preBold: "Established in ",
-      boldText: "2012 ",
+      title: t("garagerasmus_title"),
+      breakTitle: t("garagerasmus_breakTitle"),
+      preBold: t("garagerasmus_preBold"),
+      boldText: t("garagerasmus_boldText"),
       description:
-        "as the first professional network of the Erasmus Generation, in coordination with the European Commission. Aims to create a stronger Europe through and with the Erasmus Generation, with a focus on youth employment, valorization of soft skills, non-formal education, and inter-generational capacity building among alumni.",
+      t("garagerasmus_description"),
         link: "https://garagerasmus.org/",
     },
     {
       image: Indepcie,
-      title: "INDEPCIE",
+      title: t("indepcie_title"),
       subtitle:
-        "(Institute for the personal development, entrepreneurship, coaching and Emotional Intelligence)",
-      preBold: "Founded in ",
-      boldText: "2018 ",
+      t("indepcie_subtitle"),
+      preBold: t("indepcie_preBold"),
+      boldText: t("indepcie_boldText"),
       description:
-        ", focused on attitudinal training and improvement of human performance through coaching, Emotional Intelligence, soft skills, and Neuro Linguistic Programming (NLP). Specializes in developing techniques and strategies for individuals and organizations to achieve continuous improvement.",
+      t("indepcie_description"),
         link: "https://indepcie.com/",
     },
     {
       image: Vaev,
-      title: "gVienna Association of Educational Volunteers",
-      breakTitle: "(V.A.E.V.)",
+      title: t("vaev_title"),
+      breakTitle: t("vaev_breakTitle"),
       description:
-        "A non-profit, non-political organization aiming to empower people, promote peace, tolerance, and social equality through assisting individuals in acquiring knowledge and developing skills for professional and personal success. Focuses on providing community-based coaching, educational, and career opportunities for disadvantaged people, including immigrants, refugees, unemployed individuals, NEETs, and those from lower socio-economic backgrounds and with disabilities.",
+      t("vaev_description"),
         link: "https://euresearch.at/",
     },
   ];
@@ -83,7 +85,7 @@ const Partners = () => {
       <div className="px-32 md:px-[5%]">
         <div className="mt-16 md:mt-6">
           <h1 className="text-4xl md:text-2xl text-black font-cocogoose">
-            Project Partners of BRAND ME
+          {t("Project Partners of BRAND ME")}
           </h1>
         </div>
 
@@ -121,7 +123,7 @@ const Partners = () => {
                     {partner.description}
                   </p>
                   <Link href={partner.link} target="__blank" className="text-white bg-light-blue px-5 md:w-full py-2 md:py-3 rounded-lg text-[20px] font-cocogoose">
-                    Learn More
+                    {t("Learn More")}
                   </Link>
                 </div>
               </section>

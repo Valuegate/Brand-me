@@ -11,6 +11,8 @@ import "./globals.css";
 import "@mantine/core/styles.css";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import 'core-js/features/promise';
+import { I18nextProvider, useTranslation } from 'react-i18next';
+import i18n from "@/i18n";
 
 
 const cocogooseRegular = localFont({
@@ -60,6 +62,7 @@ export default function RootLayout({
     description: "Increasing employment opportunities for youths",
   };
   return (
+    <I18nextProvider i18n={i18n}>
     <QueryClientProvider client={queryClient}>
     <html>
       <head>
@@ -72,5 +75,6 @@ export default function RootLayout({
       </body>
     </html>
     </QueryClientProvider>
+    </I18nextProvider>
   );
 }

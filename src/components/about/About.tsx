@@ -9,8 +9,11 @@ import MagicStick from "@/assets/MagicStick.png";
 import Star from "@/assets/Star.png";
 import Footer from "@/components/resuable/Footer/Footer";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
 const AboutUsPage = () => {
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="fixed z-10 top-0 left-0 right-0">
@@ -21,69 +24,62 @@ const AboutUsPage = () => {
         <section className="mt-16 md:mt-6 bg-brand  border-none rounded-3xl">
           <div className="px-10 md:px-5 pt-[10rem] md:py-10 pb-[5rem]">
             <h1 className="text-4xl md:text-center md:text-2xl text-white font-cocogoose ">
-              BRAND Me Mission
+              {t("brand_me_mission")}
             </h1>
             <p className="py-6 text-white text-base font-cocogoose-light font-bold">
-              The BrandMe (BAM) project is dedicated to increasing employment
-              opportunities for youth. Our mission is to develop educational
-              resources and instruments that foster the participation of youth
-              in the labor market, nurturing their professionalism, and
-              equipping them with the skills to integrate and compete
-              effectively in the job market. Additionally, the project aims to
-              enhance the profiles of professionals in this sector, emphasizing
-              the importance of early career development and progression.
+              {t("brand_me_mission_content")}
             </p>
             <Link href={"/sign-up"} className="text-brand bg-light-blue px-5 md:w-full py-2 md:py-3 rounded-lg text-[20px] font-cocogoose">
-              Sign Up
+              {t("sign_up")}
             </Link>
           </div>
         </section>
 
         <section className="mt-20">
           <h2 className="text-center text-black font-cocogoose md:text-xl text-3xl">
-            For Whom?
+          {t("for_whom")}
           </h2>
           <div className="flex md:flex-col pt-6 justify-center gap-4 md:gap-8">
             <div className="flex flex-col gap-4 md:gap-3 md:w-full">
               <span className="bg-brand text-white text-lg font-cocogoose flex justify-center h-[50px] rounded-xl w-[20rem] md:w-full items-center">
-                Youth
+              {t("youth")}
               </span>
               <span className="px-6 md:px-0 bg-light-blue-30 text-center text-brand font-cocogoose-light font-bold text-base leading-[20px] flex justify-center h-[50px] rounded-xl w-[20rem] md:w-full items-center">
-                Not in Education, Employment, or Training.
+                {t("not_in_education_employment_training")}
               </span>
               <span className="bg-light-blue-30 text-brand font-cocogoose-light font-bold text-base flex justify-center h-[50px] rounded-xl w-[20rem] md:w-full items-center">
-                Students.
+                {t("students")}
               </span>
             </div>
             <div className="flex flex-col gap-4 md:gap-3 md:w-full">
               <span className="bg-brand text-white text-lg font-cocogoose flex justify-center h-[50px] rounded-xl w-[20rem] md:w-full items-center">
-                Youth Workers
+                {t("youth_workers")}
               </span>
               <span className="bg-light-blue-30 text-brand text-base font-cocogoose-light font-bold flex justify-center h-[50px] rounded-xl w-[20rem] md:w-full px-2 items-center">
-                Educators.
+                {t("educators")}
               </span>
               <span className="bg-light-blue-30 text-brand text-base font-cocogoose-light font-bold flex justify-center h-[50px] rounded-xl w-[20rem] md:w-full items-center">
-                Teachers.
+                {t("teachers")}
               </span>
               <span className="bg-light-blue-30 text-brand text-base font-cocogoose-light font-bold flex justify-center h-[50px] rounded-xl w-[20rem] md:w-full items-center">
-                Youth leaders.
+                {t("youth_leaders")}
               </span>
             </div>
             <div className="flex flex-col gap-4 md:gap-3 md:w-full">
               <span className="bg-brand text-white text-lg font-cocogoose  flex justify-center h-[50px] rounded-xl w-[20rem] md:w-full items-center">
-                Institutions
+                {t("institutions")}
               </span>
               <span className="bg-light-blue-30 text-brand text-base font-cocogoose-light font-bold flex justify-center h-[50px] rounded-xl w-[20rem] md:w-full px-2 items-center">
-                Schools.{" "}
+                {t("schools")}
               </span>
               <span className="bg-light-blue-30 text-brand text-base font-cocogoose-light font-bold flex justify-center h-[50px] rounded-xl w-[20rem] md:w-full items-center">
-                Public bodies.
+                {t("public_bodies")}
               </span>
               <span className="bg-light-blue-30 text-brand text-base font-cocogoose-light font-bold flex justify-center h-[50px] rounded-xl w-[20rem] md:w-full items-center">
-                Youth centers.
+                {t("youth_centers")}
               </span>
               <span className="px-6 md:px-0 text-center bg-light-blue-30 text-brand text-base font-cocogoose-light font-bold leading-5 flex justify-center h-[50px] rounded-xl w-[20rem] md:w-full items-center">
-                Non formal education providers.
+                {t("non_formal_education_providers")}
               </span>
             </div>
           </div>
@@ -91,10 +87,10 @@ const AboutUsPage = () => {
 
         <section className="mt-20">
           <h2 className="text-center text-black font-cocogoose text-3xl">
-            Objectives
+            {t("objectives")}
           </h2>
           <p className="text-center text-black font-cocogoose-light font-bold text-base pt-4">
-            The Brand Me (BAM) project aims to achieve the following objectives:
+            {t("objectives_content")}
           </p>
 
           <div className="flex md:flex-col justify-center mt-12 w-full">
@@ -104,9 +100,7 @@ const AboutUsPage = () => {
                   <Image src={Bulb} alt={""} className="w-[40px] h-[40px]" />
                 </div>
                 <p className="text-base font-cocogoose-light font-bold text-black  w-[60%] md:w-[75%]">
-                  Identify and define 12 essential digital-presentation skills
-                  to support youth workers in training NEETs on personal
-                  branding.
+                  {t("identify_define_skills")}
                 </p>
               </div>
               <div className="flex gap-8 md:gap-4">
@@ -114,8 +108,7 @@ const AboutUsPage = () => {
                   <Image src={Case} alt={""} className="w-[40px] h-[40px]" />
                 </div>
                 <p className="text-base font-cocogoose-light font-bold text-black md:w-[75%] w-[60%]">
-                  Reduce employment mismatch by providing training to youth in
-                  the NEET group
+                  {t("reduce_employment_mismatch")}
                 </p>
               </div>
             </div>
@@ -130,9 +123,7 @@ const AboutUsPage = () => {
                   />
                 </div>
                 <p className="text-base font-cocogoose-light font-bold text-black  w-[60%]">
-                  Create relevant educational resources that respond to the 12
-                  skills and competences in personal branding strategies and
-                  practices.
+                  {t("create_educational_resources")}
                 </p>
               </div>
               <div className="flex gap-8 md:gap-4">
@@ -140,8 +131,7 @@ const AboutUsPage = () => {
                   <Image src={Star} alt={""} className="w-[40px] h-[40px]" />
                 </div>
                 <p className="text-base font-cocogoose-light font-bold text-black  w-[60%]">
-                  Inspire youth to continue developing their careers and
-                  promoting themselves effectively.
+                  {t("inspire_youth")}
                 </p>
               </div>
             </div>
@@ -151,58 +141,55 @@ const AboutUsPage = () => {
         <section className="mt-16 bg-light-blue-30 text-brand border-none rounded-3xl">
           <div className="pl-10 py-[2rem] md:px-5 ">
             <h1 className="text-4xl md:text-2xl font-cocogoose text-center">
-              Project Outputs
+              {t("project_outputs")}
             </h1>
             <p className="text-base pt-2 font-cocogoose-light text-center">
-              The project will deliver the following outputs:
+            {t("project_outputs_content")}
             </p>
             <div className="pt-5 pb-8">
-              <h5 className="text-base font-cocogoose pb-2">BAM Report</h5>
+              <h5 className="text-base font-cocogoose pb-2">{t("bam_report")}</h5>
               <li className="list-none text-base font-cocogoose-light font-bold">
-                Objectives and survey approach.
+                {t("objectives_survey_approach")}
               </li>
               <li className="list-none text-base font-cocogoose-light font-bold">
-                Survey implementation plan with a concrete strategy.
+                {t("survey_implementation_plan")}
               </li>
               <li className="list-none text-base font-cocogoose-light font-bold">
-                Survey questions and their translations in national languages.
+                {t("survey_questions_translations")}
               </li>
               <li className="list-none text-base font-cocogoose-light font-bold">
-                Insights and recommendations from consortium organizations.
+                {t("insights_recommendations")}
               </li>
             </div>
 
             <div className="pb-8">
               <h5 className="text-base font-cocogoose pb-2">
-                Online Course of Branding Skills
+                {t("online_course_branding_skills")}
               </h5>
               <li className="list-none text-base font-cocogoose-light font-bold">
-                Hosting training materials for the 12 modules and other tangible
-                project resources
+                {t("hosting_training_materials")}
               </li>
               <li className="list-none text-base font-cocogoose-light font-bold">
-                Supportive tool for formal and non-formal activities.
+                {t("supportive_tool")}
               </li>
               <li className="list-none text-base font-cocogoose-light font-bold">
-                Self-assessment tool about branding skills
+                {t("self_assessment_tool")}
               </li>
             </div>
 
             <div className="">
-              <h5 className="text-base font-cocogoose pb-2">Brand Me Manual</h5>
+              <h5 className="text-base font-cocogoose pb-2">{t("brand_me_manual")}</h5>
               <li className="list-none text-base font-cocogoose-light font-bold">
-                Introduction to the concept and importance of personal branding
-                and active career development.
+                {t("concept_importance")}
               </li>
               <li className="list-none text-base font-cocogoose-light font-bold">
-                Skills to be trained and practices for successful hiring.
+                {t("skills_practices")}
               </li>
               <li className="list-none text-base font-cocogoose-light font-bold">
-                Digital and printable versions available.
+                {t("digital_printable_versions")}
               </li>
               <li className="list-none text-base font-cocogoose-light font-bold">
-                Accessible in project partners&apos; websites and BAM learning
-                platform for educators.
+                {t("accessible_project_partners")}
               </li>
             </div>
           </div>
@@ -211,28 +198,21 @@ const AboutUsPage = () => {
         <section className="mt-16 bg-brand border-none rounded-3xl">
           <div className="pl-10 py-[2rem] md:px-5">
             <h1 className="text-4xl md:text-2xl text-white font-cocogoose md:text-center">
-              Project Partners of BRAND ME
+              {t("project_partners")}
             </h1>
 
             <div className="pt-8">
               <h2 className="text-lg font-cocogoose text-white">
-                Project Coordinator
+                {t("project_coordinator")}
               </h2>
               <p className="text-base font-cocogoose-light font-bold text-white py-2">
-                Associação VR de Marketing
+                {t("association_vr_marketing")}
               </p>
               <p className="text-base font-cocogoose-light font-bold text-white w-[70%] md:w-full pb-8">
-                The VR Marketing Association, affiliated with Brand22
-                organization, is a creativity agency focusing on digital
-                marketing in Vila Real. Purpose: Fosters, encourages, supports,
-                and promotes social projects in the North region, particularly
-                in social incubation in partnership with Régia Douro Park.
-                Provides support in disseminating and implementing knowledge
-                related to marketing strategy, research, learning, training, and
-                practice in marketing management.
+                {t("vr_marketing_content")}
               </p>
               <Link href={"https://vrmarketing.pt/"} target="__blank" className="text-light-blue bg-white px-5 md:w-full py-2 md:py-3 rounded-lg text-[20px] font-cocogoose">
-                Learn More
+                {t("learn_more")}
               </Link>
             </div>
           </div>
