@@ -94,7 +94,7 @@ const Dashboard = () => {
   }
 
   return (
-    <>
+    <div className="bg-white">
       <ToastContainer
         position="top-center"
         autoClose={3000}
@@ -260,7 +260,7 @@ const Dashboard = () => {
           </div>
         </div> */}
       </div>
-    </>
+    </div>
   );
 };
 

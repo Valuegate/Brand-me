@@ -96,7 +96,7 @@ const Content = () => {
   }, []);
 
   return (
-    <>
+    <div className="bg-white">
       <ToastContainer
         position="top-center"
         autoClose={3000}
@@ -160,7 +160,7 @@ const Content = () => {
       )}
 
       <Footer />
-    </>
+    </div>
   );
 };
 

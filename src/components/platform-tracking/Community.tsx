@@ -90,7 +90,7 @@ const Community = () => {
   }
 
   return (
-    <>
+    <div className="bg-white">
       <ToastContainer
         position="top-center"
         autoClose={3000}
@@ -135,7 +135,7 @@ const Community = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -79,7 +79,7 @@ const Courses = () => {
 
   return (
     <div className="flex flex-col items-center w-full">
-      <h1 className="font-cocogoose text-[56px] md:text-[24px]">{t("all_courses")}</h1>
+      <h1 className="font-cocogoose text-black text-[56px] md:text-[24px]">{t("all_courses")}</h1>
       <div className="mt-20 md:mt-10 grid grid-cols-3 md:grid-cols-1 gap-10 md:gap-5 w-full">
         {courses.map((course, i) => {
           return (

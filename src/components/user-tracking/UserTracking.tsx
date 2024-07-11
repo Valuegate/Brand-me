@@ -15,7 +15,7 @@ const UserTracking = () => {
   ];
 
   return (
-    <>
+    <div className="bg-white">
       <div className="fixed top-0 left-0 right-0 z-10">
         <NavBar index={1} />
       </div>
@@ -47,7 +47,7 @@ const UserTracking = () => {
         <Members key={"Members key"} />,
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

@@ -19,7 +19,7 @@ const OnlineCourse = () => {
   const { t } = useTranslation();
 
   return (
-    <>
+    <div className="bg-white">
       <div className="fixed z-10 top-0 left-0 right-0">
         <NavBar index={3} />
       </div>
@@ -112,7 +112,7 @@ const OnlineCourse = () => {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 
