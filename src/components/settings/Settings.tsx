@@ -15,7 +15,7 @@ const Settings = () => {
   const children: ReactNode[] = [<Profile />, <Password />];
 
   return (
-    <>
+    <div className="bg-white">
       <div className="fixed z-10 top-0 left-0 right-0">
         <NavBar index={-1} />
       </div>
@@ -64,7 +64,7 @@ const Settings = () => {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

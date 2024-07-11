@@ -56,7 +56,7 @@ const EditCourse: FC<{ id: string }> = ({ id }) => {
   }, []);
 
   return (
-    <>
+    <div className="bg-white">
       <ToastContainer
         position="top-center"
         autoClose={3000}
@@ -103,7 +103,7 @@ const EditCourse: FC<{ id: string }> = ({ id }) => {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

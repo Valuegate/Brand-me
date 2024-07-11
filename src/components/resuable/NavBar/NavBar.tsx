@@ -35,17 +35,22 @@ function setNotifications() {
 const NavBar: FC<NavProp> = ({ index }) => {
   const { t } = useTranslation();
   const [navs, setNavs] = useState<iNavItem[]>([]);
-  const [isNotificationClicked, setNotificationClicked] = useState<boolean>(false);
+  const [isNotificationClicked, setNotificationClicked] =
+    useState<boolean>(false);
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
   const [isAdmin, setAdmin] = useState<boolean>(false);
   const notifications = useGlobalStore((state) => state.notifications);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [openedDrawer, { open: openDrawer, close: closeDrawer }] = useDisclosure(false);
+  const [openedDrawer, { open: openDrawer, close: closeDrawer }] =
+    useDisclosure(false);
 
   const handleOutsideClick = (event: MouseEvent) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
       setIsOpen(false);
       setNotificationClicked(false);
     }
@@ -188,14 +193,17 @@ const NavBar: FC<NavProp> = ({ index }) => {
           {loggedIn && (
             <div className="flex gap-4 items-center">
               {isAdmin && (
-                <Link href={"/messages"} className="bg-light-blue-30 rounded-lg p-1">
+                <Link
+                  href={"/messages"}
+                  className="bg-light-blue-30 rounded-lg p-1"
+                >
                   <AiFillMessage
                     size={"24px"}
                     className="text-light-blue cursor-pointer"
                   />
                 </Link>
               )}
-              {!isAdmin && (
+              {/* {!isAdmin && (
                 <>
                   <div
                     ref={dropdownRef}
@@ -212,39 +220,39 @@ const NavBar: FC<NavProp> = ({ index }) => {
                     {isOpen && isNotificationClicked && <Notifications />}
                   </div>
                   <div className="h-10 bg-light-blue w-[1px]" />
-                  <div
-                    ref={dropdownRef}
-                    onClick={() => {
-                      setNotificationClicked(false);
-                      setIsOpen(!isOpen);
-                    }}
-                    className="cursor-pointer text-brand bg-light-blue flex items-center justify-start w-[110px] py-[2px] pl-[2px] gap-2 rounded-full relative"
-                  >
-                    <div className="w-[32px] h-[32px] rounded-full bg-brand" />
-                    <p className="line-clamp-1">{username}</p>
-                    {isOpen && !isNotificationClicked && (
-                      <div className="absolute -right-5 mt-[24vh] text-[16px] flex flex-col bg-brand font-cocogoose rounded shadow-lg p-[5px]">
-                        <Link
-                          href="/profile"
-                          className="px-4 py-2 hover:underline hover:text-white text-[#FFFFFF80]"
-                        >
-                          {t("Profile")}
-                        </Link>
-                        <Link
-                          href="/settings"
-                          className="px-4 py-2 hover:underline hover:text-white text-[#FFFFFF80]"
-                        >
-                          {t("Settings")}
-                        </Link>
-                      </div>
-                    )}
-                  </div>
+                  
                 </>
-              )}
+              )} */}
+              <div
+                ref={dropdownRef}
+                onClick={() => {
+                  setNotificationClicked(false);
+                  setIsOpen(!isOpen);
+                }}
+                className="cursor-pointer text-brand font-cocogoose items-center justify-center bg-light-blue flex  w-[110px] py-1 px-1 gap-2 rounded-full relative"
+              >
+                <p className="line-clamp-1 truncate">{username}</p>
+                {isOpen && !isNotificationClicked && (
+                  <div className="absolute -right-5 mt-[24vh] text-[16px] flex flex-col bg-brand font-cocogoose rounded shadow-lg p-[5px]">
+                    <Link
+                      href="/profile"
+                      className="px-4 py-2 hover:underline hover:text-white text-[#FFFFFF80]"
+                    >
+                      {t("Profile")}
+                    </Link>
+                    <Link
+                      href="/settings"
+                      className="px-4 py-2 hover:underline hover:text-white text-[#FFFFFF80]"
+                    >
+                      {t("Settings")}
+                    </Link>
+                  </div>
+                )}
+              </div>
               <div className="bg-light-blue-30 rounded-lg p-1">
                 <IoLogOut
                   onClick={logout}
-                  size={"18px"}
+                  size={"22px"}
                   className="text-light-blue cursor-pointer"
                 />
               </div>

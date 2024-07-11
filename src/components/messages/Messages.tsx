@@ -42,7 +42,7 @@ const Messages = () => {
   }, []);
 
   return (
-    <>
+    <div className="bg-white">
       <ToastContainer
         position="top-center"
         autoClose={3000}
@@ -122,7 +122,7 @@ const Messages = () => {
       )}
 
       <Footer />
-    </>
+    </div>
   );
 };
 

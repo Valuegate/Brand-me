@@ -19,11 +19,11 @@ const HowToUse = () => {
 
 
   return (
-    <>
+    <div className="bg-white">
       <NavBar index={loggedIn ? 3 : 4} />
       <div className="h-[45vh]"/>
       <Footer />
-    </>
+    </div>
   );
 };
 

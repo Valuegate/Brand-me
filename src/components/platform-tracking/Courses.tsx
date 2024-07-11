@@ -115,7 +115,7 @@ const Courses = () => {
   };
 
   return (
-    <>
+    <div className="bg-white">
       <ToastContainer
         position="top-center"
         autoClose={3000}
@@ -274,7 +274,7 @@ const Courses = () => {
           </Modal.Content>
         </Modal.Root>
       )}
-    </>
+    </div>
   );
 };
 

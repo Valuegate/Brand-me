@@ -36,7 +36,7 @@ const Platform = () => {
                   currentTab === i
                     ? "font-cocogoose underline text-[40px] md:text-[20px]"
                     : "font-cocogoose-light font-bold text-[36px] md:text-[16px]"
-                } cursor-pointer`}
+                } cursor-pointer text-black`}
               >
                 {tab}
               </h2>
