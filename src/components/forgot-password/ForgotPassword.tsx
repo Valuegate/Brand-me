@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
 import Link from "next/link";
-import React from "react";
+import React, {useState} from "react";
 import { GiPadlock } from "react-icons/gi";
 import { TbMessage } from "react-icons/tb";
 import Footer from "../resuable/Footer/Footer";
@@ -9,8 +9,12 @@ import InputComponent from "../resuable/InputComponent";
 import NavBar from "../resuable/NavBar/NavBar";
 
 const ForgotPassword = () => {
+
+  const [email, setEmail] = useState<string>("");
+
+
   return (
-    <>
+    <div className="bg-white">
       <div className="fixed z-10 top-0 left-0 right-0">
         <NavBar index={-1} />
       </div>
@@ -28,23 +32,25 @@ const ForgotPassword = () => {
               <InputComponent
                 label="Email"
                 placeholder="example@mail.com"
-                value=""
+                value={email}
                 width="w-full"
                 onChange={(e) => {
-                } } type={'text'}              />
+                  setEmail(e.target.value);
+                }}
+                type={"text"}
+              />
             </div>
 
             <div className="flex items-center justify-center mt-8">
               <button className="text-white bg-brand px-8 md:w-full py-2 md:py-3 rounded-lg text-[20px] leading-[21.8px] font-cocogoose">
                 Submit
               </button>
-              
             </div>
           </div>
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

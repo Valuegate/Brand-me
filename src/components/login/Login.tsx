@@ -49,7 +49,7 @@ const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <>
+    <div className="bg-white">
       <ToastContainer
         position="top-center"
         autoClose={3000}
@@ -66,8 +66,8 @@ const LoginPage = () => {
         <NavBar index={-1} />
       </div>
       <div className="h-32" />
-      <div className="px-32 md:px-[5%] flex flex-col items-center md:w-full">
-        <div className="flex justify-center items-center flex-col gap-5 md:w-full">
+      <div className="px-32 md:px-[5%] flex flex-col items-center md:w-full ">
+        {/* <div className="flex justify-center items-center flex-col gap-5 md:w-full">
           <Link
             href={""}
             className="text-brand flex items-center justify-center bg-gradient-to-b from-light-blue to-light-blue-30 w-[25rem] md:w-[100%] h-14 rounded-3xl text-[18px] leading-[21.8px] font-cocogoose"
@@ -86,7 +86,7 @@ const LoginPage = () => {
           >
             Log In With Facebook
           </Link>
-        </div>
+        </div> */}
 
         <div className="mt-16 w-[900px] md:w-full bg-gradient-to-b from-light-blue to-light-blue-30 rounded-3xl">
           <div className="px-10 md:px-5 py-[2rem] md:py-10">
@@ -110,7 +110,7 @@ const LoginPage = () => {
                 onSubmit={(values, actions) => {}}
               >
                 {({ handleChange }) => (
-                  <Form>
+                  <Form method="POST">
                     <div className="flex items-center gap-8">
                       <div className="mt-8 md:hidden">
                         <TbMessage className="w-[50px] h-[50px]" />
@@ -156,12 +156,13 @@ const LoginPage = () => {
                             id="password"
                             name="password"
                             placeholder="********"
-                            onChange={(e) =>
+                            onChange={(e) => {
+                              e.stopPropagation();
                               setCredentials({
                                 ...credentials,
                                 password: e.target.value,
-                              })
-                            }
+                              });
+                            }}
                             className="focus:outline-none bg-[#FFFFFF00] w-full font-cocogoose border-[3px] pl-4 text-[18px] border-brand rounded-lg h-[60px] placeholder:text-brand-49 text-brand"
                           />
                           <button
@@ -200,7 +201,7 @@ const LoginPage = () => {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 
