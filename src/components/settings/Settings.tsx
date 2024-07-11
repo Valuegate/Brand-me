@@ -11,16 +11,12 @@ import Notification from "./Notification";
 const Settings = () => {
   const { t } = useTranslation();
   const [index, setIndex] = useState<number>(0);
-  const tabs: string[] = [
-    t("Profile"),
-    t("Password"),
-    t("Notifications"),
-  ];
-  const children: ReactNode[] = [<Profile />, <Password />, <Notification />];
+  const tabs: string[] = [t("Profile"), t("Password")];
+  const children: ReactNode[] = [<Profile />, <Password />];
 
   return (
     <>
-    <div className="fixed z-10 top-0 left-0 right-0">
+      <div className="fixed z-10 top-0 left-0 right-0">
         <NavBar index={-1} />
       </div>
       <div className="h-32" />
@@ -44,29 +40,27 @@ const Settings = () => {
         </div>
         <div className="w-[800px] md:w-full">{children[index]}</div>
         <div className="hidden md:flex flex-col md:w-full justify-between items-center gap-5 mt-0">
-          <h2 className="font-cocogoose text-brand text-xl underline">{t("Other Settings")}</h2>
-        <div className="flex w-full justify-between items-center">
-          <button
-            onClick={() => {
-              setIndex( index === 0 ? 1 : index === 1 ? 2 : 0);
-            }}
-            className="bg-brand py-3 px-5 rounded-lg text-white font-cocogoose "
-          >
-            {
-              index === 0 ? t("Password") : index === 1 ? t("Notification") : t("Profile")
-            }
-          </button>
-          <button
-            onClick={() => {
-              setIndex( index === 0 ? 2 : index === 1 ? 0 : 1);
-            }}
-            className="bg-brand py-3 px-5 rounded-lg text-white font-cocogoose"
-          >
-            {
-              index === 0 ? t("Notification") : index === 1 ? t("Profile") : t("Password")
-            }
-          </button>
-        </div>
+          <h2 className="font-cocogoose text-brand text-xl underline">
+            {t("Other Settings")}
+          </h2>
+          <div className="flex w-full justify-between items-center">
+            <button
+              onClick={() => {
+                setIndex(0);
+              }}
+              className="bg-brand py-3 px-5 rounded-lg text-white font-cocogoose "
+            >
+              {t("Profile")}
+            </button>
+            <button
+              onClick={() => {
+                setIndex(1);
+              }}
+              className="bg-brand py-3 px-5 rounded-lg text-white font-cocogoose"
+            >
+              {t("Password")}
+            </button>
+          </div>
         </div>
       </div>
       <Footer />

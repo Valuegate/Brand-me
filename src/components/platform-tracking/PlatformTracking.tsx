@@ -19,7 +19,7 @@ const PlatformTracking = () => {
   
 
   return (
-    <>
+    <div className="bg-white">
       <div className="fixed top-0 left-0 right-0 z-10">
         <NavBar index={0} />
       </div>
@@ -36,8 +36,8 @@ const PlatformTracking = () => {
                 className={`leading-[52px] ${
                   currentTab === i
                     ? "font-cocogoose underline text-[40px] md:text-[20px]"
-                    : "font-cocogoose-light font-bold text-[36px] md:text-[16px]"
-                } cursor-pointer`}
+                    : "font-cocogoose-light  font-bold text-[36px] md:text-[16px]"
+                } cursor-pointer text-black`}
               >
                 {tab}
               </h2>
@@ -48,7 +48,7 @@ const PlatformTracking = () => {
         <div className="mt-32 md:mt-16 mb-20 md:mb-0">{children[currentTab]}</div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

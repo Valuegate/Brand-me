@@ -66,7 +66,7 @@ const SignUp = () => {
   const [isPasswordValid, setIsPasswordValid] = useState<boolean>(true);
 
   return (
-    <>
+    <div className= "bg-white">
       <ToastContainer
         position="top-center"
         autoClose={3000}
@@ -112,7 +112,7 @@ const SignUp = () => {
                 }}
               >
                 {() => (
-                  <Form>
+                  <Form method="POST">
                     <div className="flex items-center gap-8">
                       <div className="mt-8 md:hidden">
                         <TbMessage className="w-[50px] h-[50px]" />
@@ -160,6 +160,7 @@ const SignUp = () => {
                             name="password"
                             placeholder="********"
                             onChange={(e) => {
+                              e.stopPropagation();
                               setCredentials({
                                 ...credentials,
                                 password: e.target.value,
@@ -170,9 +171,10 @@ const SignUp = () => {
                               !isPasswordValid ? "border-error-500" : ""
                             }`}
                           />
-                          <button
+                          <div
                             className="absolute inset-y-0 right-2 flex items-center px-2 cursor-pointer"
                             onClick={(e) => {
+                              e.stopPropagation();
                               e.preventDefault();
                               setShowPassword(!showPassword);
                             }}
@@ -182,7 +184,7 @@ const SignUp = () => {
                             ) : (
                               <IoMdEye fill="#1C274D" size={"20px"} />
                             )}
-                          </button>
+                          </div>
                         </div>
                         {!isPasswordValid && (
                           <p className="text-error text-sm mt-1">
@@ -211,12 +213,16 @@ const SignUp = () => {
                             id="re-password"
                             name="re-password"
                             placeholder="********"
-                            onChange={(e) => setConfirm(e.target.value)}
+                            onChange={(e) => {
+                              e.stopPropagation();
+                              setConfirm(e.target.value);
+                            }}
                             className="focus:outline-none bg-[#FFFFFF00] w-full font-cocogoose border-[3px] pl-4 text-[18px] border-brand rounded-lg h-[60px] placeholder:text-brand-49 text-brand"
                           />
-                          <button
+                          <div
                             className="absolute inset-y-0 right-2 flex items-center px-2 cursor-pointer"
                             onClick={(e) => {
+                              e.stopPropagation();
                               e.preventDefault();
                               setShowPassword1(!showPassword1);
                             }}
@@ -226,7 +232,7 @@ const SignUp = () => {
                             ) : (
                               <IoMdEye fill="#470912" size={"20px"} />
                             )}
-                          </button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -339,7 +345,7 @@ const SignUp = () => {
       </div>
       <div className="mt-12" />
       <Footer />
-    </>
+    </div>
   );
 };
 

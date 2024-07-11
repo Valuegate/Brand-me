@@ -18,7 +18,7 @@ const Platform = () => {
   ];
 
   return (
-    <>
+    <div className="bg-white">
       <div className="fixed top-0 left-0 right-0 z-10">
         <NavBar index={0} />
       </div>
@@ -47,7 +47,7 @@ const Platform = () => {
         <div className="mt-32 md:mt-16 mb-20 md:mb-0">{children[currentTab]}</div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 
