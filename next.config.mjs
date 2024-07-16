@@ -8,7 +8,7 @@ const nextConfig = {
     domains: ['brandme2.s3.amazonaws.com'],
     unoptimized: true,
   },
-  output: "export",
+  // output: "export",
   webpack: (config) => {
     config.resolve.alias.canvas = false;
 
