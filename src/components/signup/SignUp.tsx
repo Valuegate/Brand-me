@@ -324,6 +324,7 @@ const SignUp = () => {
                           !termsAgreed ||
                           !isPasswordValid
                         }
+                        
                         className={`${
                           isLoading
                             ? "bg-primary-300 cursor-not-allowed"
