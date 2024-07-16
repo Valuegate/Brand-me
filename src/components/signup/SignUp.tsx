@@ -291,25 +291,25 @@ const SignUp = () => {
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-8 mt-4">
-                      <div className="mt-8 md:hidden">
+                    <div className="my-4 ml-20 gap-4 flex w-full items-center">
+                      {/* <div className="mt-8 md:hidden">
                         <Image src={Sort} alt={""} width={50} height={50} />
-                      </div>
-                      <div className="mb-4 flex flex-col gap-1 w-full">
-                        <label
-                          htmlFor="is"
-                          className="font-cocogoose-light font-bold text-[16px] text-brand"
-                        >
-                          {t("waitAMinute")}
-                        </label>
+                      </div> */}
+                      {/* <div className="mb-4 flex gap-1"> */}
                         <input
                           type="checkbox"
                           id="is"
                           name="is"
                           onChange={(e) => setTermsAgreed(e.target.checked)}
-                          className="focus:outline-none bg-[#FFFFFF00] w-full font-cocogoose border-[3px] pl-4 text-[18px] border-brand rounded-lg h-[60px] placeholder:text-brand-49 text-brand"
+                          className="focus:outline-none bg-[#FFFFFF00] font-cocogoose border-[3px] pl-4 text-[18px] border-brand rounded-lg w-[30px] h-[30px] placeholder:text-brand-49 text-brand"
                         />
-                      </div>
+                        <label
+                          htmlFor="is"
+                          className="font-cocogoose font-bold text-[16px] text-brand"
+                        >
+                          {t("click")}
+                        </label>
+                      {/* </div> */}
                     </div>
 
                     <div className="mt-8 flex justify-center">
@@ -324,16 +324,16 @@ const SignUp = () => {
                           !termsAgreed ||
                           !isPasswordValid
                         }
-                        className={`w-full h-[80px] ${
+                        className={`${
                           isLoading
                             ? "bg-primary-300 cursor-not-allowed"
                             : "bg-primary-500 hover:bg-primary-600"
-                        } text-white font-cocogoose font-bold text-[24px] rounded-3xl ${
+                        } text-white bg-brand py-2 px-8 font-cocogoose font-bold text-[24px] rounded-3xl ${
                           isLoading ? "" : "transition duration-300"
                         }`}
                         onClick={handleSignup}
                       >
-                        {t("send")}
+                        {t("signUp")}
                       </button>
                     </div>
                   </Form>
