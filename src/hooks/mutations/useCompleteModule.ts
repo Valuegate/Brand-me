@@ -10,7 +10,7 @@ function completeModule(
 ) {
   axios({
     method: "POST",
-    url: `${baseUrl}/courses/modules/${id}/complete/`,
+    url: `${baseUrl}/courses/mark_module_as_completed/${id}/`,
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
