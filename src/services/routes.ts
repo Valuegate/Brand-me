@@ -16,6 +16,7 @@ export enum COURSES {
   CREATE = '/courses/courses/create/',
   GET_BY_ID = '/courses/content/',
   GET_ALL = '/courses/courses/',
+  GET_COURSES_PROGRESS = '/courses/user-course-progress/',
   ENROL = '/courses/enroll/',
 }
 
