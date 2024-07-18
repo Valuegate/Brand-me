@@ -8,6 +8,8 @@ import Footer from "@/components/resuable/Footer/Footer";
 import InputComponent from "@/components/resuable/InputComponent";
 import NavBar from "@/components/resuable/NavBar/NavBar";
 import { CircularProgress } from "@mui/material";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ResetPassword: FC<{ params: any }> = ({ params }) => {
   const [password, setPassword] = useState<string>("");
@@ -38,9 +40,11 @@ const ResetPassword: FC<{ params: any }> = ({ params }) => {
         token
       });
       setMessage(response.data.message);
+      toast.success("Password successfully updated.");
       router.push('/login');
     } catch (error) {
       setMessage("Error resetting password. Ensure all fields have at least 6 characters.");
+      toast.error("Failed to update password.");
     } finally {
       setLoading(false);
     }
@@ -48,6 +52,18 @@ const ResetPassword: FC<{ params: any }> = ({ params }) => {
 
   return (
     <div className="bg-white">
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <div className="fixed z-10 top-0 left-0 right-0">
         <NavBar index={-1} />
       </div>
@@ -99,7 +115,7 @@ const ResetPassword: FC<{ params: any }> = ({ params }) => {
               </button>
             </div>
             {message && (
-              <div className="mt-4 text-center text-red-500">{message}</div>
+              <div className="mt-4 text-center font-cocogoose text-brand">{message}</div>
             )}
           </div>
         </div>

@@ -6,6 +6,8 @@ import { CircularProgress } from "@mui/material";
 import Footer from "@/components/resuable/Footer/Footer";
 import InputComponent from "@/components/resuable/InputComponent";
 import NavBar from "@/components/resuable/NavBar/NavBar";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ForgotPassword: FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -19,8 +21,10 @@ const ForgotPassword: FC = () => {
     try {
       const response = await axios.post('https://brandme-2.onrender.com/api/accounts/password-reset/', { email });
       setMessage(response.data.message);
+      toast.success("Password reset email sent successfully.");
     } catch (error) {
       setMessage("Error sending reset password link. Please try again.");
+      toast.error("Failed to send reset password link.");
     } finally {
       setLoading(false);
     }
@@ -28,6 +32,18 @@ const ForgotPassword: FC = () => {
 
   return (
     <div className="bg-white">
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <div className="fixed z-10 top-0 left-0 right-0">
         <NavBar index={-1} />
       </div>
@@ -56,7 +72,7 @@ const ForgotPassword: FC = () => {
               </button>
             </div>
             {message && (
-              <div className="mt-4 text-center text-red-500">{message}</div>
+              <div className="mt-4 text-center font-cocogoose text-brand">{message}</div>
             )}
           </div>
         </div>
