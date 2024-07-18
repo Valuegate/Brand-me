@@ -14,6 +14,7 @@ const ResetPassword: FC<{ params: any }> = ({ params }) => {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [message, setMessage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
   const { uidb64, token } = params;
 
   useEffect(() => {
@@ -37,6 +38,7 @@ const ResetPassword: FC<{ params: any }> = ({ params }) => {
         token
       });
       setMessage(response.data.message);
+      router.push('/login');
     } catch (error) {
       setMessage("Error resetting password. Ensure all fields have at least 6 characters.");
     } finally {

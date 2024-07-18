@@ -5,7 +5,7 @@ export interface iInputProps {
   label: string;
   placeholder: string;
   width: string;
-  type: "text" | "password";
+  type: "text" | "password" | "email";
   value: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
 }
