@@ -24,7 +24,6 @@ import NavBar from "../resuable/NavBar/NavBar";
 
 import { HiBookOpen } from "react-icons/hi";
 import Link from "next/link";
-import { BsHandIndexThumbFill } from "react-icons/bs";
 
 import { pdfjs, Document, Page } from "react-pdf";
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
@@ -96,28 +95,6 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
 
         setTimeout(() => {
           window.location.reload();
-
-          //TODO: This is just a temporary fix pending Paul fix the is completed field reflecting for real
-          //   let next = course.details.currentVideo + 1;
-          //   let pg = next / course.details.videos.length;
-
-          //   if (next <= course.details.videos.length) {
-          //     let videos = course.details.videos;
-          //     videos[course.details.currentVideo].complete = true;
-
-          //     setCourse({
-          //       ...course,
-          //       progress: pg,
-          //       details: {
-          //         ...course.details,
-          //         currentVideo: next,
-          //         videos: videos,
-          //       },
-          //     });
-          //     setCurrentVideo(course.details.videos[next]);
-          //   }
-
-          //   setNextVideoIndex(next);
         }, 500);
       },
       (err: any) => {
@@ -172,34 +149,16 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
               },
             };
 
-            let courseTitle = co.name;
-            let total = co.details.videos.length;
-
             getUserProgress(
               token,
+              id,
               (result: any) => {
-                let totalDoneInCourse = 0;
-                let completedModules: any[] = [];
+                
+                let totalDoneInCourse = result.data.completed_modules;
+                let totalModules = result.data.total_modules;
 
-                let data = result.data;
+                co.progress =    totalDoneInCourse / totalModules;
 
-                data.map((d: any, i: number) => {
-                  if (d.course_title === courseTitle) {
-                    totalDoneInCourse += 1;
-                    completedModules.push(d.module);
-                  }
-                });
-
-                let pg = totalDoneInCourse / total;
-                co.progress = pg;
-                co.details.videos.map((vd: any, i: number) => {
-                  for (let i = 0; i < completedModules.length; i++) {
-                    if (completedModules[i] === vd.id) {
-                      vd.complete = true;
-                      break;
-                    }
-                  }
-                });
                 co.details.currentVideo = totalDoneInCourse;
 
                 setCourse(co);
@@ -265,7 +224,7 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
   };
 
   return (
-    <>
+    <div className="bg-white">
       <ToastContainer
         position="top-center"
         autoClose={3000}
@@ -288,7 +247,7 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
         </div>
       ) : !loading && course.id !== "" ? (
         <div className="flex flex-col items-center w-full px-20 md:px-5">
-          <h1 className="font-cocogoose text-[56px] md:text-[24px]">
+          <h1 className="font-cocogoose text-[56px] md:text-[24px] text-black">
             {course.name}
           </h1>
           <div className="flex md:flex-col md:gap-16 justify-between mt-20 md:mt-5 w-full">
@@ -506,7 +465,7 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
         </div>
       )}
       <Footer />
-    </>
+    </div>
   );
 };
 
