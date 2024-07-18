@@ -1,17 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { GiPadlock } from "react-icons/gi";
 import { TbMessage } from "react-icons/tb";
 import Footer from "../resuable/Footer/Footer";
 import InputComponent from "../resuable/InputComponent";
 import NavBar from "../resuable/NavBar/NavBar";
+import axios from "axios";
 
 const ForgotPassword = () => {
-
   const [email, setEmail] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
 
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post('https://brandme-2.onrender.com/api/accounts/password-reset/', { email });
+      setMessage(response.data.message);
+    } catch (error) {
+      setMessage('Error sending password reset email');
+    }
+  };
 
   return (
     <div className="bg-white">
@@ -35,7 +44,6 @@ const ForgotPassword = () => {
                 value={email}
                 width="w-full"
                 onChange={(e) => {
-                
                   setEmail(e.target.value);
                 }}
                 type={"text"}
@@ -43,10 +51,16 @@ const ForgotPassword = () => {
             </div>
 
             <div className="flex items-center justify-center mt-8">
-              <button className="text-white bg-brand px-8 md:w-full py-2 md:py-3 rounded-lg text-[20px] leading-[21.8px] font-cocogoose">
+              <button
+                onClick={handleSubmit}
+                className="text-white bg-brand px-8 md:w-full py-2 md:py-3 rounded-lg text-[20px] leading-[21.8px] font-cocogoose"
+              >
                 Submit
               </button>
             </div>
+            {message && (
+              <div className="mt-4 text-center text-red-500">{message}</div>
+            )}
           </div>
         </div>
       </div>
