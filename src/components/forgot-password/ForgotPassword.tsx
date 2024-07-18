@@ -2,7 +2,6 @@
 
 import React, { useState, FC } from "react";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import { CircularProgress } from "@mui/material";
 import Footer from "@/components/resuable/Footer/Footer";
 import InputComponent from "@/components/resuable/InputComponent";
@@ -12,14 +11,13 @@ const ForgotPassword: FC = () => {
   const [email, setEmail] = useState<string>("");
   const [message, setMessage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const router = useRouter();
 
   const handleSubmit = async () => {
     setLoading(true);
     setMessage("");
 
     try {
-      const response = await axios.post('https://brandme-2.onrender.com/api/accounts/reset-password/', { email });
+      const response = await axios.post('https://brandme-2.onrender.com/api/accounts/password-reset/', { email });
       setMessage(response.data.message);
     } catch (error) {
       setMessage("Error sending reset password link. Please try again.");
