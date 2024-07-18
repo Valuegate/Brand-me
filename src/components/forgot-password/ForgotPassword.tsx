@@ -46,7 +46,7 @@ const ForgotPassword: FC = () => {
               value={email}
               width="w-full"
               onChange={(e) => setEmail(e.target.value)}
-              type="email"
+              type="text"
             />
             <div className="flex items-center justify-center mt-8">
               <button
