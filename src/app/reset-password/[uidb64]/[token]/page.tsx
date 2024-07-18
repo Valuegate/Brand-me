@@ -1,4 +1,3 @@
-// pages/reset-password/[uidb64]/[token].tsx
 "use client";
 
 import React, { useState, useEffect, FC } from "react";
@@ -8,11 +7,13 @@ import { GiPadlock } from "react-icons/gi";
 import Footer from "@/components/resuable/Footer/Footer";
 import InputComponent from "@/components/resuable/InputComponent";
 import NavBar from "@/components/resuable/NavBar/NavBar";
+import { CircularProgress } from "@mui/material";
 
-const ResetPassword:FC<{params:any}> = ({params}) => {
+const ResetPassword: FC<{ params: any }> = ({ params }) => {
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [message, setMessage] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const { uidb64, token } = params;
 
   useEffect(() => {
@@ -27,8 +28,9 @@ const ResetPassword:FC<{params:any}> = ({params}) => {
       return;
     }
 
+    setLoading(true);
     try {
-      const response = await axios.post('https://brandme-2.onrender.com/api/accounts/set-new-password/', {
+      const response = await axios.patch('https://brandme-2.onrender.com/api/accounts/set-new-password/', {
         password,
         confirm_password: confirmPassword,
         uidb64,
@@ -37,6 +39,8 @@ const ResetPassword:FC<{params:any}> = ({params}) => {
       setMessage(response.data.message);
     } catch (error) {
       setMessage("Error resetting password. Ensure all fields have at least 6 characters.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -87,8 +91,9 @@ const ResetPassword:FC<{params:any}> = ({params}) => {
               <button
                 onClick={handleSubmit}
                 className="text-white bg-brand px-8 md:w-full py-2 md:py-3 rounded-lg text-[20px] leading-[21.8px] font-cocogoose"
+                disabled={loading}
               >
-                Submit
+                {loading ? <CircularProgress size={24} color="inherit" /> : "Submit"}
               </button>
             </div>
             {message && (
