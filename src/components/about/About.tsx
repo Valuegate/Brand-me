@@ -12,6 +12,7 @@ import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
 import Pic3 from "@/assets/pic 3.png";
+import Pic2 from "@/assets/pic 2.png";
 
 const AboutUsPage = () => {
   const { t } = useTranslation();
@@ -209,8 +210,13 @@ const AboutUsPage = () => {
           </div>
         </section>
 
-        <section className="mt-16 bg-brand border-none rounded-3xl">
-          <div className="pl-10 py-[2rem] md:px-5">
+        <div className="mt-16  border-none relative overflow-hidden rounded-3xl">
+          <Image
+            src={Pic2}
+            alt="image"
+            className="w-full h-[450px] object-cover"
+          />
+          <div className="pl-10 py-[2rem] md:px-5 bg-gradient-to-b absolute top-0 left-0 z-5 from-light-blue-66 to-dark-blue h-full w-full">
             <h1 className="text-4xl md:text-2xl text-white font-cocogoose md:text-center">
               {t("project_partners")}
             </h1>
@@ -234,7 +240,7 @@ const AboutUsPage = () => {
               </Link>
             </div>
           </div>
-        </section>
+        </div>
       </div>
       <Footer />
     </div>

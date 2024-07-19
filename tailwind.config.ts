@@ -31,6 +31,7 @@ module.exports = {
       "role-green-bg": "#CEEFD9",
       "green-100": "#00A707",
       "faint-border": "#DEDDDD",
+      "transparent": "rgba(0, 0, 0, 0)",
     },
     fontFamily: {
       'cocogoose': ['var(--font-cocogoose-regular)', 'sans-serif'],
