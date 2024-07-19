@@ -192,7 +192,7 @@ const Profile = () => {
                             valueColor="bg-brand"
                             hideText={false}
                             value={
-                              (rs.total_modules_completed * 100) /
+                              rs.total_modules_completed /
                               rs.total_modules_in_course
                             }
                           />

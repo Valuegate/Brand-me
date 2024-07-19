@@ -11,6 +11,9 @@ import Footer from "@/components/resuable/Footer/Footer";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
+import Pic3 from "@/assets/pic 3.png";
+import Pic2 from "@/assets/pic 2.png";
+
 const AboutUsPage = () => {
   const { t } = useTranslation();
 
@@ -21,28 +24,36 @@ const AboutUsPage = () => {
       </div>
       <div className="h-32" />
       <div className="px-32 md:px-[5%]">
-        <section className="mt-16 md:mt-6 bg-brand  border-none rounded-3xl">
-          <div className="px-10 md:px-5 pt-[10rem] md:py-10 pb-[5rem]">
+        <div className="mt-16 md:mt-6 rounded-3xl overflow-hidden relative">
+          <Image
+            src={Pic3}
+            alt="image"
+            className="w-full h-[500px] object-cover"
+          />
+          <div className="rounded-[25px] px-10 md:px-5 pt-[10rem] md:py-10 pb-[5rem] bg-gradient-to-b absolute top-0 left-0 z-5 from-light-blue-66 to-dark-blue h-full w-full">
             <h1 className="text-4xl md:text-center md:text-2xl text-white font-cocogoose ">
               {t("brand_me_mission")}
             </h1>
             <p className="py-6 text-white text-base font-cocogoose-light font-bold">
               {t("brand_me_mission_content")}
             </p>
-            <Link href={"/sign-up"} className="text-brand bg-light-blue px-5 md:w-full py-2 md:py-3 rounded-lg text-[20px] font-cocogoose">
+            <Link
+              href={"/sign-up"}
+              className="text-brand bg-light-blue px-5 md:w-full py-2 md:py-3 rounded-lg text-[20px] font-cocogoose"
+            >
               {t("sign_up")}
             </Link>
           </div>
-        </section>
+        </div>
 
         <section className="mt-20">
           <h2 className="text-center text-black font-cocogoose md:text-xl text-3xl">
-          {t("for_whom")}
+            {t("for_whom")}
           </h2>
           <div className="flex md:flex-col pt-6 justify-center gap-4 md:gap-8">
             <div className="flex flex-col gap-4 md:gap-3 md:w-full">
               <span className="bg-brand text-white text-lg font-cocogoose flex justify-center h-[50px] rounded-xl w-[20rem] md:w-full items-center">
-              {t("youth")}
+                {t("youth")}
               </span>
               <span className="px-6 md:px-0 bg-light-blue-30 text-center text-brand font-cocogoose-light font-bold text-base leading-[20px] flex justify-center h-[50px] rounded-xl w-[20rem] md:w-full items-center">
                 {t("not_in_education_employment_training")}
@@ -144,10 +155,12 @@ const AboutUsPage = () => {
               {t("project_outputs")}
             </h1>
             <p className="text-base pt-2 font-cocogoose-light text-center">
-            {t("project_outputs_content")}
+              {t("project_outputs_content")}
             </p>
             <div className="pt-5 pb-8">
-              <h5 className="text-base font-cocogoose pb-2">{t("bam_report")}</h5>
+              <h5 className="text-base font-cocogoose pb-2">
+                {t("bam_report")}
+              </h5>
               <li className="list-none text-base font-cocogoose-light font-bold">
                 {t("objectives_survey_approach")}
               </li>
@@ -178,7 +191,9 @@ const AboutUsPage = () => {
             </div>
 
             <div className="">
-              <h5 className="text-base font-cocogoose pb-2">{t("brand_me_manual")}</h5>
+              <h5 className="text-base font-cocogoose pb-2">
+                {t("brand_me_manual")}
+              </h5>
               <li className="list-none text-base font-cocogoose-light font-bold">
                 {t("concept_importance")}
               </li>
@@ -195,8 +210,13 @@ const AboutUsPage = () => {
           </div>
         </section>
 
-        <section className="mt-16 bg-brand border-none rounded-3xl">
-          <div className="pl-10 py-[2rem] md:px-5">
+        <div className="mt-16  border-none relative overflow-hidden rounded-3xl">
+          <Image
+            src={Pic2}
+            alt="image"
+            className="w-full h-[450px] object-cover"
+          />
+          <div className="pl-10 py-[2rem] md:px-5 bg-gradient-to-b absolute top-0 left-0 z-5 from-light-blue-66 to-dark-blue h-full w-full">
             <h1 className="text-4xl md:text-2xl text-white font-cocogoose md:text-center">
               {t("project_partners")}
             </h1>
@@ -211,12 +231,16 @@ const AboutUsPage = () => {
               <p className="text-base font-cocogoose-light font-bold text-white w-[70%] md:w-full pb-8">
                 {t("vr_marketing_content")}
               </p>
-              <Link href={"https://vrmarketing.pt/"} target="__blank" className="text-light-blue bg-white px-5 md:w-full py-2 md:py-3 rounded-lg text-[20px] font-cocogoose">
+              <Link
+                href={"https://vrmarketing.pt/"}
+                target="__blank"
+                className="text-light-blue bg-white px-5 md:w-full py-2 md:py-3 rounded-lg text-[20px] font-cocogoose"
+              >
                 {t("learn_more")}
               </Link>
             </div>
           </div>
-        </section>
+        </div>
       </div>
       <Footer />
     </div>

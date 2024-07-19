@@ -33,6 +33,11 @@ import Footer from "../resuable/Footer/Footer";
 import { globalKey, useGlobalStore } from "@/stores/globalStore";
 import { useTranslation } from 'next-i18next';
 
+import Pic4 from "@/assets/pic 4.png";
+import Pic5 from "@/assets/pic 5.png";
+import Pic6 from "@/assets/pic 6.png";
+import Pic7 from "@/assets/pic 7.png";
+
 const Results = () => {
   const { t } = useTranslation();
   const [loggedIn, setLoggedIn] = useState(false);
@@ -90,6 +95,7 @@ const Results = () => {
           title={t("bam_report")}
           description={t("bam_desc")}
           trailing={t("bam_trailing")}
+          image={Pic6}
         />
         <FlexComponent
           reports={[
@@ -116,6 +122,7 @@ const Results = () => {
           title={t("branding_course")}
           description={t("branding_desc")}
           trailing={t("branding_trailing")}
+          image={Pic7}
                   />
         <FlexComponent
           reports={[
@@ -144,6 +151,7 @@ const Results = () => {
           title={t("bam_manual")}
           description={t("manual_desc")}
           trailing={t("manual_trailing")}
+          image={Pic4}
         />
         <FlexComponent
           reports={[
@@ -175,6 +183,7 @@ const Results = () => {
           title={t("project_dissemination")}
           description=""
           trailing={t("dissemination_desc")}
+          image={Pic5}
         />
       </div>
       <Footer />

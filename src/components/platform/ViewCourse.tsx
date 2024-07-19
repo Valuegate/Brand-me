@@ -30,7 +30,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/b
 
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "react-pdf/dist/esm/Page/TextLayer.css";
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from "next-i18next";
 
 export interface iViewCourseProp {
   course: iCourse;
@@ -153,11 +153,10 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
               token,
               id,
               (result: any) => {
-                
                 let totalDoneInCourse = result.data.completed_modules;
                 let totalModules = result.data.total_modules;
 
-                co.progress =    totalDoneInCourse / totalModules;
+                co.progress = totalDoneInCourse / totalModules;
 
                 co.details.currentVideo = totalDoneInCourse;
 
@@ -314,7 +313,7 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                   </h2>
                   <div className="bg-light-blue-30 w-[350px] p-5 rounded-3xl">
                     <div className="w-full h-[200px] rounded-3xl text-brand text-xl font-cocogoose bg-brand-30 flex justify-center items-center">
-                    {t("moduleFile")}
+                      {t("moduleFile")}
                     </div>
                     <div className="mt-3 flex items-center justify-between">
                       <div className="bg-brand w-[32px] h-[32px] rounded-lg flex justify-center items-center font-cocogoose-light text-white text-[18px]">
@@ -345,11 +344,15 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                       {currentVideo.duration}
                     </div>
                   </div>
-                  <div className={`w-full h-[400px] md:h-[200px] mt-5 rounded-3xl bg-brand-30 flex flex-col gap-4 justify-center items-center ${reading && "overflow-y-scroll"}`}>
+                  <div
+                    className={`w-full h-[400px] md:h-[200px] mt-5 rounded-3xl bg-brand-30 flex flex-col gap-4 justify-center items-center ${
+                      reading && "overflow-y-scroll"
+                    }`}
+                  >
                     {!reading ? (
                       <>
                         <h2 className="text-brand text-xl font-cocogoose">
-                        {t("readModuleDoc")}
+                          {t("readModuleDoc")}
                         </h2>
                         <div
                           onClick={() => setReading(true)}
@@ -399,15 +402,17 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                       {currentVideo.description}
                     </p>
                   </div>
-                  <button
-                    onClick={() => {
-                      complete(currentVideo.id);
-                    }}
-                    className="mb-6 bg-brand text-white text-[18px] font-cocogoose flex gap-1 items-center justify-center w-[270px] md:w-full h-[45px] rounded-lg"
-                  >
-                    {t("markAsComplete")}
-                    <MdDone size={"26px"} />
-                  </button>
+                  {!currentVideo.complete && (
+                    <button
+                      onClick={() => {
+                        complete(currentVideo.id);
+                      }}
+                      className="mb-6 bg-brand text-white text-[18px] font-cocogoose flex gap-1 items-center justify-center w-[270px] md:w-full h-[45px] rounded-lg"
+                    >
+                      {t("markAsComplete")}
+                      <MdDone size={"26px"} />
+                    </button>
+                  )}
                 </div>
               ) : (
                 <div className="flex flex-col w-full md:items-center">

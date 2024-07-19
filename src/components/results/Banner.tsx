@@ -9,7 +9,7 @@ const Banner = () => {
       <h1 className="text-4xl md:text-2xl text-black font-cocogoose">
         {t('results_title')}
       </h1>
-      <p className="font-cocogoose-light font-bold">
+      <p className="font-cocogoose-light text-black font-bold">
         {t('results_desc')}
       </p>
     </div>
