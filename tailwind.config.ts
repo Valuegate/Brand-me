@@ -34,8 +34,8 @@ module.exports = {
       "transparent": "rgba(0, 0, 0, 0)",
     },
     fontFamily: {
-      'cocogoose': ['var(--font-cocogoose-regular)', 'sans-serif'],
-      'cocogoose-light': ['var(--font-cocogoose-thin)', 'sans-serif'],
+      cocogoose: ["Montserrat", "sans-serif"],
+      "cocogoose-light": ["Montserrat", "sans-serif"],
     },
     screens: {
       sm: {
