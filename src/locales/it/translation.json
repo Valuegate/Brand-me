@@ -81,7 +81,7 @@
     "erasmusLogoAlt": "Logo di Erasmus",
     "indepcieLogoAlt": "Logo di Indepcie",
     "innovationLabLogoAlt": "Logo del laboratorio di innovazione",
-    "Project Partners of BRAND ME": "Partner del progetto di BRAND ME",
+    "Project Partners of BRAND ME": "Coordinatore del Progetto di BRAND ME",
   "Learn More": "Scopri di più",
   "innovation_title": "Innovation Education Lab",
   "innovation_description": "Missione: Sostenere i giovani, le attività educative, l'innovazione nell'istruzione e nella formazione e incoraggiare il volontariato. Comprende project manager esperti, operatori giovanili, facilitatori e professionisti creativi con la missione di creare innovazione, empowerment, partecipazione, inclusione e imprenditorialità sociale tra i giovani svantaggiati.",
@@ -221,6 +221,17 @@
     "Notifications": "Notifiche",
     "Other Settings": "Altre impostazioni",
     "Notification": "Notifica",
-    "click": "Fai clic sulla casella per confermare che non sei un robot"
+    "click": "Fai clic sulla casella per confermare che non sei un robot",
+    "Project Partners": "Partner di progetto",
+  "Click To Message": "Clicca per inviare un messaggio",
+  "Contact email:": "Email di contatto:",
+  "login": "Accedi",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "emailPlaceholder": "mail@email.com",
+    "passwordPlaceholder": "********",
+    "forgotPassword": "Hai dimenticato la password?",
+    "loginButton": "Accedi",
+    "loading": "Caricamento in corso..."
   }
   

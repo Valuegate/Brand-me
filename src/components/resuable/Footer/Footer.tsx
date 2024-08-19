@@ -33,7 +33,7 @@ const Footer = () => {
               </h5>
               <Link
                 className="text-white-80 text-sm font-cocogoose-light font-bold"
-                href={""}
+                href={"#forwhom"}
               >
                 {t("forWhom")}
               </Link>

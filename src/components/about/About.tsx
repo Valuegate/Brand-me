@@ -46,7 +46,7 @@ const AboutUsPage = () => {
           </div>
         </div>
 
-        <section className="mt-20">
+        <section id="forwhom" className="mt-20 scroll-mt-28">
           <h2 className="text-center text-black font-cocogoose md:text-xl text-3xl">
             {t("for_whom")}
           </h2>
@@ -232,7 +232,7 @@ const AboutUsPage = () => {
                 {t("vr_marketing_content")}
               </p>
               <Link
-                href={"https://vrmarketing.pt/"}
+                href={"/partners"}
                 target="__blank"
                 className="text-light-blue bg-white px-5 md:w-full py-2 md:py-3 rounded-lg text-[20px] font-cocogoose"
               >

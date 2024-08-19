@@ -81,7 +81,7 @@
     "erasmusLogoAlt": "Erasmus-Logo",
     "indepcieLogoAlt": "Indepcie-Logo",
     "innovationLabLogoAlt": "Logo des Innovationslabors",
-    "Project Partners of BRAND ME": "Projektpartner von BRAND ME",
+    "Project Partners of BRAND ME": "Projektkoordinator von BRAND ME",
   "Learn More": "Erfahren Sie mehr",
   "innovation_title": "Innovation Education Lab",
   "innovation_description": "Aufgabe: Unterstützung junger Menschen, Bildungsaktivitäten, Innovation in der allgemeinen und beruflichen Bildung und Förderung der Freiwilligenarbeit. Das Team besteht aus erfahrenen Projektmanagern, Jugendarbeitern, Moderatoren und kreativen Fachleuten, die sich zum Ziel gesetzt haben, Innovation, Selbstbestimmung, Partizipation, Integration und soziales Unternehmertum unter benachteiligten Jugendlichen zu fördern.",
@@ -221,6 +221,17 @@
     "Notifications": "Benachrichtigungen",
     "Other Settings": "Weitere Einstellungen",
     "Notification": "Benachrichtigung",
-    "click": "Klicken Sie auf das Kästchen, um zu bestätigen, dass Sie kein Roboter sind"
+    "click": "Klicken Sie auf das Kästchen, um zu bestätigen, dass Sie kein Roboter sind",
+    "Project Partners": "Projektpartner",
+  "Click To Message": "Zum Nachrichten klicken",
+  "Contact email:": "Kontakt E-Mail:",
+  "login": "Anmelden",
+    "emailLabel": "E-Mail",
+    "passwordLabel": "Passwort",
+    "emailPlaceholder": "mail@email.com",
+    "passwordPlaceholder": "********",
+    "forgotPassword": "Passwort vergessen",
+    "loginButton": "Anmelden",
+    "loading": "Wird geladen..."
 }
   
