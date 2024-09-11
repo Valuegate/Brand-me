@@ -29,6 +29,14 @@ const Partners = () => {
   const partners: iPartner[] = [
     {
       image: Innovation,
+      title: t("vr_title"),
+      breakTitle: "(AVM)",
+      description:
+      t("vr_description"),
+        link: "https://innoedulab.eu/en/",
+    },
+    {
+      image: Innovation,
       title: t("innovation_title"),
       breakTitle: "(iEL)",
       description:

@@ -37,12 +37,12 @@ const AboutUsPage = () => {
             <p className="py-6 text-white text-base font-cocogoose-light font-bold">
               {t("brand_me_mission_content")}
             </p>
-            <Link
+            {/* <Link
               href={"/sign-up"}
               className="text-brand bg-light-blue px-5 md:w-full py-2 md:py-3 rounded-lg text-[20px] font-cocogoose"
             >
               {t("sign_up")}
-            </Link>
+            </Link> */}
           </div>
         </div>
 
@@ -233,7 +233,6 @@ const AboutUsPage = () => {
               </p>
               <Link
                 href={"/partners"}
-                target="__blank"
                 className="text-light-blue bg-white px-5 md:w-full py-2 md:py-3 rounded-lg text-[20px] font-cocogoose"
               >
                 {t("learn_more")}
