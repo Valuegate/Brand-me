@@ -3,6 +3,7 @@ import NavBar from "@/components/resuable/NavBar/NavBar";
 import Image, { StaticImageData } from "next/image";
 import React from "react";
 import Innovation from "@/assets/innovation_education_lab2.png";
+import Associação from "@/assets/logo vr marketing vectorial white-01.png"
 import Efektas from "@/assets/Logotype_Efektas_Red.png";
 import Erasmus from "@/assets/Garage_erasmus_logo1.png";
 import Indepcie from "@/assets/logo INDEPCIE vectorizado2.png";
@@ -28,12 +29,12 @@ const Partners = () => {
   const { t } = useTranslation();
   const partners: iPartner[] = [
     {
-      image: Innovation,
+      image: Associação,
       title: t("vr_title"),
       breakTitle: "(AVM)",
       description:
       t("vr_description"),
-        link: "https://innoedulab.eu/en/",
+        link: "https://vrmarketing.pt",
     },
     {
       image: Innovation,
