@@ -101,12 +101,12 @@ const QuizCreation: FC<{ resetPage: () => void }> = ({ resetPage }) => {
       (res) => {
         toast.success("Your course has been created. Thank You");
         isLoading(false);
-        setTimeout(() => {
-          setPage(0);
-          useQuizCreateStore.getState().clear();
-          resetQuiz();
-          resetPage();
-        }, 2000);
+        // setTimeout(() => {
+        //   setPage(0);
+        //   useQuizCreateStore.getState().clear();
+        //   resetQuiz();
+        //   resetPage();
+        // }, 2000);
       },
       (err) => {
         isLoading(false);
