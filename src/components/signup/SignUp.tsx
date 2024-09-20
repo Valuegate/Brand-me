@@ -47,7 +47,7 @@ const SignUp = () => {
   useEffect(() => {
     if (isSuccess) {
       toast.success(t("accountCreated"));
-      router.push("/otp");
+      router.push("/emailverification");
     }
   }, [isSuccess]);
 
