@@ -4,7 +4,7 @@ import { tCourseCreationData } from "@/stores/quizStore";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 
-import {baseUrl} from "@/services/base";
+import { baseUrl } from "@/services/base";
 
 export interface iCourseCreationResponse {}
 
@@ -33,7 +33,7 @@ export function createCourse(
   payload.quiz.questions.forEach((que, i) => {
     form.append(`quizzes[0].questions[${i}].text`, que.text);
     que.choices.map((ans, index) => {
-      form.append(`quizzes[0].questions[${i}].choices[${index}]`, ans);
+      form.append(`quizzes[0].questions[${i}].choices[${index}].text`, ans);
     });
     form.append(`quizzes[0].questions[${i}].is_correct`, que.is_correct);
   });
