@@ -101,10 +101,10 @@ const Partners = () => {
         <div className="flex flex-col">
           {partners.map((partner, i) => {
             return (
-              <section key={i} className="mt-10 bg-brand-30 border-none rounded-3xl">
+              <section key={i} className="mt-10 bg-brand-10 border-none rounded-3xl">
                 <div className="px-16 md:px-5 md:py-8 pt-[2rem] pb-[3rem]">
                   <div className="flex md:flex-col md:items-start items-center gap-8 pb-4">
-                    <Image src={partner.image} alt={""} className="w-[180px] md:w-[60%] h-auto" />
+                    <Image src={partner.image} alt={""} className="w-[180px] md:w-[60%] h-[100px] object-contain" />
                     <div
                       className={`${partner.subtitle && "flex flex-col gap-2"}`}
                     >
