@@ -16,8 +16,10 @@ import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { globalKey } from "@/stores/globalStore";
 
 import "react-toastify/dist/ReactToastify.css";
+import { useTranslation } from "react-i18next";
 
 const LoginPage = () => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const [credentials, setCredentials] = useState<TLoginPayload>({
@@ -92,13 +94,13 @@ const LoginPage = () => {
           <div className="px-10 md:px-5 py-[2rem] md:py-10">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-brand text-[30px] md:text-[24px] leading-[21.8px] font-cocogoose">
-                Log In
+                {t("login")}
               </h2>
               <Link
                 className="text-brand text-[20px] md:text-[16px] underline leading-[15px] font-cocogoose"
                 href={"/sign-up"}
               >
-                Sign Up
+                {t("signUp")}
               </Link>
             </div>
             <div className="mt-10">
@@ -120,22 +122,19 @@ const LoginPage = () => {
                           htmlFor="email"
                           className="font-cocogoose-light font-bold text-[16px] text-brand"
                         >
-                          Email
+                          {t("emailLabel")}
                         </label>
                         <input
                           type="email"
                           id="email"
                           name="email"
-                          value={credentials.email}
-                          onChange={(e) => {
-                            let res = e.target.value.trim();
-                            res = res.toLowerCase();
+                          onChange={(e) =>
                             setCredentials({
                               ...credentials,
-                              email: res,
-                            });
-                          }}
-                          placeholder="test@mail.com"
+                              email: e.target.value,
+                            })
+                          }
+                          placeholder={t("emailPlaceholder")}
                           className="focus:outline-none bg-[#00000000] w-full font-cocogoose border-[3px] pl-4 text-[18px] border-brand rounded-lg h-[60px] placeholder:text-brand-49 text-brand"
                         />
                       </div>
@@ -150,14 +149,14 @@ const LoginPage = () => {
                           htmlFor="password"
                           className="font-cocogoose-light font-bold text-[16px] text-brand"
                         >
-                          Password
+                          {t("passwordLabel")}
                         </label>
                         <div className="relative w-full">
                           <input
                             type={showPassword ? "text" : "password"}
                             id="password"
                             name="password"
-                            placeholder="********"
+                            placeholder={t("passwordPlaceholder")}
                             onChange={(e) => {
                               e.stopPropagation();
                               setCredentials({
@@ -183,7 +182,7 @@ const LoginPage = () => {
 
                     <Link href={"/forgot-password"}>
                       <p className="text-brand text-[15px] hover:underline leading-[15px] font-cocogoose pl-[5rem] md:pl-0 mt-4 md:mt-6">
-                        Forgot password
+                        {t("forgotPassword")}
                       </p>
                     </Link>
                     <div className="flex items-center justify-center mt-8">
@@ -192,7 +191,7 @@ const LoginPage = () => {
                         onClick={handleLogin}
                         className="text-white bg-brand px-8 md:w-full py-2 md:py-3 rounded-lg text-[20px] leading-[21.8px] font-cocogoose flex items-center justify-center"
                       >
-                        {isLoading ? <Loader color="#FFFFFF" /> : "Log In"}
+                        {isLoading ? t("loading") : t("loginButton")}
                       </button>
                     </div>
                   </Form>

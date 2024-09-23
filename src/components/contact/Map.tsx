@@ -8,6 +8,8 @@ import Erasmus from "@/assets/Garage_erasmus_logo1.png";
 import Indepcie from "@/assets/logo INDEPCIE vectorizado2.png";
 import Vaev from "@/assets/VAEV_Logo-removebg-preview2.png";
 import XOS from "@/assets/XOS.png";
+import { useTranslation } from "react-i18next";
+import { t } from "i18next";
 
 interface iPartner {
   image: StaticImageData;
@@ -15,6 +17,7 @@ interface iPartner {
 }
 
 const Map = () => {
+  const { t } = useTranslation();
   const partners: iPartner[] = [
     {
       image: Innovation,
@@ -46,10 +49,10 @@ const Map = () => {
     <div className="w-full flex flex-col items-center gap-10 mb-20">
       <div className="flex flex-col w-full items-center gap-3">
         <h1 className="text-black font-cocogoose text-4xl md:text-2xl">
-          Project Partners
+          {t("Project Partners")}
         </h1>
         <h3 className="text-black font-cocogoose-light font-bold text-2xl md:text-xl">
-          Click To Message
+          {t("Click To Message")}
         </h3>
       </div>
 
@@ -104,11 +107,11 @@ const Marker: FC<{
           />
 
           <h2 className="mt-8 font-cocogoose text-brand text-[24px] md:text-[16px] md:leading-[18px] leading-[26px]">
-            Contact email:
+          {t("Contact email:")}
           </h2>
           <a
             href={`mailto:${partner.email}`}
-            className=" mt-1 font-cocogoose hover:font-bold text-brand text-[20px] md:text-[16px] md:leading-[18px] text-center leading-[21px] underline"
+            className="mt-1 font-cocogoose hover:font-bold text-brand text-[20px] md:text-[16px] md:leading-[18px] text-center leading-[21px] underline"
           >
             {partner.email}
           </a>

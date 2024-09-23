@@ -37,16 +37,16 @@ const AboutUsPage = () => {
             <p className="py-6 text-white text-base font-cocogoose-light font-bold">
               {t("brand_me_mission_content")}
             </p>
-            <Link
+            {/* <Link
               href={"/sign-up"}
               className="text-brand bg-light-blue px-5 md:w-full py-2 md:py-3 rounded-lg text-[20px] font-cocogoose"
             >
               {t("sign_up")}
-            </Link>
+            </Link> */}
           </div>
         </div>
 
-        <section className="mt-20">
+        <section id="forwhom" className="mt-20 scroll-mt-28">
           <h2 className="text-center text-black font-cocogoose md:text-xl text-3xl">
             {t("for_whom")}
           </h2>
@@ -232,8 +232,7 @@ const AboutUsPage = () => {
                 {t("vr_marketing_content")}
               </p>
               <Link
-                href={"https://vrmarketing.pt/"}
-                target="__blank"
+                href={"/partners"}
                 className="text-light-blue bg-white px-5 md:w-full py-2 md:py-3 rounded-lg text-[20px] font-cocogoose"
               >
                 {t("learn_more")}

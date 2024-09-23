@@ -3,6 +3,7 @@ import NavBar from "@/components/resuable/NavBar/NavBar";
 import Image, { StaticImageData } from "next/image";
 import React from "react";
 import Innovation from "@/assets/innovation_education_lab2.png";
+import Associação from "@/assets/logo vr marketing vectorial white-01.png"
 import Efektas from "@/assets/Logotype_Efektas_Red.png";
 import Erasmus from "@/assets/Garage_erasmus_logo1.png";
 import Indepcie from "@/assets/logo INDEPCIE vectorizado2.png";
@@ -27,6 +28,14 @@ interface iPartner {
 const Partners = () => {
   const { t } = useTranslation();
   const partners: iPartner[] = [
+    {
+      image: Associação,
+      title: t("vr_title"),
+      breakTitle: "(AVM)",
+      description:
+      t("vr_description"),
+        link: "https://vrmarketing.pt",
+    },
     {
       image: Innovation,
       title: t("innovation_title"),
@@ -92,10 +101,10 @@ const Partners = () => {
         <div className="flex flex-col">
           {partners.map((partner, i) => {
             return (
-              <section key={i} className="mt-10 bg-brand-30 border-none rounded-3xl">
+              <section key={i} className="mt-10 bg-brand-10 border-none rounded-3xl">
                 <div className="px-16 md:px-5 md:py-8 pt-[2rem] pb-[3rem]">
                   <div className="flex md:flex-col md:items-start items-center gap-8 pb-4">
-                    <Image src={partner.image} alt={""} className="w-[180px] md:w-[60%] h-auto" />
+                    <Image src={partner.image} alt={""} className="w-[180px] md:w-[60%] h-[100px] object-contain" />
                     <div
                       className={`${partner.subtitle && "flex flex-col gap-2"}`}
                     >

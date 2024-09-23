@@ -68,7 +68,7 @@ const Results = () => {
             },
             {
               image: Bam2,
-              preBold: t("bam_reports.bam2_text"),
+              preBold: t("bam_reports.bam2_preBold"),
               boldText: t("bam_reports.bam2_boldText"),
               text: t("bam_reports.bam2_text"),
             },

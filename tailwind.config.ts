@@ -15,6 +15,7 @@ module.exports = {
       error: "#FF0000",
       black: "#000000",
       "brand": "#1C274D",
+      "brand-10": "rgba(0, 174, 239, 0.3)",
       "brand-20": "rgba(28, 39, 76, 0.1)",
       "brand-30": "rgba(28, 39, 76, 0.3)",
       "brand-49": "rgba(28, 39, 76, 0.49)",
@@ -34,8 +35,8 @@ module.exports = {
       "transparent": "rgba(0, 0, 0, 0)",
     },
     fontFamily: {
-      'cocogoose': ['var(--font-cocogoose-regular)', 'sans-serif'],
-      'cocogoose-light': ['var(--font-cocogoose-thin)', 'sans-serif'],
+      cocogoose: ["Montserrat", "sans-serif"],
+      "cocogoose-light": ["Montserrat", "sans-serif"],
     },
     screens: {
       sm: {

@@ -81,8 +81,10 @@
     "erasmusLogoAlt": "Sigla Erasmus",
     "indepcieLogoAlt": "Sigla Indepcie",
     "innovationLabLogoAlt": "Sigla laboratorului de inovare",
-    "Project Partners of BRAND ME": "Partenerii proiectului BRAND ME",
+    "Project Partners of BRAND ME": "Coordonator de Proiect al BRAND ME",
   "Learn More": "Aflați mai multe",
+  "vr_title": "Asociația VR de Marketing",
+  "vr_description": "Asociația VR de Marketing, afiliată organizației Brand22, este o agenție de creație axată pe marketing digital în Vila Real. Scop: Încurajează, sprijină și promovează proiecte sociale în regiunea de Nord, în special incubarea socială în parteneriat cu Régia Douro Park. Oferă sprijin în diseminarea și implementarea cunoștințelor legate de strategia de marketing, cercetare, învățare, formare și practică în managementul de marketing.",
   "innovation_title": "Innovation Education Lab",
   "innovation_description": "Misiune: Sprijinirea tinerilor, activități de educație, inovare în educație și formare și încurajarea voluntariatului. Este format din manageri de proiect cu experiență, lucrători de tineret, facilitatori și profesioniști creativi cu misiunea de a crea inovație, împuternicire, participare, incluziune și antreprenoriat social în rândul tinerilor dezavantajați.",
   "efektas_title": "Efektas Group",
@@ -221,6 +223,17 @@
     "Notifications": "Notificări",
     "Other Settings": "Alte setări",
     "Notification": "Notificare",
-    "click": "Faceți clic pe casetă pentru a confirma că nu sunteți un robot"
+    "click": "Faceți clic pe casetă pentru a confirma că nu sunteți un robot",
+    "Project Partners": "Parteneri de Proiect",
+  "Click To Message": "Faceți clic pentru a trimite un mesaj",
+  "Contact email:": "E-mail de contact:",
+  "login": "Conectează-te",
+    "emailLabel": "Email",
+    "passwordLabel": "Parolă",
+    "emailPlaceholder": "mail@email.com",
+    "passwordPlaceholder": "********",
+    "forgotPassword": "Ai uitat parola",
+    "loginButton": "Conectează-te",
+    "loading": "Se încarcă..."
   }
   

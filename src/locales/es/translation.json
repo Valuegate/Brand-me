@@ -81,8 +81,10 @@
     "erasmusLogoAlt": "Logotipo de Erasmus",
     "indepcieLogoAlt": "Logotipo de Indepcie",
     "innovationLabLogoAlt": "Logotipo del laboratorio de innovación",
-    "Project Partners of BRAND ME": "Socios del proyecto BRAND ME",
+    "Project Partners of BRAND ME": "Coordinador de Proyectos de BRAND ME",
   "Learn More": "Saber más",
+  "vr_title": "Asociación VR de Marketing",
+  "vr_description": "La Asociación VR de Marketing, afiliada a la organización Brand22, es una agencia de creatividad centrada en el marketing digital en Vila Real. Objetivo: Fomentar, apoyar y promover proyectos sociales en la región norte, particularmente en incubación social en colaboración con el Régia Douro Park. Proporciona apoyo en la difusión e implementación de conocimientos relacionados con la estrategia de marketing, investigación, aprendizaje, formación y práctica en la gestión de marketing.",
   "innovation_title": "Innovation Education Lab",
   "innovation_description": "Misión: Apoyar a los jóvenes, las actividades educativas, la innovación en la educación y la formación, y fomentar el voluntariado. Está formada por gestores de proyectos experimentados, trabajadores en el ámbito de la juventud, facilitadores y profesionales creativos con la misión de crear innovación, empoderamiento, participación, inclusión y emprendimiento social entre los jóvenes desfavorecidos.",
   "efektas_title": "Efektas Group",
@@ -221,6 +223,17 @@
     "Notifications": "Notificaciones",
     "Other Settings": "Otros ajustes",
     "Notification": "Notificación",
-    "click": "Haz clic en la casilla para confirmar que no eres un robot"
+    "click": "Haz clic en la casilla para confirmar que no eres un robot",
+    "Project Partners": "Socios del Proyecto",
+  "Click To Message": "Haga clic para enviar un mensaje",
+  "Contact email:": "Correo electrónico de contacto:",
+  "login": "Iniciar sesión",
+    "emailLabel": "Correo electrónico",
+    "passwordLabel": "Contraseña",
+    "emailPlaceholder": "mail@email.com",
+    "passwordPlaceholder": "********",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "loginButton": "Iniciar sesión",
+    "loading": "Cargando..."
   }
   
