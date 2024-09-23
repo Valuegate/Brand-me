@@ -132,12 +132,14 @@ const Profile = () => {
                       <p className="text-brand text-[12px] leading-[13px] font-cocogoose mb-2 md:text-center">
                         {account.email}
                       </p>
-                      <div className="flex items-center gap-1 md:justify-center">
-                        <BiStore />
-                        <p className="text-brand text-[12px] leading-[13px] font-cocogoose">
-                          {role}
-                        </p>
-                      </div>
+                      {account.location && (
+                        <div className="flex items-center gap-1 md:justify-center">
+                          <BiStore />
+                          <p className="text-brand text-[12px] leading-[13px] font-cocogoose">
+                            {account.location}
+                          </p>
+                        </div>
+                      )}
                       <div className="">
                         <span className="flex items-center md:justify-center gap-1 mt-2">
                           <PiRobotFill />
