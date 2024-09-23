@@ -126,14 +126,16 @@ const LoginPage = () => {
                           type="email"
                           id="email"
                           name="email"
-                          // onChange={handleChange}
-                          onChange={(e) =>
+                          value={credentials.email}
+                          onChange={(e) => {
+                            let res = e.target.value.trim();
+                            res = res.toLowerCase();
                             setCredentials({
                               ...credentials,
-                              email: e.target.value,
-                            })
-                          }
-                          placeholder="mail@email.com"
+                              email: res,
+                            });
+                          }}
+                          placeholder="test@mail.com"
                           className="focus:outline-none bg-[#00000000] w-full font-cocogoose border-[3px] pl-4 text-[18px] border-brand rounded-lg h-[60px] placeholder:text-brand-49 text-brand"
                         />
                       </div>
@@ -145,7 +147,7 @@ const LoginPage = () => {
                       </div>
                       <div className="mb-4 flex flex-col gap-1 w-full">
                         <label
-                          htmlFor="email"
+                          htmlFor="password"
                           className="font-cocogoose-light font-bold text-[16px] text-brand"
                         >
                           Password
