@@ -3,7 +3,7 @@ import NavBar from "@/components/resuable/NavBar/NavBar";
 import Image, { StaticImageData } from "next/image";
 import React from "react";
 import Innovation from "@/assets/innovation_education_lab2.png";
-import Associação from "@/assets/logo vr marketing vectorial white-01.png"
+import Associação from "@/assets/logo vr marketing vectorial.png"
 import Efektas from "@/assets/Logotype_Efektas_Red.png";
 import Erasmus from "@/assets/Garage_erasmus_logo1.png";
 import Indepcie from "@/assets/logo INDEPCIE vectorizado2.png";
