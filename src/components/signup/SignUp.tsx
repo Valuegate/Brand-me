@@ -66,7 +66,7 @@ const SignUp = () => {
   const [isPasswordValid, setIsPasswordValid] = useState<boolean>(true);
 
   return (
-    <div className= "bg-white">
+    <div className="bg-white">
       <ToastContainer
         position="top-center"
         autoClose={3000}
@@ -128,12 +128,15 @@ const SignUp = () => {
                           type="email"
                           id="email"
                           name="email"
-                          onChange={(e) =>
+                          value={credentials.email}
+                          onChange={(e) => {
+                            let res = e.target.value.trim();
+                            res = res.toLowerCase();
                             setCredentials({
                               ...credentials,
-                              email: e.target.value,
-                            })
-                          }
+                              email: res,
+                            });
+                          }}
                           placeholder="mail@email.com"
                           className="focus:outline-none bg-[#FFFFFF00] w-full font-cocogoose border-[3px] pl-4 text-[18px] border-brand rounded-lg h-[60px] placeholder:text-brand-49 text-brand"
                         />
@@ -296,19 +299,19 @@ const SignUp = () => {
                         <Image src={Sort} alt={""} width={50} height={50} />
                       </div> */}
                       {/* <div className="mb-4 flex gap-1"> */}
-                        <input
-                          type="checkbox"
-                          id="is"
-                          name="is"
-                          onChange={(e) => setTermsAgreed(e.target.checked)}
-                          className="focus:outline-none bg-[#FFFFFF00] font-cocogoose border-[3px] pl-4 text-[18px] border-brand rounded-lg w-[30px] h-[30px] placeholder:text-brand-49 text-brand"
-                        />
-                        <label
-                          htmlFor="is"
-                          className="font-cocogoose font-bold text-[16px] text-brand"
-                        >
-                          {t("click")}
-                        </label>
+                      <input
+                        type="checkbox"
+                        id="is"
+                        name="is"
+                        onChange={(e) => setTermsAgreed(e.target.checked)}
+                        className="focus:outline-none bg-[#FFFFFF00] font-cocogoose border-[3px] pl-4 text-[18px] border-brand rounded-lg w-[30px] h-[30px] placeholder:text-brand-49 text-brand"
+                      />
+                      <label
+                        htmlFor="is"
+                        className="font-cocogoose font-bold text-[16px] text-brand"
+                      >
+                        {t("click")}
+                      </label>
                       {/* </div> */}
                     </div>
 
@@ -324,7 +327,6 @@ const SignUp = () => {
                           !termsAgreed ||
                           !isPasswordValid
                         }
-                        
                         className={`${
                           isLoading
                             ? "bg-primary-300 cursor-not-allowed"
