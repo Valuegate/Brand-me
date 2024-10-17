@@ -3,6 +3,8 @@ import NavBar from "@/components/resuable/NavBar/NavBar";
 import React, { useEffect, useState } from "react";
 import Banner from "./Banner";
 
+import { useRouter } from "next/navigation"
+
 import FlexComponent from "./FlexComponent";
 
 import Bam1 from "@/assets/results/Bam_Report_1.svg";
@@ -39,20 +41,53 @@ import Pic6 from "@/assets/pic 6.png";
 import Pic7 from "@/assets/pic 7.png";
 
 const Results = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [loggedIn, setLoggedIn] = useState(false);
-  
+  const router = useRouter();
+
   useEffect(() => {
     let data = localStorage.getItem(globalKey);
     setLoggedIn(data !== null)
-    },
+  },
     []
   )
+
+
+  const downloadBAMReport = () => {
+    let link: string = "";
+    switch (i18n.language) {
+      case 'en':
+        link = "https://drive.google.com/file/d/12Gt8uDgVRWiYPEMtaqBoGI3Z3nGkZPKT/view?usp=drivesdk";
+        break;
+      case 'de':
+        break;
+      case 'lt':
+        link = "https://drive.google.com/file/d/12k1HYzKIhGagyC7icQGFoeR4TFdTXQev/view?usp=drivesdk";
+        break;
+      case 'it':
+        link = "https://drive.google.com/file/d/13e2m-S5bMM_Sg6ECo3BVTDTQNaDe_9mx/view?usp=drivesdk";
+        break;
+      case 'es':
+        link = "https://drive.google.com/file/d/12l6ik-ZAWXxExVR4FP9uwc_N3em3ULtb/view?usp=drivesdk";
+        break;
+      case 'pt':
+        link = "https://drive.google.com/file/d/13RP6k9SLOMcflPJLGQTiVhyi09KnKfdf/view?usp=drivesdk";
+        break;
+      case 'ro':
+        link = "https://drive.google.com/file/d/13SIdftOEcMfEKl_Pjv1nL4X7JenMkZfw/view?usp=drivesdk";
+        break;
+      default: break;
+    }
+
+    if (link !== "") {
+      window.open(link, "_blank");
+    }
+  }
 
   return (
     <div className="bg-white">
       <div className="fixed z-10 top-0 left-0 right-0">
-        <NavBar index={loggedIn ? 1 : 2 } />
+        <NavBar index={loggedIn ? 1 : 2} />
       </div>
       <div className="h-32" />
       <div className="px-32 md:px-[5%] flex flex-col">
@@ -61,9 +96,6 @@ const Results = () => {
           reports={[
             {
               image: Bam1,
-              // text: "Create an accurate and relevant survey form.",
-
-
               text: t("bam_reports.bam1_text"),
             },
             {
@@ -97,6 +129,9 @@ const Results = () => {
           trailing={t("bam_trailing")}
           image={Pic6}
         />
+        <button onClick={downloadBAMReport} className="bg-brand text-white font-cocogoose text-lg w-[200px] rounded py-4 ">
+          {t("download")}
+        </button>
         <FlexComponent
           reports={[
             {
@@ -123,7 +158,7 @@ const Results = () => {
           description={t("branding_desc")}
           trailing={t("branding_trailing")}
           image={Pic7}
-                  />
+        />
         <FlexComponent
           reports={[
             {
