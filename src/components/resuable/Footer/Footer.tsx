@@ -4,7 +4,7 @@ import Logo from "@/assets/brandlogo2.png";
 import Link from "next/link";
 import Associa from "@/assets/VR.png";
 import Vaev from "@/assets/VAEV.png";
-import Indepcie from "@/assets/IN.jpg";
+import Indepcie from "@/assets/IN.png";
 import Efektas from "@/assets/EFEK.png";
 import Erasmus from "@/assets/ERAS.png";
 import Innovation from "@/assets/IEL.png";
@@ -111,8 +111,8 @@ const Footer = () => {
               </Link>
             </div>
 
-            <div className="flex justify-between w-full items-center">
-              <Link href={"https://indepcie.com/"} target="__blank">
+            <div className="flex justify-end w-full items-center relative pb-20">
+              <Link href={"https://indepcie.com/"} target="__blank" className="absolute -top-[55px] left-0">
                 <Image
                   src={Indepcie}
                   alt={t("indepcieLogoAlt")}
