@@ -160,11 +160,10 @@ const NavBar: FC<NavProp> = ({ index }) => {
                 <Link
                   key={i}
                   href={navItem.link}
-                  className={`${
-                    i === index
-                      ? "font-cocogoose"
-                      : "font-cocogoose-light font-bold"
-                  } text-white text-[15px]`}
+                  className={`${i === index
+                    ? "font-cocogoose"
+                    : "font-cocogoose-light font-bold"
+                    } text-white text-[15px]`}
                 >
                   {navItem.name}
                 </Link>

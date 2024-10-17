@@ -41,8 +41,6 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [numPages, setNumPages] = useState<number>(0);
 
-  const [reading, setReading] = useState<boolean>(false);
-
   const [currentVideo, setCurrentVideo] = useState<iVideoData>({
     complete: false,
     description: "",
@@ -264,9 +262,9 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                     <div
                       key={i}
                       onClick={() => selectModule(i)}
-                      className="flex items-center w-full justify-between cursor-pointer  "
+                      className="flex items-center w-full justify-between cursor-pointer"
                     >
-                      <div className="bg-brand w-[32px] h-[32px] rounded-lg flex justify-center items-center font-cocogoose-light text-white text-[18px]">
+                      <div className="bg-brand size-9 rounded-lg flex justify-center items-center font-cocogoose-light text-white text-[18px]">
                         U{i + 1}
                       </div>
                       <p className="font-cocogoose-light w-[calc(100%-100px)] line-clamp-1 text-center font-bold text-brand text-[18px]">
@@ -274,9 +272,8 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                       </p>
 
                       <div
-                        className={`${
-                          video.complete ? "bg-brand" : "border border-brand"
-                        } w-[32px] h-[32px] rounded-lg flex justify-center items-center font-cocogoose-light text-white text-[18px]`}
+                        className={`${video.complete ? "bg-brand" : "border border-brand"
+                          } size-9 rounded-lg flex justify-center items-center font-cocogoose-light text-white text-[18px]`}
                       >
                         {video.complete && <MdDone size={"24px"} />}
                       </div>
@@ -287,16 +284,15 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                   className="flex items-center w-full justify-between cursor-pointer"
                   onClick={() => selectModule(course.details.videos.length)}
                 >
-                  <div className="bg-brand w-[32px] h-[32px] rounded-lg flex justify-center items-center font-cocogoose-light text-white text-[18px]">
+                  <div className="bg-brand size-9 rounded-lg flex justify-center items-center font-cocogoose-light text-white text-[18px]">
                     U{course.details.videos.length + 1}
                   </div>
                   <p className="font-cocogoose-light w-[calc(100%-64px)] text-center font-bold text-brand text-[18px]">
                     {t("quiz")}
                   </p>
                   <div
-                    className={`${
-                      course.details.quizDone && "bg-brand"
-                    } w-[32px] h-[32px] rounded-lg flex justify-center items-center `}
+                    className={`${course.details.quizDone && "bg-brand"
+                      } size-9 rounded-lg flex justify-center items-center `}
                   >
                     {!course.details.quizDone && (
                       <AiFillLock size={"32px"} fill="#1C274D" />
@@ -307,65 +303,14 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
 
               {course.details.currentVideo <
                 course.details.videos.length - 1 && (
-                <div className="flex flex-col w-full md:hidden">
-                  <h2 className="font-cocogoose text-[20px] text-brand">
-                    {t("nextModule")}
-                  </h2>
-                  <div className="bg-light-blue-30 w-[350px] p-5 rounded-3xl">
-                    <div className="w-full h-[200px] rounded-3xl text-brand text-xl font-cocogoose bg-brand-30 flex justify-center items-center">
-                      {t("moduleFile")}
-                    </div>
-                    <div className="mt-3 flex items-center justify-between">
-                      <div className="bg-brand w-[32px] h-[32px] rounded-lg flex justify-center items-center font-cocogoose-light text-white text-[18px]">
-                        U{nextVideoIndex + 1}
-                      </div>
-                      <p className="font-bold text-brand text-[18px] font-cocogoose-light">
-                        {course.details.videos[nextVideoIndex].name}
-                      </p>
-                      <div className="text-brand font-cocogoose-light font-bold gap-2 flex items-center">
-                        <BiTimeFive size={"26px"} />
-                        {currentVideo.duration}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <div className="w-[800px] md:w-full h-fit py-5 px-10 md:px-5 rounded-[30px] bg-light-blue-30">
-              {course.details.currentVideo < course.details.videos.length ? (
-                <div className="flex flex-col w-full">
-                  <div className="flex gap-10 items-center md:justify-center w-full">
-                    <h2 className="font-cocogoose text-brand text-[20px]">
-                      {course.name}
+                  <div className="flex flex-col w-full md:hidden">
+                    <h2 className="font-cocogoose text-[20px] text-brand">
+                      {t("nextModule")}
                     </h2>
-                    <div className="text-brand font-cocogoose-light font-bold gap-2 flex items-center">
-                      <BiTimeFive size={"26px"} />
-                      {currentVideo.duration}
-                    </div>
-                  </div>
-                  <div
-                    className={`w-full h-[400px] md:h-[200px] mt-5 rounded-3xl bg-brand-30 flex flex-col gap-4 justify-center items-center ${
-                      reading && "overflow-y-scroll"
-                    }`}
-                  >
-                    {!reading ? (
-                      <>
-                        <h2 className="text-brand text-xl font-cocogoose">
-                          {t("readModuleDoc")}
-                        </h2>
-                        <div
-                          onClick={() => setReading(true)}
-                          className="p-4 rounded-full bg-brand-49 cursor-pointer"
-                        >
-                          <HiBookOpen size={"42px"} fill="#1C274D" />
-                        </div>
-                      </>
-                    ) : (
-                      <>
+                    <div className="bg-light-blue-30 w-[350px] p-5 rounded-3xl">
+                      <div className="w-full h-[200px] overflow-hidden rounded-3xl text-brand text-xl font-cocogoose bg-brand-30 flex justify-center items-center">
                         <Document
-                          file={currentVideo.video}
-                          onLoadSuccess={onDocumentLoadSuccess}
+                          file={course.details.videos[nextVideoIndex].video}
                           loading={<Loader />}
                         >
                           {Array(numPages)
@@ -375,25 +320,68 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                                 <Page
                                   renderTextLayer={false}
                                   renderAnnotationLayer={false}
-                                  width={700}
-                                  pageNumber={i + 1}
+                                  width={350}
+                                  pageNumber={1}
                                   className={`bg-error`}
                                   loading={""}
                                 />
                               );
                             })}
                         </Document>
-                      </>
-                    )}
+                      </div>
+                      <div className="mt-3 flex items-center gap-3">
+                        <div className="bg-brand size-9 rounded-lg flex justify-center items-center font-cocogoose-light text-white text-[18px]">
+                          U{nextVideoIndex + 1}
+                        </div>
+                        <p className="font-bold text-brand text-[18px] truncate font-cocogoose-light">
+                          {course.details.videos[nextVideoIndex].name}
+                        </p>
+
+                      </div>
+                    </div>
                   </div>
-                  {reading && (
-                    <Link
-                      href={`/platform/course/read?id=${id}&index=${course.details.currentVideo}`}
-                      className="text-end text-brand text-md font-cocogoose my-2"
+                )}
+            </div>
+
+            <div className="w-[800px] md:w-full h-fit py-5 px-10 md:px-5 rounded-[30px] bg-light-blue-30">
+              {course.details.currentVideo < course.details.videos.length ? (
+                <div className="flex flex-col w-full">
+                  <div className="flex gap-10 items-center md:justify-center w-full">
+                    <h2 className="font-cocogoose text-brand text-[20px]">
+                      {course.name}
+                    </h2>
+
+                  </div>
+                  <div
+                    className={`w-full h-[400px] md:h-[200px] mt-5 rounded-3xl bg-brand-30 flex flex-col gap-4 justify-center items-center overflow-y-scroll`}
+                  >
+                    <Document
+                      file={currentVideo.video}
+                      onLoadSuccess={onDocumentLoadSuccess}
+                      loading={<Loader />}
                     >
-                      {t("expandPDF")}
-                    </Link>
-                  )}
+                      {Array(numPages)
+                        .fill(0)
+                        .map((n, i) => {
+                          return (
+                            <Page
+                              renderTextLayer={false}
+                              renderAnnotationLayer={false}
+                              width={700}
+                              pageNumber={i + 1}
+                              className={`bg-error`}
+                              loading={""}
+                            />
+                          );
+                        })}
+                    </Document>
+                  </div>
+                  <Link
+                    href={`/platform/course/read?id=${id}&index=${course.details.currentVideo}`}
+                    className="text-end text-brand text-md font-cocogoose my-2"
+                  >
+                    {t("expandPDF")}
+                  </Link>
                   <div className="my-16 md:my-8 gap-3 flex flex-col w-full">
                     <h2 className="font-cocogoose text-[22px] md:text-[18px] md:text-center text-brand">
                       {currentVideo.name}
@@ -442,22 +430,35 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                   {t("continueWatching")}
                 </h2>
                 <div className="bg-light-blue-30 w-[350px] p-5 rounded-3xl">
-                  <div className="w-full h-[200px] rounded-3xl bg-gradient-to-b from-light-blue-0 to-brand-30 flex justify-center items-center">
-                    <div className="p-4 rounded-full bg-brand-49">
-                      <HiPlay size={"48px"} fill="#1C274D" />
-                    </div>
+                  <div className="w-full h-[200px] overflow-hidden rounded-3xl bg-gradient-to-b from-light-blue-0 to-brand-30 flex justify-center items-center">
+                    <Document
+                      file={course.details.videos[nextVideoIndex].video}
+                      loading={<Loader />}
+                    >
+                      {Array(numPages)
+                        .fill(0)
+                        .map((n, i) => {
+                          return (
+                            <Page
+                              renderTextLayer={false}
+                              renderAnnotationLayer={false}
+                              width={350}
+                              pageNumber={1}
+                              className={`bg-error`}
+                              loading={""}
+                            />
+                          );
+                        })}
+                    </Document>
                   </div>
                   <div className="mt-3 flex items-center justify-between">
-                    <div className="bg-brand w-[32px] h-[32px] rounded-lg flex justify-center items-center font-cocogoose-light text-white text-[18px]">
+                    <div className="bg-brand size-9 rounded-lg flex justify-center items-center font-cocogoose-light text-white text-[18px]">
                       U{nextVideoIndex + 1}
                     </div>
-                    <p className="font-bold text-brand text-[18px] font-cocogoose-light">
+                    <p className="font-bold text-brand text-[18px] font-cocogoose-light truncate">
                       {course.details.videos[nextVideoIndex].name}
                     </p>
-                    <div className="text-brand font-cocogoose-light font-bold gap-2 flex items-center">
-                      <BiTimeFive size={"26px"} />
-                      {currentVideo.duration}
-                    </div>
+
                   </div>
                 </div>
               </div>
