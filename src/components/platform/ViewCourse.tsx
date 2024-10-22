@@ -40,7 +40,7 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
   const { t } = useTranslation();
   const [loading, setLoading] = useState<boolean>(true);
   const [numPages, setNumPages] = useState<number>(0);
-
+  const [username, setUsername] = useState<string>("");
   const [currentVideo, setCurrentVideo] = useState<iVideoData>({
     complete: false,
     description: "",
@@ -102,6 +102,7 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
     );
   }
 
+
   const startCourse = () => {
     let data = localStorage.getItem(globalKey)!;
     if (data === null) {
@@ -116,6 +117,8 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
       toast.error(t("loginAgain"));
       return;
     }
+
+    setUsername(JSON.parse(data).full_name);
 
     enrollCourse(
       id,
@@ -206,6 +209,8 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
     if (index === course.details.videos.length && course.progress < 0.98)
       return;
 
+    viewCertificate();
+
     if (index < course.details.videos.length) {
       setCurrentVideo(course.details.videos[index]);
     }
@@ -219,6 +224,16 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
       },
     });
   };
+
+  const viewCertificate = () => {
+    const payload: any = {
+      courseName: course.name,
+      name: username,
+      numberOfModules: course.details.videos.length,
+    }
+    const data = Buffer.from(JSON.stringify(payload)).toString("base64");
+    window.location.assign(`/certificate?target=${data}`);
+  }
 
   return (
     <div className="bg-white">

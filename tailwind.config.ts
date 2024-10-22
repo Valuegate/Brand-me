@@ -14,7 +14,7 @@ module.exports = {
       "gray-10": "#878993",
       error: "#FF0000",
       black: "#000000",
-      "brand": "#1C274D",
+      brand: "#1C274D",
       "brand-10": "rgba(0, 174, 239, 0.3)",
       "brand-20": "rgba(28, 39, 76, 0.1)",
       "brand-30": "rgba(28, 39, 76, 0.3)",
@@ -32,7 +32,7 @@ module.exports = {
       "role-green-bg": "#CEEFD9",
       "green-100": "#00A707",
       "faint-border": "#DEDDDD",
-      "transparent": "rgba(0, 0, 0, 0)",
+      transparent: "rgba(0, 0, 0, 0)",
     },
     fontFamily: {
       cocogoose: ["Montserrat", "sans-serif"],
@@ -48,10 +48,14 @@ module.exports = {
       },
     },
     extend: {
+      backgroundImage: {
+        "custom-radial":
+          "radial-gradient(circle at center, var(--tw-gradient-stops))",
+      },
       boxShadow: {
-        'custom': '0 0 10px rgba(0, 0, 0, 0.07)',
-        'custom-1': "0 0 20px rgba(0, 0, 0, 0.15)"
-      }
+        custom: "0 0 10px rgba(0, 0, 0, 0.07)",
+        "custom-1": "0 0 20px rgba(0, 0, 0, 0.15)",
+      },
       // spacing: {
       //   "8xl": "96rem",
       //   "9xl": "128rem",
@@ -62,7 +66,6 @@ module.exports = {
       // transitionProperty: {
       //   height: "height",
       // },
-      
     },
   },
   plugins: [],
