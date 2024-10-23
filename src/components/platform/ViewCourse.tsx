@@ -209,8 +209,6 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
     if (index === course.details.videos.length && course.progress < 0.98)
       return;
 
-    viewCertificate();
-
     if (index < course.details.videos.length) {
       setCurrentVideo(course.details.videos[index]);
     }
@@ -224,16 +222,6 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
       },
     });
   };
-
-  const viewCertificate = () => {
-    const payload: any = {
-      courseName: course.name,
-      name: username,
-      numberOfModules: course.details.videos.length,
-    }
-    const data = Buffer.from(JSON.stringify(payload)).toString("base64");
-    window.location.assign(`/certificate?target=${data}`);
-  }
 
   return (
     <div className="bg-white">
@@ -427,6 +415,10 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                   </p>
                   <button
                     onClick={() => {
+                      window.localStorage.setItem("course-data", JSON.stringify({
+                        courseName: course.name,
+                        numberOfModules: course.details.videos.length,
+                      }))
                       window.location.assign(
                         "/platform/course/quiz/" + course.id
                       );
