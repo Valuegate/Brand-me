@@ -32,7 +32,7 @@ import PD4 from "@/assets/results/Project_4.svg";
 import PD5 from "@/assets/results/Project_5.svg";
 import Footer from "../resuable/Footer/Footer";
 
-import { globalKey, useGlobalStore } from "@/stores/globalStore";
+import { globalKey } from "@/stores/globalStore";
 import { useTranslation } from 'next-i18next';
 
 import Pic4 from "@/assets/pic 4.png";
@@ -40,14 +40,20 @@ import Pic5 from "@/assets/pic 5.png";
 import Pic6 from "@/assets/pic 6.png";
 import Pic7 from "@/assets/pic 7.png";
 
+import incrementDownloadCount from "@/hooks/queries/useIncrementDownloadCount";
+import { Loader } from "@mantine/core";
+
 const Results = () => {
   const { t, i18n } = useTranslation();
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [token, setToken] = useState<string>("");
   const router = useRouter();
 
   useEffect(() => {
     let data = localStorage.getItem(globalKey);
     setLoggedIn(data !== null)
+    setToken(data !== null ? JSON.parse(data).access_token : "");
   },
     []
   )
@@ -79,8 +85,12 @@ const Results = () => {
       default: break;
     }
 
-    if (link !== "") {
-      window.open(link, "_blank");
+    if (link !== "" && token !== "") {
+      setLoading(true);
+      incrementDownloadCount(token, (_) => {
+        setLoading(false);
+        window.open(link, "_blank");
+      })
     }
   }
 
@@ -130,7 +140,9 @@ const Results = () => {
           image={Pic6}
         />
         <button onClick={downloadBAMReport} className="bg-brand text-white font-cocogoose text-lg w-[200px] rounded py-4 ">
-          {t("download")}
+          {
+            loading ? <Loader color="white.6" /> : t("download")
+          }
         </button>
         <FlexComponent
           reports={[
