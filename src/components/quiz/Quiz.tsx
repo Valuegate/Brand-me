@@ -87,7 +87,7 @@ const Quiz: FC<{ id: string }> = ({ id }) => {
     setLoading(true);
 
     let answers: { question: string | number; selected_choice: string | number }[] = [];
-    for(let i = 0; i < quiz.length; i++) { 
+    for (let i = 0; i < quiz.length; i++) {
       let q_id = quiz[i].id;
       let ans_id = pickedAnswers[i].id;
 
@@ -109,7 +109,7 @@ const Quiz: FC<{ id: string }> = ({ id }) => {
       token,
       (res: any) => {
         toast.success("Congrats, your quiz has been submitted");
-        window.location.replace("/platform");
+        viewCertificate()
       },
       (err: any) => {
         toast.error("An error occurred. Please try again");
@@ -121,6 +121,34 @@ const Quiz: FC<{ id: string }> = ({ id }) => {
   useEffect(() => {
     startQuiz();
   }, []);
+
+  const viewCertificate = () => {
+    let localData = localStorage.getItem(globalKey)!;
+    if (localData === null) {
+      setLoading(false);
+      toast.error("Please login again");
+      return;
+    }
+
+    let name = JSON.parse(localData).full_name;
+
+    let courseData = localStorage.getItem("course-data");
+    if (courseData === null) {
+      setLoading(false);
+      toast.error("Invalid course data");
+      return;
+    }
+
+    let { courseName, numberOfModules } = JSON.parse(courseData)
+    const payload: any = {
+      courseName,
+      name,
+      numberOfModules,
+    }
+
+    const data = Buffer.from(JSON.stringify(payload)).toString("base64");
+    window.location.assign(`/certificate?target=${data}`);
+  }
 
   return (
     <div className="bg-white">

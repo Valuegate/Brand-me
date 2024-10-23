@@ -40,7 +40,7 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
   const { t } = useTranslation();
   const [loading, setLoading] = useState<boolean>(true);
   const [numPages, setNumPages] = useState<number>(0);
-
+  const [username, setUsername] = useState<string>("");
   const [currentVideo, setCurrentVideo] = useState<iVideoData>({
     complete: false,
     description: "",
@@ -102,6 +102,7 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
     );
   }
 
+
   const startCourse = () => {
     let data = localStorage.getItem(globalKey)!;
     if (data === null) {
@@ -116,6 +117,8 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
       toast.error(t("loginAgain"));
       return;
     }
+
+    setUsername(JSON.parse(data).full_name);
 
     enrollCourse(
       id,
@@ -412,6 +415,10 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                   </p>
                   <button
                     onClick={() => {
+                      window.localStorage.setItem("course-data", JSON.stringify({
+                        courseName: course.name,
+                        numberOfModules: course.details.videos.length,
+                      }))
                       window.location.assign(
                         "/platform/course/quiz/" + course.id
                       );

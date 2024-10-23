@@ -13,6 +13,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Loader } from "@mantine/core";
 
+import getDownloadCount from "@/hooks/queries/useGetDownloadCount";
+
 interface iStats {
   total_users: number;
   total_courses: number;
@@ -35,6 +37,7 @@ interface iStats {
 const Dashboard = () => {
   const [loading, isLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
+  const [count, setCount] = useState<number>(0);
   const [stats, setStats] = useState<iStats>({
     total_users: 0,
     total_courses: 0,
@@ -46,6 +49,21 @@ const Dashboard = () => {
       total_users: 0,
     },
   });
+
+  function downloadCount() {
+    let token = localStorage.getItem(globalKey)!;
+    if (token === null) {
+      isLoading(false);
+      setError(true);
+      toast.error("You need to login first");
+      return;
+    }
+
+    token = JSON.parse(token).access_token;
+    getDownloadCount(token, (res) => {
+      setCount(res.data.total_clicks)
+    })
+  }
 
   function statistics() {
     let token = localStorage.getItem(globalKey)!;
@@ -74,6 +92,7 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
+    downloadCount();
     statistics();
   }, []);
 
@@ -166,6 +185,21 @@ const Dashboard = () => {
           <div className="w-full h-full rounded-[40px] bg-light-blue-30 flex justify-around p-10 gap-4">
             <div className="flex flex-col h-full w-fit gap-8">
               <h2 className="text-brand text-[20px] font-cocogoose">
+                Download Metrics
+              </h2>
+              <div className="flex flex-col items-center justify-center gap-10 rounded-[40px] bg-brand px-5 py-8 w-full h-[280px]">
+                <h2 className="text-[20px] text-white text-center font-cocogoose">
+                  Clicks & Downloads
+                </h2>
+                <p className="font-cocogoose-light font-bold text-4xl text-white">
+                  <span className="font-cocogoose">
+                    {count}
+                  </span>
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-col h-full w-fit gap-8">
+              <h2 className="text-brand text-[20px] font-cocogoose">
                 Course Metrics
               </h2>
               <div className="flex flex-col items-center justify-center gap-10 rounded-[40px] bg-brand px-5 py-8 w-full h-[280px]">
@@ -179,6 +213,7 @@ const Dashboard = () => {
                 </p>
               </div>
             </div>
+
             <div className="w-fit h-full flex flex-col gap-8">
               <h2 className="text-brand text-[20px] font-cocogoose">
                 Most Viewed Courses

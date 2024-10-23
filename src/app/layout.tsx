@@ -40,9 +40,23 @@ const myColor: MantineColorsTuple = [
   "#2e407f",
 ];
 
+const white: MantineColorsTuple = [
+  "#ffffff",
+  "#ffffff",
+  "#ffffff",
+  "#ffffff",
+  "#ffffff",
+  "#ffffff",
+  "#ffffff",
+  "#ffffff",
+  "#ffffff",
+  "#ffffff",
+];
+
 const theme = createTheme({
   colors: {
     myColor,
+    white,
   },
 });
 
@@ -63,18 +77,18 @@ export default function RootLayout({
   };
   return (
     <I18nextProvider i18n={i18n}>
-    <QueryClientProvider client={queryClient}>
-    <html>
-      <head>
-        <ColorSchemeScript defaultColorScheme="light" />
-      </head>
-      <body
-        className={`${cocogooseRegular.variable} ${cocogooseThin.variable} font-sans-serif`}
-      >
-        <MantineProvider theme={theme}>{children}</MantineProvider>
-      </body>
-    </html>
-    </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <html>
+          <head>
+            <ColorSchemeScript defaultColorScheme="light" />
+          </head>
+          <body
+            className={`${cocogooseRegular.variable} ${cocogooseThin.variable} font-sans-serif`}
+          >
+            <MantineProvider theme={theme}>{children}</MantineProvider>
+          </body>
+        </html>
+      </QueryClientProvider>
     </I18nextProvider>
   );
 }

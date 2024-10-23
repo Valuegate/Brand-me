@@ -2,9 +2,9 @@
 
 export default function NotfoundPage() {
   return (
-    <div className="w-[100vw] h-[100vh] flex  flex-col justify-center items-center">
+    <div className="w-[100vw] h-[100vh] flex bg-[white] flex-col justify-center items-center">
       <h1 className="font-cocogoose text-6xl text-brand">Page Not Found</h1>
-      <p className="font-cocogoose-light text-[24px] font-bold mt-5">
+      <p className="font-cocogoose-light text-[24px] text-black font-bold mt-5">
         There is nothing here ...
       </p>
 
