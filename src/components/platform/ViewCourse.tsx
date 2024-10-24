@@ -250,8 +250,8 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
           <h1 className="font-cocogoose text-[56px] md:text-[24px] text-black">
             {course.name}
           </h1>
-          <div className="flex md:flex-col md:gap-16 justify-between mt-20 md:mt-5 w-full">
-            <div className="w-[350px] md:w-full flex flex-col gap-10 md:gap-5 items-center">
+          <div className="flex md:flex-col md:gap-16 justify-between mt-20 md:mt-5 w-full relative">
+            <div className="w-[350px] md:w-full flex flex-col gap-10 md:gap-5 items-center sticky top-10 md:static ">
               <ProgressBar
                 backgroundColor="bg-brand-49"
                 valueColor="bg-brand"
@@ -321,6 +321,7 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                             .map((n, i) => {
                               return (
                                 <Page
+                                  key={i}
                                   renderTextLayer={false}
                                   renderAnnotationLayer={false}
                                   width={350}
@@ -339,7 +340,6 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                         <p className="font-bold text-brand text-[18px] truncate font-cocogoose-light">
                           {course.details.videos[nextVideoIndex].name}
                         </p>
-
                       </div>
                     </div>
                   </div>
@@ -356,28 +356,27 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
 
                   </div>
                   <div
-                    className={`w-full h-[500px] md:h-[200px] mt-5 py-5 bg-brand-30 flex flex-col gap-4 justify-center items-center overflow-y-scroll`}
+                    className={`w-full mt-5 py-5 bg-brand-30 flex flex-col gap-4 justify-center items-center overflow-y-scroll`}
                   >
                     <Document
                       file={currentVideo.video}
                       onLoadSuccess={onDocumentLoadSuccess}
                       loading={<Loader />}
-                      className={'pt-[36rem]'}
                     >
                       {Array(numPages)
                         .fill(0)
                         .map((n, i) => {
                           return (
                             <Page
+                              key={i}
                               renderTextLayer={false}
                               renderAnnotationLayer={false}
-                              width={700}
-
                               pageNumber={i + 1}
                               loading={""}
                             />
                           );
                         })}
+
                     </Document>
                   </div>
                   <Link
@@ -448,6 +447,7 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                         .map((n, i) => {
                           return (
                             <Page
+                              key={i}
                               renderTextLayer={false}
                               renderAnnotationLayer={false}
                               width={350}
@@ -466,7 +466,6 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                     <p className="font-bold text-brand text-[18px] font-cocogoose-light truncate">
                       {course.details.videos[nextVideoIndex].name}
                     </p>
-
                   </div>
                 </div>
               </div>

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import {baseUrl} from "@/services/base";
+import { baseUrl } from "@/services/base";
 
 function completeModule(
   id: string | number,
@@ -10,7 +10,7 @@ function completeModule(
 ) {
   axios({
     method: "POST",
-    url: `${baseUrl}/courses/mark_module_as_completed/${id}/`,
+    url: `${baseUrl}/courses/modules/${id}/complete/`,
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",

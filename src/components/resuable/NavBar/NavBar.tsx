@@ -228,9 +228,9 @@ const NavBar: FC<NavProp> = ({ index }) => {
                   setNotificationClicked(false);
                   setIsOpen(!isOpen);
                 }}
-                className="cursor-pointer text-brand font-cocogoose items-center justify-center bg-light-blue flex  w-[110px] py-1 px-1 gap-2 rounded-full relative"
+                className="cursor-pointer text-brand font-cocogoose items-center justify-center bg-light-blue flex py-1 px-3 gap-2 rounded-full relative"
               >
-                <p className="line-clamp-1 truncate">{username}</p>
+                <p>{username}</p>
                 {isOpen && !isNotificationClicked && (
                   <div className="absolute -right-5 mt-[24vh] text-[16px] flex flex-col bg-brand font-cocogoose rounded shadow-lg p-[5px]">
                     <Link
