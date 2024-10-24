@@ -1,12 +1,13 @@
 import axios from "axios";
+import { baseUrl } from "./base";
 
 const axiosInstance = axios.create({
-  baseURL: process.env.BASE_URL,
+  baseURL: baseUrl,
   timeout: 500000,
 });
 
 const formAxiosInstance = axios.create({
-  baseURL: process.env.BASE_URL,
+  baseURL: baseUrl,
   timeout: 500000,
   headers: {
     "Content-Type": "multipart/form-data",
@@ -21,7 +22,7 @@ axiosInstance.interceptors.response.use(
     console.error("Error in Axios response:", error);
     if (error.response && error.response.status === 401) {
       try {
-        const response = await axios.post(`${process.env.BASE_URL}/refresh`, {
+        const response = await axios.post(`${baseUrl}/refresh`, {
           refreshToken: localStorage.getItem("refreshToken"),
         });
         const newAccessToken = response.data.access_token;
@@ -37,7 +38,6 @@ axiosInstance.interceptors.response.use(
     throw error;
   }
 );
-
 
 const axiosInstances = { axiosInstance, formAxiosInstance };
 
