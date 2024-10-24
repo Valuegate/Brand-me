@@ -356,12 +356,13 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
 
                   </div>
                   <div
-                    className={`w-full h-[400px] md:h-[200px] mt-5 rounded-3xl bg-brand-30 flex flex-col gap-4 justify-center items-center overflow-y-scroll`}
+                    className={`w-full h-[500px] md:h-[200px] mt-5 py-5 bg-brand-30 flex flex-col gap-4 justify-center items-center overflow-y-scroll`}
                   >
                     <Document
                       file={currentVideo.video}
                       onLoadSuccess={onDocumentLoadSuccess}
                       loading={<Loader />}
+                      className={'pt-[36rem]'}
                     >
                       {Array(numPages)
                         .fill(0)
@@ -371,8 +372,8 @@ const ViewCourse: FC<{ id: string }> = ({ id }) => {
                               renderTextLayer={false}
                               renderAnnotationLayer={false}
                               width={700}
+
                               pageNumber={i + 1}
-                              className={`bg-error`}
                               loading={""}
                             />
                           );
